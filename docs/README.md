@@ -88,7 +88,9 @@ Once reviewed and approved, the repository administrator will merge the PR into 
 ## What To Do If You Are Stuck (Troubleshooting)
 
 ### 1. Resolving Merge Conflicts
+
 If Git reports a conflict during a merge or rebase:
+
 1. Run `git status` to locate conflicting files.
 2. Open files in your editor and look for the conflict markers:
    ```text
@@ -106,7 +108,9 @@ If Git reports a conflict during a merge or rebase:
    ```
 
 ### 2. Undoing the Last Commit (Unpublished)
+
 If you committed changes locally but haven't pushed them yet:
+
 ```bash
 # Undo the commit but preserve your file edits in the workspace
 git reset --soft HEAD~1
@@ -116,7 +120,9 @@ git reset --hard HEAD~1
 ```
 
 ### 3. Temporarily Saving Unfinished Work
+
 If you need to switch branches quickly but aren't ready to commit:
+
 ```bash
 # Stash edits
 git stash save "work in progress on checkout modal"
@@ -129,6 +135,7 @@ git stash pop
 ```
 
 ### 4. Discarding Local Work (Uncommitted)
+
 ```bash
 # Revert a single file to the latest committed state
 git checkout -- src/components/Nav.jsx

@@ -2,6 +2,10 @@
 
 An Architectural Decision Record (ADR) is a document that captures an important architectural decision, including its context, alternatives considered, decision outcome, and consequences.
 
+## Files Added
+
+- **`0001-dry-refactoring-and-shared-ui.md`**: Record detailing migration from inline code structure to reusable hooks & atomic design components.
+
 ## ADR Template Guidelines
 
 Each record should be named following the pattern `[num]-[short-description].md` (e.g., `0001-dry-refactoring-and-shared-ui.md`) and should adhere to the following sections:

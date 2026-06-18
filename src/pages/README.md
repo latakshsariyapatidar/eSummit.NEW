@@ -2,7 +2,11 @@
 
 This directory contains the primary top-level route/page views for the E-Summit 2026 application.
 
-## Files Refactored
+## Files Added
+
+- _None (All pre-existing pages were refactored for DRY abstractions)._
+
+## Current Files / Refactored
 
 - **`Home.jsx`**: E-Summit homepage showing countdown timers, schedule summaries, carousel grid events, sponsors, and FAQs.
 - **`Buy.jsx`**: Passes booking selection grid screen.
