@@ -28,12 +28,15 @@ Thanks for your interest! Here's how to contribute.
 - **Pick an issue** from the [Issues tab](https://github.com/latakshsariyapatidar/eSummit.NEW/issues)
 - **Label it "in progress"** (comment: "I'll work on this")
 - **Create a feature branch** from `dev`:
+  Checkout a branch from the `dev` branch, name it as your feature branch (or whatever descriptive branch name you choose), and make your changes in that branch.
 ```bash
+  # Ensure you are on dev and up to date
   git checkout dev
   git pull origin dev
-  git checkout -b feature/ISSUE-ID-short-description
+  
+  # Create your feature branch (name it whatever you like)
+  git checkout -b your-feature-branch-name
 ```
-  Example: `git checkout -b feature/42-fix-admin-key`
  
 ## Before You Commit
  
@@ -60,21 +63,24 @@ docs: update README (if documentation)
  
 ## Pull Request Process
  
-1. **Push your branch to your fork:**
+1. **Push your branch to the remote repository:**
 ```bash
-   git push origin feature/42-fix-admin-key
+   git push origin your-feature-branch-name
 ```
  
-2. **Go to GitHub** → your fork → click "Compare & pull request"
+2. **Raise a Pull Request (PR) against the `dev` branch:**
+   Go to GitHub and open a pull request. Make sure the base branch is **`dev`** (NOT `main`).
  
-3. **Fill in the PR description:**
-   - What does this fix/add?
-   - Why is it needed?
-   - Link the issue: "Closes #42"
+3. **Make the PR descriptive:**
+   Provide a clear, detailed, and descriptive explanation of the changes you've made. Fill in details such as:
+   - What changes were made and what features/fixes are introduced?
+   - Why are these changes needed?
+   - Any relevant issue numbers (e.g., "Closes #42").
  
-4. **Wait for review** (maintainer will check your code)
+4. **Review and Merge:**
+   The repository owner/maintainer will review your PR. Once reviewed and approved, it will be merged into the `dev` branch and eventually merged into the `main` branch.
  
-5. **Make changes if requested** and re-commit
+5. **Make changes if requested** and re-commit.
  
 6. **Celebrate** when it's merged! 🎉
  
