@@ -218,8 +218,7 @@ export const getCart = () => {
 };
 export const setCart = (c) => localStorage.setItem(CART_KEY, JSON.stringify(c));
 
-export const TARGET_DATE = new Date("2026-08-20T09:00:00").getTime();
-
+export const TARGET_DATE = new Date("2026-03-06T09:00:00").getTime();
 export const UPI_IDS = [
   "esummit@iitdh",
   "esummit26@okhdfcbank",
