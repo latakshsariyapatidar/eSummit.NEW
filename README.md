@@ -8,18 +8,18 @@ The platform lets attendees **browse events**, **purchase passes**, and **get ev
 
 ## Tech Stack
 
-| Layer | Library / Tool |
-|---|---|
-| Core | [React 19](https://react.dev/) & [Vite 7](https://vite.dev/) |
-| Styling | [Tailwind CSS v4](https://tailwindcss.com/) + `src/styles.css` (custom vars) |
-| Routing | [React Router DOM v6](https://reactrouter.com/) |
-| Animations | [GSAP 3](https://gsap.com/) — ScrollTrigger, Timeline, page transitions |
+| Layer         | Library / Tool                                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Core          | [React 19](https://react.dev/) & [Vite 7](https://vite.dev/)                                                              |
+| Styling       | [Tailwind CSS v4](https://tailwindcss.com/) + `src/styles.css` (custom vars)                                              |
+| Routing       | [React Router DOM v6](https://reactrouter.com/)                                                                           |
+| Animations    | [GSAP 3](https://gsap.com/) — ScrollTrigger, Timeline, page transitions                                                   |
 | Smooth Scroll | [Locomotive Scroll v5](https://locomotivemtl.github.io/locomotive-scroll/) + [Lenis](https://lenis.darkroom.engineering/) |
-| Server State | [TanStack React Query v5](https://tanstack.com/query/latest) |
-| Client State | `localStorage` (via custom hooks — see `src/hooks/`) |
-| UI Primitives | [Radix UI](https://www.radix-ui.com/) + [shadcn/ui](https://ui.shadcn.com/) |
-| Forms | [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) |
-| Icons | [Lucide React](https://lucide.dev/) |
+| Server State  | [TanStack React Query v5](https://tanstack.com/query/latest)                                                              |
+| Client State  | `localStorage` (via custom hooks — see `src/hooks/`)                                                                      |
+| UI Primitives | [Radix UI](https://www.radix-ui.com/) + [shadcn/ui](https://ui.shadcn.com/)                                               |
+| Forms         | [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)                                                 |
+| Icons         | [Lucide React](https://lucide.dev/)                                                                                       |
 
 ---
 
@@ -57,13 +57,13 @@ The app will be live at `http://localhost:5173`.
 
 ### All available scripts
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Start local dev server with HMR |
-| `npm run build` | Production bundle into `dist/` |
+| Command           | What it does                         |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start local dev server with HMR      |
+| `npm run build`   | Production bundle into `dist/`       |
 | `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint across the codebase |
-| `npm run format` | Auto-format with Prettier |
+| `npm run lint`    | Run ESLint across the codebase       |
+| `npm run format`  | Auto-format with Prettier            |
 
 > **Before every commit:** run `npm run lint && npm run format` to keep the codebase clean.
 
@@ -114,12 +114,12 @@ eSummit.NEW/
 
 The project uses **both Tailwind v4 and vanilla CSS** — here's what goes where:
 
-| Use case | Where to put it |
-|---|---|
-| Spacing, layout, flex/grid, colors from the design system | Tailwind utility classes inline |
-| CSS custom properties (design tokens, fonts, animation vars) | `src/styles.css` |
-| One-off keyframe animations or complex selectors | `src/styles.css` |
-| New UI primitive (button, badge, input…) | `src/components/ui/` — check if it exists in shadcn first |
+| Use case                                                     | Where to put it                                           |
+| ------------------------------------------------------------ | --------------------------------------------------------- |
+| Spacing, layout, flex/grid, colors from the design system    | Tailwind utility classes inline                           |
+| CSS custom properties (design tokens, fonts, animation vars) | `src/styles.css`                                          |
+| One-off keyframe animations or complex selectors             | `src/styles.css`                                          |
+| New UI primitive (button, badge, input…)                     | `src/components/ui/` — check if it exists in shadcn first |
 
 **Never** add `@apply` blocks or hardcode pixel values when a Tailwind token exists.
 
@@ -131,12 +131,12 @@ The project uses **both Tailwind v4 and vanilla CSS** — here's what goes where
 
 Before writing new logic, check what already exists:
 
-| Instead of... | Use... |
-|---|---|
+| Instead of...                        | Use...                                         |
+| ------------------------------------ | ---------------------------------------------- |
 | `localStorage.setItem(...)` manually | Custom hook from `src/hooks/` (see its README) |
-| Inline `<input>` or `<button>` HTML | Primitive from `src/components/ui/` |
-| Raw `window.location` navigation | Navigation hook from `src/hooks/` |
-| Copy-pasting a page banner/header | Shared component from `src/components/` |
+| Inline `<input>` or `<button>` HTML  | Primitive from `src/components/ui/`            |
+| Raw `window.location` navigation     | Navigation hook from `src/hooks/`              |
+| Copy-pasting a page banner/header    | Shared component from `src/components/`        |
 
 ### Adding new code
 
@@ -190,6 +190,7 @@ git push origin feature/<issue-id>-<description>
 Significant design decisions are tracked in the [`adr/`](./adr/) folder.
 
 **Write an ADR when you:**
+
 - Introduce a new dependency
 - Change the state management approach
 - Modify the styling paradigm
@@ -201,8 +202,8 @@ See [`adr/README.md`](./adr/README.md) for the ADR template.
 
 ## Pages Overview
 
-| Route | Page | Description |
-|---|---|---|
-| `/` | `Home.jsx` | Landing page — hero section, summit highlights |
-| `/events` | `Events.jsx` | Full catalog of summit events |
-| `/buy` | `Buy.jsx` | Pass selection and ticket checkout |
+| Route     | Page         | Description                                    |
+| --------- | ------------ | ---------------------------------------------- |
+| `/`       | `Home.jsx`   | Landing page — hero section, summit highlights |
+| `/events` | `Events.jsx` | Full catalog of summit events                  |
+| `/buy`    | `Buy.jsx`    | Pass selection and ticket checkout             |

@@ -190,7 +190,7 @@ export const SCHEDULE = [
 export const FAQS = [
   {
     q: "When and where is E-Summit 2026?",
-    a: "March 6–8, 2026 at IIT Dharwad. Three days, one mission: redefine how the world moves.",
+    a: "August 25, 2026 at IIT Dharwad. Three days, one mission: redefine how the world moves.",
   },
   {
     q: "Who should attend?",
@@ -218,8 +218,7 @@ export const getCart = () => {
 };
 export const setCart = (c) => localStorage.setItem(CART_KEY, JSON.stringify(c));
 
-export const TARGET_DATE = new Date("2026-08-20T09:00:00").getTime();
-
+export const TARGET_DATE = new Date("2026-08-25T09:00:00").getTime();
 export const UPI_IDS = [
   "esummit@iitdh",
   "esummit26@okhdfcbank",
