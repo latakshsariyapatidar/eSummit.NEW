@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Field } from "@/components/ui/Field";
 import { Modal } from "@/components/ui/Modal";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -55,6 +56,8 @@ export function CheckoutModal({ cart, total, onClose, onDone }) {
         a.name.trim() && EMAIL_RE.test(a.email) && a.gender && a.college.trim(),
     );
 
+  const [orders, setOrders] = useLocalStorage("es26_orders", []);
+
   const submit = () => {
     const passIds = attendees.map((a) => makePassId(a.email, buyer.phone));
     const order = {
@@ -67,9 +70,7 @@ export function CheckoutModal({ cart, total, onClose, onDone }) {
       passes: attendees.map((a, i) => ({ ...a, passId: passIds[i] })),
       createdAt: new Date().toISOString(),
     };
-    const orders = JSON.parse(localStorage.getItem("es26_orders") || "[]");
-    orders.push(order);
-    localStorage.setItem("es26_orders", JSON.stringify(orders));
+    setOrders((prev) => [...prev, order]);
     setDone({ id: order.id, passes: passIds });
   };
 

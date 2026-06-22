@@ -77,7 +77,7 @@ export function Home() {
 
         <div className="mx-auto max-w-[1600px] w-full px-6 lg:px-12 text-left">
           <div className="hero-meta font-mono text-xs uppercase tracking-[0.25em] text-muted-foreground mb-6">
-            E-Summit 2026 / IIT Dharwad / March 06—08
+            E-Summit 2026 / IIT Dharwad / August 25
           </div>
           <h1
             ref={headlineRef}

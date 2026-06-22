@@ -1,0 +1,32 @@
+# CODEOWNERS for Akshara Prabhavam
+# Place this file at: .github/CODEOWNERS
+#
+# Code owners are automatically requested for review when a PR
+# modifies code they own. Requires "Require review from Code Owners"
+# to be enabled in branch protection for main and dev.
+
+# ----------------------------------------------------
+# Global owners — fallback for everything in the repo
+# unless a more specific pattern below overrides it.
+# ----------------------------------------------------
+*       @latakshsariyapatidar @coderabbitai
+
+# ----------------------------------------------------
+# Protect the CODEOWNERS file itself, so only you can
+# change who the owners are (recommended by GitHub docs).
+# ----------------------------------------------------
+/.github/CODEOWNERS    @latakshsariyapatidar
+
+# ----------------------------------------------------
+# Optional: more specific ownership as your team grows.
+# Uncomment / edit these once you have other contributors.
+# ----------------------------------------------------
+
+# Frontend (React/TS) code — currently just you, but ready for handoff
+# /src/                 @your-github-username @coderabbitai
+
+# CI/CD and GitHub workflows
+# /.github/workflows/   @your-github-username
+
+# Docs
+# /docs/                @your-github-username

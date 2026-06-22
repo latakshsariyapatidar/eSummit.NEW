@@ -55,13 +55,13 @@ The app will be live at `http://localhost:5173`.
 
 ### Available Scripts
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Start local dev server with HMR |
-| `npm run build` | Production bundle into `dist/` |
+| Command           | What it does                         |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start local dev server with HMR      |
+| `npm run build`   | Production bundle into `dist/`       |
 | `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run ESLint across the codebase |
-| `npm run format` | Auto-format with Prettier |
+| `npm run lint`    | Run ESLint across the codebase       |
+| `npm run format`  | Auto-format with Prettier            |
 
 > **Before every commit:** run `npm run lint && npm run format` to keep the codebase clean.
 
@@ -130,12 +130,21 @@ eSummit.NEW/
 
 The project uses **Tailwind v4 + vanilla CSS**:
 
+<<<<<<< HEAD
 | Use case | Where to put it |
 |---|---|
 | Spacing, layout, flex/grid, colors | Tailwind utility classes inline |
 | CSS custom properties (design tokens) | `src/styles.css` under `@theme` |
 | Complex keyframe animations or selectors | `src/styles.css` under `@layer utilities` |
 | New UI primitive | `src/components/ui/` — check if it already exists first |
+=======
+| Use case                                                     | Where to put it                                           |
+| ------------------------------------------------------------ | --------------------------------------------------------- |
+| Spacing, layout, flex/grid, colors from the design system    | Tailwind utility classes inline                           |
+| CSS custom properties (design tokens, fonts, animation vars) | `src/styles.css`                                          |
+| One-off keyframe animations or complex selectors             | `src/styles.css`                                          |
+| New UI primitive (button, badge, input…)                     | `src/components/ui/` — check if it exists in shadcn first |
+>>>>>>> 515b5b9698ed1bf39bab6534c48aecb8e6b94966
 
 **Never** hardcode pixel values when a Tailwind token exists. **Never** use `@apply` blocks.
 
@@ -183,12 +192,23 @@ Team profile card featuring:
 
 ### DRY Principle — reuse before you write
 
+<<<<<<< HEAD
 | Instead of... | Use... |
 |---|---|
 | `localStorage.setItem(...)` manually | `useLocalStorage` from `src/hooks/` |
 | Raw `<input>` / `<button>` HTML | Primitive from `src/components/ui/` |
 | `window.location` navigation | `useTransitionNavigate` from `src/hooks/` |
 | Copy-pasting a page header | `<PageHeader>` or `<SectionHeader>` from `src/components/ui/` |
+=======
+Before writing new logic, check what already exists:
+
+| Instead of...                        | Use...                                         |
+| ------------------------------------ | ---------------------------------------------- |
+| `localStorage.setItem(...)` manually | Custom hook from `src/hooks/` (see its README) |
+| Inline `<input>` or `<button>` HTML  | Primitive from `src/components/ui/`            |
+| Raw `window.location` navigation     | Navigation hook from `src/hooks/`              |
+| Copy-pasting a page banner/header    | Shared component from `src/components/`        |
+>>>>>>> 515b5b9698ed1bf39bab6534c48aecb8e6b94966
 
 ### Adding new code
 
@@ -249,4 +269,25 @@ All event and team inquiries: **outreach.iic@iitdh.ac.in**
 
 Significant design decisions are tracked in [`adr/`](./adr/).
 
+<<<<<<< HEAD
 See [`adr/README.md`](./adr/README.md) for the full catalog and template.
+=======
+**Write an ADR when you:**
+
+- Introduce a new dependency
+- Change the state management approach
+- Modify the styling paradigm
+- Propose a major architectural refactor
+
+See [`adr/README.md`](./adr/README.md) for the ADR template.
+
+---
+
+## Pages Overview
+
+| Route     | Page         | Description                                    |
+| --------- | ------------ | ---------------------------------------------- |
+| `/`       | `Home.jsx`   | Landing page — hero section, summit highlights |
+| `/events` | `Events.jsx` | Full catalog of summit events                  |
+| `/buy`    | `Buy.jsx`    | Pass selection and ticket checkout             |
+>>>>>>> 515b5b9698ed1bf39bab6534c48aecb8e6b94966
