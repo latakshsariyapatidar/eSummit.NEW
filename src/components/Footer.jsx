@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TransitionLink as Link } from "./ui/TransitionLink";
+import { EVENTS } from "../lib/store";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -34,6 +35,21 @@ export function Footer() {
 
     return () => mm.revert();
   }, []);
+
+  const eventCountWord =
+    [
+      "zero",
+      "one",
+      "two",
+      "three",
+      "four",
+      "five",
+      "six",
+      "seven",
+      "eight",
+      "nine",
+      "ten",
+    ][EVENTS.length] || EVENTS.length;
 
   return (
     <footer
@@ -69,7 +85,7 @@ export function Footer() {
                   India's flagship mobility-focused entrepreneurship summit.
                   Shifting gears into the future of motion—exploring electric
                   vehicles, autonomous transport, and advanced mobility systems
-                  through five flagship events.
+                  through {eventCountWord} flagship events.
                 </p>
               </div>
               <div className="mt-8 pt-6 border-t border-border/10 flex justify-between items-center">

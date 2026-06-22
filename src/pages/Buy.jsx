@@ -1,6 +1,7 @@
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { ComingSoonCard } from "@/components/ComingSoonCard";
 // import { useState } from "react";
 // import { PASSES } from "@/lib/store";
 // import { PassCard } from "@/components/PassCard";
@@ -66,18 +67,15 @@ export function Buy() {
 
         {/* Coming Soon */}
         <div className="flex-1 flex items-center justify-center">
-          <div className="w-full max-w-3xl bg-card/10 border border-border/30 rounded-3xl p-8 md:p-16 relative overflow-hidden backdrop-blur-md shadow-2xl text-center space-y-6">
-            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground leading-none">
-              Passes Opening <br className="hidden sm:block" />
-              <span className="text-primary">Very Soon.</span>
-            </h2>
-
-            <p className="text-muted-foreground text-sm md:text-base font-sans max-w-xl mx-auto leading-relaxed">
-              We&apos;re finalising the pass tiers and pricing for E-Summit
-              2026. Registration will open shortly — stay tuned for the
-              announcement.
-            </p>
-          </div>
+          <ComingSoonCard
+            title={
+              <>
+                Passes Opening <br className="hidden sm:block" />
+                <span className="text-primary">Very Soon.</span>
+              </>
+            }
+            description="We're finalising the pass tiers and pricing for E-Summit 2026. Registration will open shortly — stay tuned for the announcement."
+          />
         </div>
 
         {/*

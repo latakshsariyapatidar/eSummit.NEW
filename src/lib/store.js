@@ -34,60 +34,111 @@ export const MERCH = [
 
 export const EVENTS = [
   {
+    slug: "innovex",
+    name: "INNOVEX 3.0",
+    tagline: "Where Ideas Meet Expertise and Innovation Takes Flight",
+    day: "Day 2",
+    time: "03:30 PM",
+    about:
+      "INNOVEX 3.0 is the flagship pitch deck competition conducted under E-Summit, the umbrella entrepreneurship event of IIT Dharwad, organised by the Institution's Innovation Council (IIC), IIT Dharwad and Dharti Foundation.",
+    brief:
+      "The event brings together innovative minds from colleges across the country, providing them a platform to present their startup ideas, validate their concepts, and receive valuable insights from a panel of industry experts. Whether you are exploring entrepreneurship for the first time or refining an existing idea, INNOVEX 3.0 gives you the opportunity to transform your vision into a structured pitch and showcase your innovation.",
+    format: [
+      "Startup idea submission & screening",
+      "Pitch deck validation & mentorship",
+      "Presentation to panel of industry experts",
+      "Winners declared & startup support",
+    ],
+  },
+  {
     slug: "find-the-bug",
-    name: "Find The Bug 3.0",
-    tagline: "Debugging competition",
+    name: "Find The Bug 4.0",
+    tagline:
+      "Identify flaws in existing company strategies and pitch transformative solutions in a fast-paced, problem-solving competition.",
     day: "Day 2",
     time: "11:30 AM",
+    about:
+      "Find the Bug 4.0 takes you beyond code and into the core of business operations.",
+    brief:
+      "Participants are presented with real-world scenarios involving inefficient strategies, broken workflows, or crisis points within a company. Your task: analyze the problems, find the bugs, and pitch practical and innovative fixes to outsmart your competitors. It's a test of business intelligence, creativity, and communication. Think fast, think sharp, and show the judges you can turn a failing company around.",
+    format: [
+      "Scenario briefing & problem selection",
+      "Analysis of inefficient workflows & strategy bugs",
+      "Solution design & pitch deck preparation",
+      "Presentation & Q&A session with judges",
+    ],
+  },
+  {
+    slug: "bid-a-biz",
+    name: "Bid-A-Biz",
+    tagline:
+      "A high-stakes battle of strategy, auctions, and adaptability where every bid can build your empire—or become the reason someone else walks away with the prize money.",
+    day: "Day 1",
+    time: "02:00 PM",
+    about:
+      "Bid a Biz is a fast-paced strategy competition designed to test your business instincts, decision-making, and ability to adapt under pressure.",
+    brief:
+      "What begins as a battle of auctions quickly evolves into a high-stakes challenge where market disruptions can turn brilliant strategies into costly mistakes. Participants compete through dynamic auctions, build ventures from strategic assets, and navigate unexpected disruptions that test their ability to think on their feet. Smart decisions can build industry leaders, while a single bad move can become someone else's biggest opportunity. Think you can outsmart the competition, build a thriving enterprise, and stay ahead when the market turns against you? There's only one way to find out.",
+    format: [
+      "Strategic asset bidding & auctions",
+      "Venture building from acquired assets",
+      "Market disruption simulation & pivoting",
+      "Final valuation & performance scoring",
+    ],
   },
   {
     slug: "boardroom-battles",
     name: "Boardroom Battles",
-    tagline: "Business strategy simulation",
+    tagline:
+      "A high-stakes showdown where strategy, persuasion, and innovation collide around the decisions that shape tomorrow's businesses.",
     day: "Day 2",
     time: "10:30 AM",
-  },
-  {
-    slug: "innovex",
-    name: "InnoveX",
-    tagline: "Flagship pitch deck event",
-    day: "Day 2",
-    time: "03:30 PM",
-  },
-  {
-    slug: "build-a-biz",
-    name: "Build-a-Biz",
-    tagline: "Startup building challenge",
-    day: "Day 1",
-    time: "02:00 PM",
+    about:
+      "Boardroom Battles is the ultimate arena where strategy and innovation meet ambition and integrity.",
+    brief:
+      "Participants face a series of challenges that simulate real-world business environments ranging from solo growth pitches to unexpected joint ventures. It's not just about having an idea; it's about defending it, pitching it, and navigating tough competition under pressure. If you're ready to sharpen your business acumen, showcase your leadership, and stand tall in the world of boardroom politics, this is your battlefield.",
+    format: [
+      "Scenario analysis & growth pitch preparation",
+      "Solo pitches & initial defense",
+      "Unexpected joint venture & boardroom crisis simulation",
+      "Cross-examination & final boardroom verdict",
+    ],
   },
   {
     slug: "technostrophe",
     name: "Technostrophe",
-    tagline: "Quiz competition",
+    tagline:
+      "A two-round quiz event that blends tech, trivia, and tension to test your brainpower and reaction time.",
     day: "Day 1",
     time: "09:30 PM",
+    about:
+      "Technostrophe is a fast-paced quiz showdown designed to push your mental boundaries.",
+    brief:
+      "From hardcore technology to offbeat trivia, it covers a broad spectrum and attracts nationwide participation. Whether you're a techie, trivia geek, or adrenaline junkie, this quiz is your stage to shine. Buzz fast, think faster, and don't miss a beat.",
+    format: [
+      "Round 1: Online/On-site written screening quiz",
+      "Shortlisted teams announcement",
+      "Round 2: Head-to-head buzzer-driven interactive finale",
+      "Final score tally & winners ceremony",
+    ],
   },
   {
     slug: "e-mun",
-    name: "E-MUN",
-    tagline: "Model United Nations",
+    name: "E-MUN (Corporate Crisis Council)",
+    tagline:
+      "Collaboration is mandatory. Loyalty is sold separately. Also 'Backstabbing' strictly prohibited. Until incentivized And Physical In Nature. Last but not the least Together we stand. Then I quietly profit.",
     day: "Day 1 & Day 2",
     time: "09:30 AM",
-  },
-  {
-    slug: "finance-for-all",
-    name: "Finance For All Talk Show 3.0",
-    tagline: "Finance talk show",
-    day: "Day 1",
-    time: "06:30 PM",
-  },
-  {
-    slug: "trimble",
-    name: "Trimble",
-    tagline: "Paper trading competition",
-    day: "TBA",
-    time: "TBA",
+    about:
+      "The world doesn't end with a bang. It ends with a logistics failure. Corporate Crisis Council is a fast-paced diplomacy showdown where the world's most powerful companies are locked in one room and handed one impossible task: survive a catastrophe none of them can solve alone.",
+    brief:
+      "Round one filters for the sharpest minds — the thinkers who see three moves ahead. Round two throws them into a live, two-day corporate war room where alliances are currency, trust is collateral, and every handshake hides a knife. You won't represent a country. You'll command an empire. Forge pacts, broker bailouts, outmaneuver regulators, and decide who survives the collapse and who becomes the cautionary tale. Cooperation is mandatory. Loyalty is optional. The only rule that matters: protect your own. From strategy to back-channel betrayal, this is diplomacy with the gloves off. Negotiate hard, think harder, and remember — in a crisis, the most dangerous person in the room is the one still smiling.",
+    format: [
+      "Round 1: Crisis screening & strategy testing",
+      "Round 2 Day 1: Corporate war room setup & initial alliances",
+      "Round 2 Day 2: Market disruptions, bailouts & final negotiations",
+      "Crisis resolution & survival/profit assessment",
+    ],
   },
 ];
 
@@ -113,33 +164,28 @@ export const SCHEDULE = [
         location: "F020",
       },
       {
-        time: "02:30 PM",
-        title: "Build-a-Biz Phase I",
-        category: "Competition",
-        location: "111",
-      },
-      {
-        time: "02:30 PM",
-        title: "E-MUN Day I",
+        time: "09:30 AM",
+        title: "Corporate Crisis Council (E-MUN) Day I",
         category: "Competition",
         location: "101",
       },
       {
-        time: "04:30 PM",
-        title: "Build-a-Biz Phase II",
+        time: "02:00 PM",
+        title: "Bid-A-Biz Phase I",
         category: "Competition",
         location: "111",
       },
       {
-        time: "06:30 PM",
-        title: "Finance For All Talk Show 3.0",
-        category: "Talk",
-        location: "F020",
+        time: "04:30 PM",
+        title: "Bid-A-Biz Phase II",
+        category: "Competition",
+        location: "111",
       },
       {
         time: "09:30 PM",
         title: "Technostrophe Round II",
         category: "Competition",
+        location: "Main Stage",
       },
     ],
   },
@@ -149,7 +195,7 @@ export const SCHEDULE = [
     items: [
       {
         time: "09:30 AM",
-        title: "E-MUN Day II",
+        title: "Corporate Crisis Council (E-MUN) Day II",
         category: "Competition",
         location: "101",
       },
@@ -173,7 +219,7 @@ export const SCHEDULE = [
       },
       {
         time: "03:30 PM",
-        title: "InnoveX 2.0",
+        title: "INNOVEX 3.0",
         category: "Competition",
         location: "103",
       },

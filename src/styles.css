@@ -127,11 +127,13 @@
   }
 
   .racing-stripe {
-    background-image: repeating-linear-gradient(45deg,
-        var(--color-primary) 0,
-        var(--color-primary) 12px,
-        transparent 12px,
-        transparent 24px);
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--color-primary) 0,
+      var(--color-primary) 12px,
+      transparent 12px,
+      transparent 24px
+    );
   }
 
   .marquee-track {
@@ -151,7 +153,6 @@
   }
 
   @keyframes pulse-signal {
-
     0%,
     100% {
       box-shadow: 0 0 0 0 oklch(0.7 0.22 25 / 0.6);

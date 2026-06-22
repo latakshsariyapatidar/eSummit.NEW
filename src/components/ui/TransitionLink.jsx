@@ -1,8 +1,14 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { useTransitionNavigate } from '../../hooks/useTransitionNavigate';
+import React from "react";
+import { useLocation } from "react-router-dom";
+import { useTransitionNavigate } from "../../hooks/useTransitionNavigate";
 
-export const TransitionLink = ({ to, children, className, onClick, ...props }) => {
+export const TransitionLink = ({
+  to,
+  children,
+  className,
+  onClick,
+  ...props
+}) => {
   const navigate = useTransitionNavigate();
   const location = useLocation();
   const isActive = location.pathname === to;
@@ -13,9 +19,8 @@ export const TransitionLink = ({ to, children, className, onClick, ...props }) =
     navigate(to);
   };
 
-  const finalClassName = typeof className === 'function' 
-    ? className({ isActive })
-    : className;
+  const finalClassName =
+    typeof className === "function" ? className({ isActive }) : className;
 
   return (
     <a href={to} onClick={handleClick} className={finalClassName} {...props}>

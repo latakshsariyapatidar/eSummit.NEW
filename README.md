@@ -81,12 +81,14 @@ eSummit.NEW/
 ├── src/
 │   ├── assets/                 # Static images (dials, hero cars, track textures)
 │   │   └── README.md
-│   ├── components/             # Shared layout components & modals
+│   ├── components/             # Shared layout components, modals, and section abstractions
 │   │   ├── ui/                 # Atomic UI primitives (Button, Input, Dialog, etc.)
 │   │   │   └── README.md       # Lists all available primitives — check here first
+│   │   ├── home/               # Section-level components for Home (Hero, About, FAQ, etc.)
 │   │   ├── Nav.jsx             # Global top navigation bar
 │   │   ├── Footer.jsx          # Site footer
 │   │   ├── CheckoutModal.jsx   # Ticket purchase & booking modal
+│   │   ├── ComingSoonCard.jsx  # Reusable card component for unavailable tracks/sections
 │   │   └── README.md
 │   ├── hooks/                  # Custom React hooks
 │   │   └── README.md           # Lists every hook with usage examples — read before writing new state logic

@@ -1,7 +1,7 @@
 import React from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { Button } from "@/components/ui/Button";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { ComingSoonCard } from "@/components/ComingSoonCard";
 // import { TeamMemberCard } from "@/components/TeamMemberCard";
 
 /*
@@ -339,29 +339,17 @@ export function Team() {
 
       {/* Coming Soon */}
       <div className="mt-16 flex-1 flex items-center justify-center">
-        <div className="w-full max-w-3xl bg-card/10 border border-border/30 rounded-3xl p-8 md:p-16 relative overflow-hidden backdrop-blur-md shadow-2xl text-center space-y-6">
-          {/* Decorative Corner Grids */}
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground leading-none">
-            Team Roster <br className="hidden sm:block" />
-            <span className="text-primary">Revealing Soon.</span>
-          </h2>
-
-          <p className="text-muted-foreground text-sm md:text-base font-sans max-w-xl mx-auto leading-relaxed">
-            We are assembling an extraordinary crew for E-Summit 2026. The
-            complete team lineup will be unveiled shortly before the event.
-          </p>
-
-          <div className="pt-6 flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="mailto:outreach.iic@iitdh.ac.in?subject=Team%20Inquiry%20-%20ESummit%202026"
-              className="w-full sm:w-auto"
-            >
-              <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                Get in Touch →
-              </Button>
-            </a>
-          </div>
-        </div>
+        <ComingSoonCard
+          title={
+            <>
+              Team Roster <br className="hidden sm:block" />
+              <span className="text-primary">Revealing Soon.</span>
+            </>
+          }
+          description="We are assembling an extraordinary crew for E-Summit 2026. The complete team lineup will be unveiled shortly before the event."
+          ctaText="Get in Touch →"
+          ctaHref="mailto:outreach.iic@iitdh.ac.in?subject=Team%20Inquiry%20-%20ESummit%202026"
+        />
       </div>
 
       {/*

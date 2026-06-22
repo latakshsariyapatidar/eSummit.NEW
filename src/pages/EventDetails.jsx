@@ -61,34 +61,27 @@ export function EventDetails() {
 
         <div className="mt-20 grid md:grid-cols-2 gap-12">
           <div>
+            <h2 className="font-display text-3xl mb-4">About the Event</h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              {event.about}
+            </p>
             <h2 className="font-display text-3xl mb-4">The Brief</h2>
-            <p className="text-muted-foreground">
-              {event.name} is one of five flagship tracks at E-Summit 2026.
-              Whether you're prototyping the next EV stack or pitching the
-              future of last-mile delivery, this is your starting grid. Expect
-              tight competition, world-class mentors and a stage that the entire
-              mobility ecosystem will be watching.
+            <p className="text-muted-foreground leading-relaxed">
+              {event.brief}
             </p>
           </div>
           <div>
-            <h2 className="font-display text-3xl mb-4">Format</h2>
+            <h2 className="font-display text-3xl mb-4">Event Format</h2>
             <ul className="space-y-3 text-muted-foreground">
-              <li className="flex gap-3">
-                <span className="text-primary font-mono">01</span> Open call &
-                screening
-              </li>
-              <li className="flex gap-3">
-                <span className="text-primary font-mono">02</span> On-site
-                qualifier round
-              </li>
-              <li className="flex gap-3">
-                <span className="text-primary font-mono">03</span> Live finale
-                with industry jury
-              </li>
-              <li className="flex gap-3">
-                <span className="text-primary font-mono">04</span> Winners
-                announced at the Gala
-              </li>
+              {event.format &&
+                event.format.map((step, idx) => (
+                  <li key={idx} className="flex gap-3 items-start">
+                    <span className="text-primary font-mono">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
