@@ -1,21 +1,47 @@
 # Architectural Decision Records (ADRs)
 
-An Architectural Decision Record (ADR) is a document that captures an important architectural decision, including its context, alternatives considered, decision outcome, and consequences.
+An Architectural Decision Record (ADR) captures an important design decision made during development — including its context, alternatives considered, chosen approach, and trade-offs.
 
-## Files Added
+---
 
-- **`0001-dry-refactoring-and-shared-ui.md`**: Record detailing migration from inline code structure to reusable hooks & atomic design components.
+## ADR Template
 
-## ADR Template Guidelines
+Each ADR file should be named `XXXX-short-description.md` (e.g., `0002-component-extraction.md`) and follow this structure:
 
-Each record should be named following the pattern `[num]-[short-description].md` (e.g., `0001-dry-refactoring-and-shared-ui.md`) and should adhere to the following sections:
+```markdown
+# ADR XXXX: Title
 
-1. **Title**: Title of the decision.
-2. **Status**: `Proposed`, `Accepted`, `Rejected`, or `Superseded`.
-3. **Context**: What is the problem being addressed? Why is this a decision to make? What alternatives exist?
-4. **Decision**: What is the chosen solution and why?
-5. **Consequences**: What are the trade-offs? What is required going forward?
+- **Status**: Proposed | Accepted | Rejected | Superseded
+- **Date**: YYYY-MM-DD
+- **Authors**: Name(s)
+
+## Context
+What is the problem? Why is a decision needed?
+
+## Decision
+What was decided, and why?
+
+## Consequences
+What are the benefits and trade-offs?
+```
+
+---
 
 ## Catalog of Records
 
-- **[ADR 0001: DRY Refactoring & Custom Hooks](file:///d:/Projects/ESummit26.NEW/adr/0001-dry-refactoring-and-shared-ui.md)**: Details the migration of repeated layout headers, programmatic transitions, and state synchronizers into standard shared atomic UI components and hooks.
+| # | File | Title | Status | Date |
+|---|---|---|---|---|
+| 0001 | [0001-dry-refactoring-and-shared-ui.md](./0001-dry-refactoring-and-shared-ui.md) | DRY Refactoring & Shared UI Components | Accepted | 2026-06-19 |
+| 0002 | [0002-new-pages-and-component-extraction.md](./0002-new-pages-and-component-extraction.md) | New Pages, Component Extraction & Coming Soon Strategy | Accepted | 2026-06-22 |
+
+---
+
+## When to Write an ADR
+
+Write an ADR when you:
+- Introduce a **new external dependency**
+- Change the **state management or routing approach**
+- Add a **new page or major feature area**
+- Extract a **significant reusable component**
+- Modify the **styling paradigm or design system**
+- Make a decision that future contributors would otherwise question
