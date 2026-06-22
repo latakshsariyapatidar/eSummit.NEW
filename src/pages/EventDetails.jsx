@@ -28,7 +28,7 @@ export function EventDetails() {
 
   return (
     <div className="pt-32 pb-24 text-left">
-      <div className="mx-auto max-w-[1600px] px-6 lg:px-12">
+      <div className="mx-auto max-w-400 px-6 lg:px-12">
         <TransitionLink
           to="/events"
           className="font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary"
