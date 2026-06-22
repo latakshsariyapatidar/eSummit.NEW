@@ -41,7 +41,7 @@ export function OrderStatusModal({ onClose }) {
               </p>
             )}
             {results.map((o) => (
-              <div key={o.id} className="border border-border p-4">
+              <div key={o.id} className="border border-border p-4 rounded-2xl">
                 <div className="flex justify-between">
                   <span className="font-mono text-xs">{o.id}</span>
                   <span

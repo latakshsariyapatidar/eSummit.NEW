@@ -27,7 +27,7 @@ export function Modal({
     >
       <div
         className={cn(
-          "bg-card border border-border w-full p-5 sm:p-7 md:p-8 relative shadow-2xl flex flex-col max-h-[85vh] animate-in fade-in-50 zoom-in-95 duration-200",
+          "bg-card border border-border w-full p-5 sm:p-7 md:p-8 relative shadow-2xl flex flex-col max-h-[85vh] animate-in fade-in-50 zoom-in-95 duration-200 rounded-3xl",
           maxWidthClass,
           className,
         )}

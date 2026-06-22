@@ -1,11 +1,12 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useTransitionNavigate } from "../hooks/useTransitionNavigate";
+import { TransitionLink as Link } from "../components/ui/TransitionLink";
 import { EVENTS } from "@/lib/store";
-import { TransitionLink } from "@/components/ui/TransitionLink";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 export function EventDetails() {
   const { slug } = useParams();
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigate();
   const event = EVENTS.find((e) => e.slug === slug);
 
   useDocumentTitle(
@@ -16,25 +17,25 @@ export function EventDetails() {
     return (
       <div className="pt-40 pb-24 text-center">
         <h1 className="font-display text-5xl mb-6">Event not found</h1>
-        <TransitionLink
+        <Link
           to="/events"
           className="font-mono text-xs uppercase tracking-widest text-primary hover:underline"
         >
           ← Back to the grid
-        </TransitionLink>
+        </Link>
       </div>
     );
   }
 
   return (
     <div className="pt-32 pb-24 text-left">
-      <div className="mx-auto max-w-[1600px] px-6 lg:px-12">
-        <TransitionLink
+      <div className="mx-auto max-w-400 px-6 lg:px-12">
+        <Link
           to="/events"
           className="font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary"
         >
           ← All events
-        </TransitionLink>
+        </Link>
 
         <div className="mt-8 grid lg:grid-cols-[2fr_1fr] gap-12 items-end">
           <div>
@@ -92,12 +93,12 @@ export function EventDetails() {
           </div>
         </div>
 
-        <TransitionLink
+        <Link
           to="/buy"
-          className="mt-16 inline-block px-10 py-5 bg-primary text-primary-foreground font-mono text-xs uppercase tracking-widest font-semibold hover:bg-primary/90 transition-all rounded-none hover:scale-[1.02]"
+          className="mt-16 inline-block px-10 py-5 bg-primary text-primary-foreground font-mono text-xs uppercase tracking-widest font-semibold hover:bg-primary/90 transition-all rounded-xl hover:scale-[1.02]"
         >
           Register now →
-        </TransitionLink>
+        </Link>
       </div>
     </div>
   );

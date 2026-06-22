@@ -158,7 +158,7 @@ export function CheckoutModal({ cart, total, onClose, onDone }) {
             {attendees.map((a, i) => {
               const p = PASSES.find((pass) => pass.id === a.passId);
               return (
-                <div key={i} className="border border-border p-4">
+                <div key={i} className="border border-border p-4 rounded-2xl">
                   <div className="flex justify-between mb-3">
                     <span className="font-display text-lg sm:text-xl">
                       {p.name} — #{i + 1}
@@ -200,14 +200,14 @@ export function CheckoutModal({ cart, total, onClose, onDone }) {
         </Section>
 
         <Section title="Payment">
-          <div className="bg-asphalt p-4 sm:p-6 mb-4 border border-border">
+          <div className="bg-asphalt p-4 sm:p-6 mb-4 border border-border rounded-2xl">
             <div className="flex flex-col md:flex-row gap-6 items-center">
               {/* White card wrapper for high contrast and readability on dark theme */}
               <div className="bg-white p-3 rounded-lg shrink-0 shadow-lg flex items-center justify-center">
                 <img
                   src={qrCodeUrl}
                   alt="UPI Payment QR Code"
-                  className="w-[130px] h-[130px] object-contain block"
+                  className="w-32.5 h-32.5 object-contain block"
                 />
               </div>
               <div className="flex-1 text-left">

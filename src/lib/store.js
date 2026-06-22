@@ -48,8 +48,8 @@ export const EVENTS = [
     time: "10:30 AM",
   },
   {
-    slug: "novex",
-    name: "NoveX",
+    slug: "innovex",
+    name: "InnoveX",
     tagline: "Flagship pitch deck event",
     day: "Day 2",
     time: "03:30 PM",
@@ -173,7 +173,7 @@ export const SCHEDULE = [
       },
       {
         time: "03:30 PM",
-        title: "NoveX 2.0",
+        title: "InnoveX 2.0",
         category: "Competition",
         location: "103",
       },
@@ -190,19 +190,19 @@ export const SCHEDULE = [
 export const FAQS = [
   {
     q: "When and where is E-Summit 2026?",
-    a: "March 6–8, 2026 at IIT Dharwad. Three days, one mission: redefine how the world moves.",
+    a: "March 6–8, 2026 at IIT Dharwad.",
   },
   {
     q: "Who should attend?",
-    a: "Founders, engineers, designers, students and investors building the future of mobility, EVs, logistics and autonomous systems.",
+    a: "Anyone with a passion for innovation, entrepreneurship, and problem-solving. Whether you're a student, creator, aspiring entrepreneur, developer, designer, or simply curious to learn, E-Summit has something for you.",
   },
   {
     q: "Can I get a refund?",
-    a: "Passes are non-refundable but fully transferable up to 7 days before the event.",
+    a: "Passes are non-refundable.",
   },
   {
-    q: "Is accommodation included?",
-    a: "Podium Pass holders get 2 nights at the campus guest house. Pit and Grid pass holders receive a curated list of partner stays.",
+    q: "Is accommodation available?",
+    a: "Yes. Accommodation is provided to eligible attendees based on their participation category. Participants may be accommodated in IIT Dharwad hostels, while invited guests are provided accommodation at the campus guest house. Further details will be communicated after registration.",
   },
 ];
 

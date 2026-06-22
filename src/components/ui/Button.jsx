@@ -49,7 +49,7 @@ export function Button({
         baseStyle,
         variants[variant],
         sizes[size],
-        pill ? "rounded-full" : "rounded-none",
+        pill ? "rounded-full" : "rounded-xl",
         animateScale ? "hover:scale-[1.02] active:scale-[0.98]" : "",
         className,
       )}

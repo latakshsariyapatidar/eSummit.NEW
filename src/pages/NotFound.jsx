@@ -1,4 +1,4 @@
-import { TransitionLink } from "@/components/ui/TransitionLink";
+import { TransitionLink as Link } from "../components/ui/TransitionLink";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 export function NotFound() {
@@ -14,12 +14,12 @@ export function NotFound() {
         <p className="mt-2 text-sm text-muted-foreground">
           This page took a wrong turn.
         </p>
-        <TransitionLink
+        <Link
           to="/"
           className="inline-block mt-6 px-6 py-3 bg-primary text-primary-foreground font-mono text-xs uppercase tracking-widest font-semibold"
         >
           Back to the grid
-        </TransitionLink>
+        </Link>
       </div>
     </div>
   );

@@ -1,33 +1,25 @@
-import { useNavigate, useLocation } from "react-router-dom";
-import { playPageTransition } from "@/lib/transition";
-import { cn } from "@/lib/utils";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { useTransitionNavigate } from '../../hooks/useTransitionNavigate';
 
-/**
- * An anchor tag wrapper that automatically triggers custom GSAP page transition
- * before executing React Router navigate.
- */
-export function TransitionLink({ to, children, className, onClick, ...props }) {
-  const navigate = useNavigate();
+export const TransitionLink = ({ to, children, className, onClick, ...props }) => {
+  const navigate = useTransitionNavigate();
   const location = useLocation();
+  const isActive = location.pathname === to;
 
   const handleClick = (e) => {
-    if (onClick) {
-      onClick(e);
-    }
-    if (e.defaultPrevented) return;
     e.preventDefault();
-    if (location.pathname === to) return;
-    playPageTransition(() => navigate(to));
+    if (onClick) onClick(e);
+    navigate(to);
   };
 
+  const finalClassName = typeof className === 'function' 
+    ? className({ isActive })
+    : className;
+
   return (
-    <a
-      href={to}
-      onClick={handleClick}
-      className={cn("transition-colors duration-300", className)}
-      {...props}
-    >
+    <a href={to} onClick={handleClick} className={finalClassName} {...props}>
       {children}
     </a>
   );
-}
+};

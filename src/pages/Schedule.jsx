@@ -6,7 +6,7 @@ export function Schedule() {
   useDocumentTitle("Schedule — E-Summit 2026");
 
   return (
-    <div className="pt-32 pb-24 mx-auto max-w-[1600px] px-6 lg:px-12 text-left">
+    <div className="pt-32 pb-24 mx-auto max-w-400 px-6 lg:px-12 text-left">
       <PageHeader
         tag="Race Schedule"
         title={

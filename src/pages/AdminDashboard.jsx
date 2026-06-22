@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useTransitionNavigate } from "../hooks/useTransitionNavigate";
 import { PASSES } from "@/lib/store";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Button } from "@/components/ui/Button";
@@ -8,7 +8,7 @@ import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 export function AdminDashboard() {
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigate();
   const [orders, setOrders] = useLocalStorage("es26_orders", []);
   const [tab, setTab] = useState("orders");
 
@@ -65,7 +65,10 @@ export function AdminDashboard() {
           { l: "Pending", v: stats.pending },
           { l: "Verified", v: stats.verified },
         ].map((s) => (
-          <div key={s.l} className="border border-border bg-card p-6">
+          <div
+            key={s.l}
+            className="border border-border bg-card p-6 rounded-2xl"
+          >
             <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               {s.l}
             </div>
@@ -98,7 +101,7 @@ export function AdminDashboard() {
           {orders.map((o) => (
             <div
               key={o.id}
-              className="border border-border bg-card p-5 grid md:grid-cols-[1fr_auto] gap-4"
+              className="border border-border bg-card p-5 grid md:grid-cols-[1fr_auto] gap-4 rounded-2xl"
             >
               <div>
                 <div className="flex flex-wrap gap-3 items-center">
@@ -165,7 +168,7 @@ function PassesPanel() {
       {PASSES.map((p) => (
         <div
           key={p.id}
-          className="border border-border bg-card p-5 flex justify-between items-center"
+          className="border border-border bg-card p-5 flex justify-between items-center rounded-2xl"
         >
           <div className="text-left">
             <div className="font-display text-2xl">{p.name}</div>
@@ -200,7 +203,7 @@ function ScanPanel() {
   };
   return (
     <div>
-      <div className="bg-card border border-border p-8 text-left">
+      <div className="bg-card border border-border p-8 text-left rounded-3xl">
         <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">
           QR Check-in
         </div>
@@ -228,7 +231,7 @@ function ScanPanel() {
           {scanned.map((s) => (
             <div
               key={s}
-              className="border border-border px-4 py-2 font-mono text-sm flex justify-between"
+              className="border border-border px-4 py-2 font-mono text-sm flex justify-between rounded-xl"
             >
               <span>{s}</span>
               <span className="text-primary">✓ Present</span>

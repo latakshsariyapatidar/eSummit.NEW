@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useTransitionNavigate } from "../hooks/useTransitionNavigate";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { useTransitionNavigate } from "@/hooks/useTransitionNavigate";
-
 const ADMIN_KEY = import.meta.env.VITE_ADMIN_KEY;
 
 export function AdminAuth() {
   const [key, setKey] = useState("");
   const [err, setErr] = useState("");
-  const navigate = useNavigate();
-  const transitionNavigate = useTransitionNavigate();
+  const navigate = useTransitionNavigate();
 
   useDocumentTitle("Admin Login — E-Summit 2026");
 
@@ -31,7 +28,7 @@ export function AdminAuth() {
       const token = crypto.randomUUID();
       sessionStorage.setItem("admin_token", token);
       sessionStorage.setItem("admin_key", key);
-      transitionNavigate("/admin/dashboard");
+      navigate("/admin/dashboard");
     } else {
       setErr("Invalid key. Try again.");
     }

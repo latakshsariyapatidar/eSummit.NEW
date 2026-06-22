@@ -8,7 +8,7 @@ export function Input({ className, type = "text", ...props }) {
     <input
       type={type}
       className={cn(
-        "w-full bg-background border border-border px-3 py-2 font-mono text-sm focus:border-primary outline-none transition-colors",
+        "w-full bg-background border border-border px-3 py-2 font-mono text-sm focus:border-primary outline-none transition-colors rounded-xl",
         className,
       )}
       {...props}
