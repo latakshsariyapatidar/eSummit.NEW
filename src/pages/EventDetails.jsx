@@ -68,22 +68,6 @@ export function EventDetails() {
           <div>
             <h2 className="font-display text-3xl mb-4">Format</h2>
             <ul className="space-y-3 text-muted-foreground">
-              {/* <li className="flex gap-3">
-                <span className="text-primary font-mono">01</span> Open call &
-                screening
-              </li>
-              <li className="flex gap-3">
-                <span className="text-primary font-mono">02</span> On-site
-                qualifier round
-              </li>
-              <li className="flex gap-3">
-                <span className="text-primary font-mono">03</span> Live finale
-                with industry jury
-              </li>
-              <li className="flex gap-3">
-                <span className="text-primary font-mono">04</span> Winners
-                announced at the Gala
-              </li> */}
               {event.format.map((f, i) => (
                 <li key={i} className="flex gap-3">
                   <span className="text-primary font-mono">{String(i+1).padStart(2, "0")}</span>
