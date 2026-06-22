@@ -2,6 +2,8 @@ import React from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { ComingSoonCard } from "@/components/ComingSoonCard";
+import { SPONSORS } from "@/lib/store";
+import { SponsorLogo } from "@/components/SponsorLogo";
 
 export function Sponsors() {
   useDocumentTitle("Our Partners — E-Summit 2026");
@@ -17,7 +19,29 @@ export function Sponsors() {
         </p>
       </div>
 
-      {/* Coming Soon Card */}
+      {/* Sponsors Grid */}
+      {/* <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {SPONSORS.map((s) => (
+          <div
+            key={s.name}
+            className="group relative border border-border/20 bg-card/10 backdrop-blur-md p-8 rounded-3xl flex flex-col items-center justify-center text-center space-y-4 hover:bg-card/25 transition-all duration-500 hover:border-primary/45 hover:shadow-lg hover:shadow-primary/5"
+          >
+            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-border/10 flex items-center justify-center text-white/80 group-hover:text-primary transition-all duration-300">
+              <SponsorLogo type={s.logoType} />
+            </div>
+            <div>
+              <h3 className="font-display text-xl font-bold tracking-tight text-white group-hover:text-primary transition-colors duration-300">
+                {s.name}
+              </h3>
+              <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mt-1">
+                {s.tier}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div> */}
+
+      {/* Coming Soon Card*/}
       <div className="mt-16 flex-1 flex items-center justify-center">
         <ComingSoonCard
           title={
