@@ -27,10 +27,12 @@ export function TeamMemberCard({ team }) {
   const crew = team.crew || [];
   const teamTitle = m.team || m.event;
 
+  const leadImage = `https://robohash.org/${encodeURIComponent(m.name)}`;
+
   return (
     <div className="group relative aspect-4/5 w-full rounded-3xl overflow-hidden border border-border/30 shadow-2xl flex flex-col justify-end text-left select-none transition-all duration-500 hover:border-primary/50 hover:shadow-primary/5">
       <img
-        src={m.image}
+        src={leadImage}
         alt={m.name}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
         loading="lazy"
@@ -40,7 +42,7 @@ export function TeamMemberCard({ team }) {
 
       <div className="relative p-6 z-10 flex flex-col justify-end h-full w-full">
         {teamTitle && (
-          <span className="font-mono text-[9px] uppercase tracking-widest text-primary font-semibold mb-1.5">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground font-semibold mb-1">
             {teamTitle}
           </span>
         )}
@@ -59,19 +61,17 @@ export function TeamMemberCard({ team }) {
               {m.name}
             </a>
           </h3>
-          <svg
-            className="w-4 h-4 text-emerald-400 fill-current shrink-0"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-          </svg>
         </div>
 
-        <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mt-1">
+        <p className="font-mono text-xs uppercase tracking-wider text-primary font-semibold mt-2">
           {m.role}
         </p>
 
-        <p className="text-white/80 text-xs font-sans leading-relaxed mt-2 line-clamp-3 group-hover:line-clamp-1 transition-all duration-300">
+        <p
+          className={`text-white/80 text-xs font-sans leading-relaxed mt-2 line-clamp-3 transition-all duration-300 ${
+            crew.length > 0 ? "group-hover:line-clamp-1" : ""
+          }`}
+        >
           {m.bio}
         </p>
 
@@ -80,17 +80,20 @@ export function TeamMemberCard({ team }) {
             {/* Idle State: Stacked Avatars */}
             <div className="flex items-center justify-between transition-all duration-300 ease-in-out max-h-8 opacity-100 group-hover:max-h-0 group-hover:opacity-0 overflow-hidden">
               <div className="flex items-center -space-x-2">
-                {crew.map((c, idx) => (
-                  <img
-                    key={idx}
-                    src={c.image}
-                    alt={c.name}
-                    className="w-6 h-6 rounded-full border border-black/80 object-cover shadow-sm"
-                    loading="lazy"
-                  />
-                ))}
+                {crew.map((c, idx) => {
+                  const crewImage = `https://robohash.org/${encodeURIComponent(c.name)}`;
+                  return (
+                    <img
+                      key={idx}
+                      src={crewImage}
+                      alt={c.name}
+                      className="w-6 h-6 rounded-full border border-black/80 object-cover shadow-sm bg-card"
+                      loading="lazy"
+                    />
+                  );
+                })}
               </div>
-              <span className="font-mono text-[9px] text-white/50">
+              <span className="font-mono text-[9px] text-white/55">
                 +{crew.length} Crew
               </span>
             </div>
@@ -104,27 +107,30 @@ export function TeamMemberCard({ team }) {
                 data-lenis-prevent
                 className="grid grid-cols-1 gap-1.5 max-h-24 overflow-y-auto pr-1 overscroll-contain custom-scrollbar"
               >
-                {crew.map((c, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <img
-                      src={c.image}
-                      alt={c.name}
-                      className="w-5 h-5 rounded-full object-cover border border-white/15"
-                      loading="lazy"
-                    />
-                    <a
-                      href={
-                        c.linkedin ||
-                        `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(c.name)}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-white/95 hover:text-primary hover:underline font-sans truncate transition-colors"
-                    >
-                      {c.name}
-                    </a>
-                  </div>
-                ))}
+                {crew.map((c, idx) => {
+                  const crewImage = `https://robohash.org/${encodeURIComponent(c.name)}`;
+                  return (
+                    <div key={idx} className="flex items-center gap-2">
+                      <img
+                        src={crewImage}
+                        alt={c.name}
+                        className="w-5 h-5 rounded-full object-cover border border-white/15 bg-card"
+                        loading="lazy"
+                      />
+                      <a
+                        href={
+                          c.linkedin ||
+                          `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(c.name)}`
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-white/95 hover:text-primary hover:underline font-sans truncate transition-colors"
+                      >
+                        {c.name}
+                      </a>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

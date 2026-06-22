@@ -1,327 +1,280 @@
 import React from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { ComingSoonCard } from "@/components/ComingSoonCard";
-// import { TeamMemberCard } from "@/components/TeamMemberCard";
+import { TeamMemberCard } from "@/components/TeamMemberCard";
 
-/*
 const FUNCTIONAL_TEAMS = [
   {
     lead: {
-      name: "Aarav Mehta",
+      name: "Rajat Gupta",
       role: "Overall Coordinator",
       team: "Core Committee",
       email: "outreach.iic@iitdh.ac.in",
       bio: "Directing the overall execution and strategic partnerships of E-Summit 2026.",
       image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=800&q=80",
+        "https://ui-avatars.com/api/?name=Rajat+Gupta&background=0D0D0C&color=fff",
     },
-    crew: [
-      {
-        name: "Nehal Shah",
-        image:
-          "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Aryan Gupta",
-        image:
-          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Ishaan Roy",
-        image:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-    ],
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Anant Tripathi",
+      role: "Operations Head",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Managing overall ground operations, logistics, and resource planning for E-Summit 2026.",
+      image:
+        "https://ui-avatars.com/api/?name=Anant+Tripathi&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "L Shreya",
+      role: "Outreach Head",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Driving institutional partnerships, external relations, and marketing campaigns.",
+      image:
+        "https://ui-avatars.com/api/?name=L+Shreya&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Soumya Basuli",
+      role: "Design Lead",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Curating E-Summit 2026's visual identity, graphic design assets, and event style guide.",
+      image:
+        "https://ui-avatars.com/api/?name=Soumya+Basuli&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Nirav Mittal",
+      role: "Events Coordinator",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Managing event timelines, judging rubrics, and scheduling across all competition grids.",
+      image:
+        "https://ui-avatars.com/api/?name=Nirav+Mittal&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Mayank Mishra",
+      role: "PR Lead",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Handling public relations, media reach, speaker coordination, and press releases.",
+      image:
+        "https://ui-avatars.com/api/?name=Mayank+Mishra&background=0D0D0C&color=fff",
+    },
+    crew: [],
   },
   {
     lead: {
       name: "Lataksh Sariya",
-      role: "Web Dev Lead",
-      team: "Web Team",
+      role: "Web Team Lead",
+      team: "Core Committee",
       email: "outreach.iic@iitdh.ac.in",
-      bio: "Architecting the digital interfaces, transitions, and user experiences for the summit.",
+      bio: "Architecting the digital interfaces, transitions, and user experiences for E-Summit 2026.",
       image:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&h=800&q=80",
+        "https://ui-avatars.com/api/?name=Lataksh+Sariya&background=0D0D0C&color=fff",
     },
-    crew: [
-      {
-        name: "Karan Johar",
-        image:
-          "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Priya Sen",
-        image:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Yash Wardhan",
-        image:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Karan Johar",
-        image:
-          "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Priya Sen",
-        image:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Yash Wardhan",
-        image:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-    ],
-  },
-  {
-    lead: {
-      name: "Riya Sharma",
-      role: "Marketing Head",
-      team: "Marketing Team",
-      email: "outreach.iic@iitdh.ac.in",
-      bio: "Managing the brand identity, campaign rollouts, and media coverage across channels.",
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&h=800&q=80",
-    },
-    crew: [
-      {
-        name: "Sara Ali",
-        image:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Varun Dhawan",
-        image:
-          "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Janhvi Kapoor",
-        image:
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-    ],
-  },
-  {
-    lead: {
-      name: "Kabir Singh",
-      role: "Outreach Head",
-      team: "Outreach Team",
-      email: "outreach.iic@iitdh.ac.in",
-      bio: "Driving institutional partnerships, speaker coordination, and public relations.",
-      image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&h=800&q=80",
-    },
-    crew: [
-      {
-        name: "Siddharth Malhotra",
-        image:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Kiara Advani",
-        image:
-          "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-      {
-        name: "Ranbir Kapoor",
-        image:
-          "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-    ],
+    crew: [],
   },
 ];
 
 const EVENT_TEAMS = [
   {
     lead: {
-      event: "Find The Bug 3.0",
-      name: "Devansh Gupta",
-      role: "Race Director",
-      bio: "Leading execution of the flagship debugging event.",
+      event: "Innovex",
+      name: "Navajeevan K S",
+      role: "Event Lead",
+      bio: "Leading execution of the flagship Innovex startup pitch stage.",
       image:
-        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&h=800&q=80",
+        "https://ui-avatars.com/api/?name=Navajeevan+K+S&background=0D0D0C&color=fff",
       email: "outreach.iic@iitdh.ac.in",
     },
     crew: [
       {
-        name: "Alok Verma",
+        name: "Tejas Sharma",
         image:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Tejas+Sharma&background=0D0D0C&color=fff",
       },
       {
-        name: "Nikhil Kumar",
+        name: "Saikat Ghosh",
         image:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Saikat+Ghosh&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Jayesh",
+        image:
+          "https://ui-avatars.com/api/?name=Jayesh&background=0D0D0C&color=fff",
       },
     ],
   },
   {
     lead: {
-      event: "Boardroom Battles",
-      name: "Ananya Iyer",
-      role: "Race Director",
-      bio: "Orchestrating the business strategy simulation battle.",
+      event: "Find The Bug",
+      name: "SAI RAM",
+      role: "Event Lead",
+      bio: "Orchestrating the code debugging and code reviews tracking challenge.",
       image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&h=800&q=80",
+        "https://ui-avatars.com/api/?name=SAI+RAM&background=0D0D0C&color=fff",
       email: "outreach.iic@iitdh.ac.in",
     },
     crew: [
       {
-        name: "Sneha Patil",
+        name: "Hithesh V R",
         image:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Hithesh+V+R&background=0D0D0C&color=fff",
       },
       {
-        name: "Tanmay Joshi",
+        name: "Aditya Jain",
         image:
-          "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Aditya+Jain&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Chaitanya Handore",
+        image:
+          "https://ui-avatars.com/api/?name=Chaitanya+Handore&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Aaditya Kumar",
+        image:
+          "https://ui-avatars.com/api/?name=Aaditya+Kumar&background=0D0D0C&color=fff",
       },
     ],
   },
   {
     lead: {
-      event: "InnoveX",
-      name: "Siddharth Sen",
-      role: "Race Director",
-      bio: "Curating the startup pitch deck and venture stage.",
+      event: "Bid-A-Biz",
+      name: "Pranav S Newton",
+      role: "Event Lead",
+      bio: "Leading the business strategy bid and auction simulation.",
       image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&h=800&q=80",
+        "https://ui-avatars.com/api/?name=Pranav+S+Newton&background=0D0D0C&color=fff",
       email: "outreach.iic@iitdh.ac.in",
     },
     crew: [
       {
-        name: "Pooja Hegde",
+        name: "Rahul Ahirwar",
         image:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Rahul+Ahirwar&background=0D0D0C&color=fff",
       },
       {
-        name: "Vikram Rathore",
+        name: "Shivam Srivastava",
         image:
-          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-    ],
-  },
-  {
-    lead: {
-      event: "Build-a-Biz",
-      name: "Meera Nair",
-      role: "Race Director",
-      bio: "Steering the 36-hour startup building challenge.",
-      image:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&h=800&q=80",
-      email: "outreach.iic@iitdh.ac.in",
-    },
-    crew: [
-      {
-        name: "Raj Malhotra",
-        image:
-          "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Shivam+Srivastava&background=0D0D0C&color=fff",
       },
       {
-        name: "Simran Gill",
+        name: "Aadhi",
         image:
-          "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Aadhi&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Sameer Patel",
+        image:
+          "https://ui-avatars.com/api/?name=Sameer+Patel&background=0D0D0C&color=fff",
       },
     ],
   },
   {
     lead: {
       event: "Technostrophe",
-      name: "Rohan Varma",
-      role: "Race Director",
-      bio: "Hosting the ultimate multi-disciplinary technology quiz.",
+      name: "Pranav",
+      role: "Event Lead",
+      bio: "Running the technology quiz event and adrenaline-filled buzzer finals.",
       image:
-        "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=600&h=800&q=80",
+        "https://ui-avatars.com/api/?name=Pranav&background=0D0D0C&color=fff",
       email: "outreach.iic@iitdh.ac.in",
     },
     crew: [
       {
-        name: "Aditya Rao",
+        name: "Achinthya",
         image:
-          "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Achinthya&background=0D0D0C&color=fff",
       },
       {
-        name: "Neha Deshmukh",
+        name: "Shubhra Kishor Nikam",
         image:
-          "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Shubhra+Kishor+Nikam&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Lakshya Kumar",
+        image:
+          "https://ui-avatars.com/api/?name=Lakshya+Kumar&background=0D0D0C&color=fff",
       },
     ],
   },
   {
     lead: {
-      event: "E-MUN",
-      name: "Tanvi Rao",
-      role: "Race Director",
-      bio: "Facilitating debates on green logistics and EV policy.",
+      event: "Boardroom Battles",
+      name: "Anushaa B",
+      role: "Event Lead",
+      bio: "Leading the business strategy pitches and boardroom simulation battles.",
       image:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&h=800&q=80",
+        "https://ui-avatars.com/api/?name=Anushaa+B&background=0D0D0C&color=fff",
       email: "outreach.iic@iitdh.ac.in",
     },
     crew: [
       {
-        name: "Sameer Khan",
+        name: "Priyanshu Nimbalkar",
         image:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Priyanshu+Nimbalkar&background=0D0D0C&color=fff",
       },
       {
-        name: "Kriti Sanon",
+        name: "Gourav Sherikar",
         image:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Gourav+Sherikar&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Saisha Nimbalkar",
+        image:
+          "https://ui-avatars.com/api/?name=Saisha+Nimbalkar&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Lakshman Naidu Bandela",
+        image:
+          "https://ui-avatars.com/api/?name=Lakshman+Naidu+Bandela&background=0D0D0C&color=fff",
       },
     ],
   },
   {
     lead: {
-      event: "Finance For All",
-      name: "Aryan Kapoor",
-      role: "Race Director",
-      bio: "Directing the talk show and finance panel sessions.",
+      event: "E-MUN + GD",
+      name: "Sudhakar",
+      role: "Event Lead",
+      bio: "Orchestrating the corporate diplomacy council crisis model.",
       image:
-        "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=600&h=800&q=80",
+        "https://ui-avatars.com/api/?name=Sudhakar&background=0D0D0C&color=fff",
       email: "outreach.iic@iitdh.ac.in",
     },
     crew: [
       {
-        name: "Shreya Ghoshal",
+        name: "Anjali Kumari",
         image:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Anjali+Kumari&background=0D0D0C&color=fff",
       },
       {
-        name: "Rahul Bose",
+        name: "Aditi Upadhye",
         image:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&h=100&q=80",
-      },
-    ],
-  },
-  {
-    lead: {
-      event: "Trimble",
-      name: "Neha Patil",
-      role: "Race Director",
-      bio: "Managing the real-time paper trading simulator tracks.",
-      image:
-        "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=600&h=800&q=80",
-      email: "outreach.iic@iitdh.ac.in",
-    },
-    crew: [
-      {
-        name: "Amit Roy",
-        image:
-          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Aditi+Upadhye&background=0D0D0C&color=fff",
       },
       {
-        name: "Divya Dutta",
+        name: "Tangirala Dhanunjaya Rao",
         image:
-          "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=100&h=100&q=80",
+          "https://ui-avatars.com/api/?name=Tangirala+Dhanunjaya+Rao&background=0D0D0C&color=fff",
       },
     ],
   },
 ];
-*/
 
 export function Team() {
   useDocumentTitle("The Crew — E-Summit 2026");
@@ -337,28 +290,10 @@ export function Team() {
         </p>
       </div>
 
-      {/* Coming Soon */}
-      <div className="mt-16 flex-1 flex items-center justify-center">
-        <ComingSoonCard
-          title={
-            <>
-              Team Roster <br className="hidden sm:block" />
-              <span className="text-primary">Revealing Soon.</span>
-            </>
-          }
-          description="We are assembling an extraordinary crew for E-Summit 2026. The complete team lineup will be unveiled shortly before the event."
-          ctaText="Get in Touch →"
-          ctaHref="mailto:outreach.iic@iitdh.ac.in?subject=Team%20Inquiry%20-%20ESummit%202026"
-        />
-      </div>
-
-      {/*
-      ── TEAM GRIDS (uncomment when roster is ready) ────────────────────────────
-
       <div className="mt-20 space-y-24">
         <div>
           <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-primary border-b border-border/20 pb-3 mb-8">
-            ◉ Functional Leads
+            ◉ Functional Leads / Core Committee
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {FUNCTIONAL_TEAMS.map((team) => (
@@ -369,7 +304,7 @@ export function Team() {
 
         <div>
           <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-primary border-b border-border/20 pb-3 mb-8">
-            ◉ Event Directors
+            ◉ Event Directors & Crew
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {EVENT_TEAMS.map((team) => (
@@ -378,8 +313,6 @@ export function Team() {
           </div>
         </div>
       </div>
-
-      ─────────────────────────────────────────────────────────────────────────── */}
     </div>
   );
 }
