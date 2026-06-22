@@ -1,17 +1,27 @@
 import { useParams } from "react-router-dom";
 import { useTransitionNavigate } from "../hooks/useTransitionNavigate";
 import { TransitionLink as Link } from "../components/ui/TransitionLink";
-import { EVENTS } from "@/lib/store";
+import { useEvents } from "@/lib/store";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { Loader } from "@/components/Loader";
 
 export function EventDetails() {
   const { slug } = useParams();
   const navigate = useTransitionNavigate();
-  const event = EVENTS.find((e) => e.slug === slug);
+  const events = useEvents();
+  const event = events.find((e) => e.slug === slug);
 
   useDocumentTitle(
     event ? `${event.name} — E-Summit 2026` : "Event Not Found — E-Summit 2026",
   );
+
+  if (events.length === 0) {
+    return (
+      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
 
   if (!event) {
     return (

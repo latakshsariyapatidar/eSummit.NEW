@@ -2,11 +2,12 @@ import React from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { ComingSoonCard } from "@/components/ComingSoonCard";
-import { SPONSORS } from "@/lib/store";
+import { useSponsors } from "@/lib/store";
 import { SponsorLogo } from "@/components/SponsorLogo";
 
 export function Sponsors() {
   useDocumentTitle("Our Partners — E-Summit 2026");
+  const sponsors = useSponsors();
 
   return (
     <div className="pt-32 pb-24 mx-auto max-w-400 px-6 lg:px-12 text-left min-h-screen flex flex-col">
@@ -19,42 +20,42 @@ export function Sponsors() {
         </p>
       </div>
 
-      {/* Sponsors Grid */}
-      {/* <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {SPONSORS.map((s) => (
-          <div
-            key={s.name}
-            className="group relative border border-border/20 bg-card/10 backdrop-blur-md p-8 rounded-3xl flex flex-col items-center justify-center text-center space-y-4 hover:bg-card/25 transition-all duration-500 hover:border-primary/45 hover:shadow-lg hover:shadow-primary/5"
-          >
-            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-border/10 flex items-center justify-center text-white/80 group-hover:text-primary transition-all duration-300">
-              <SponsorLogo type={s.logoType} />
+      {sponsors && sponsors.length > 0 ? (
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {sponsors.map((s) => (
+            <div
+              key={s.name}
+              className="group relative border border-border/20 bg-card/10 backdrop-blur-md p-8 rounded-3xl flex flex-col items-center justify-center text-center space-y-4 hover:bg-card/25 transition-all duration-500 hover:border-primary/45 hover:shadow-lg hover:shadow-primary/5"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-white/5 border border-border/10 flex items-center justify-center text-white/80 group-hover:text-primary transition-all duration-300">
+                <SponsorLogo type={s.logoType} />
+              </div>
+              <div>
+                <h3 className="font-display text-xl font-bold tracking-tight text-white group-hover:text-primary transition-colors duration-300">
+                  {s.name}
+                </h3>
+                <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mt-1">
+                  {s.tier}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-display text-xl font-bold tracking-tight text-white group-hover:text-primary transition-colors duration-300">
-                {s.name}
-              </h3>
-              <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mt-1">
-                {s.tier}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div> */}
-
-      {/* Coming Soon Card*/}
-      <div className="mt-16 flex-1 flex items-center justify-center">
-        <ComingSoonCard
-          title={
-            <>
-              Sponsors Lineup <br className="hidden sm:block" />
-              <span className="text-primary">Revealing Soon.</span>
-            </>
-          }
-          description="We are currently finalizing partnerships. The complete starting grid of sponsors will be unveiled trackside shortly."
-          ctaText="Become a Partner →"
-          ctaHref="mailto:outreach.iic@iitdh.ac.in?subject=Sponsorship%20Inquiry%20-%20ESummit%202026"
-        />
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-16 flex-1 flex items-center justify-center">
+          <ComingSoonCard
+            title={
+              <>
+                Sponsors Lineup <br className="hidden sm:block" />
+                <span className="text-primary">Revealing Soon.</span>
+              </>
+            }
+            description="We are currently finalizing partnerships. The complete starting grid of sponsors will be unveiled trackside shortly."
+            ctaText="Become a Partner →"
+            ctaHref="mailto:outreach.iic@iitdh.ac.in?subject=Sponsorship%20Inquiry%20-%20ESummit%202026"
+          />
+        </div>
+      )}
     </div>
   );
 }

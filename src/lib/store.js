@@ -1,5 +1,9 @@
-// Frontend-only mock data + localStorage helpers
-export const PASSES = [
+import { useState, useEffect } from "react";
+
+export const API_BASE = "http://localhost:3000";
+
+// Fallback/Mock data if backend is offline
+export const FALLBACK_PASSES = [
   {
     id: "pit",
     name: "Pit Pass",
@@ -25,14 +29,14 @@ export const PASSES = [
   },
 ];
 
-export const MERCH = [
+export const FALLBACK_MERCH = [
   { id: "m1", name: "Team Jacket", price: 1299, img: "jacket" },
   { id: "m2", name: "Pit Crew Cap", price: 399, img: "cap" },
   { id: "m3", name: "Racing Tee", price: 599, img: "tee" },
   { id: "m4", name: "Driver Gloves", price: 799, img: "gloves" },
 ];
 
-export const EVENTS = [
+export const FALLBACK_EVENTS = [
   {
     slug: "innovex",
     name: "INNOVEX 3.0",
@@ -142,7 +146,7 @@ export const EVENTS = [
   },
 ];
 
-export const SPONSORS = [
+export const FALLBACK_SPONSORS = [
   { name: "VELOCITAS", tier: "Title Sponsor", logoType: "engine" },
   { name: "AXLE&CO", tier: "Co-Powered By", logoType: "gear" },
   { name: "KAIROS EV", tier: "EV Tech Partner", logoType: "battery" },
@@ -153,7 +157,7 @@ export const SPONSORS = [
   { name: "APEX FUEL", tier: "Energy Sponsor", logoType: "circle" },
 ];
 
-export const SCHEDULE = [
+export const FALLBACK_SCHEDULE = [
   {
     day: "Day 01",
     items: [
@@ -189,7 +193,6 @@ export const SCHEDULE = [
       },
     ],
   },
-
   {
     day: "Day 02",
     items: [
@@ -233,7 +236,7 @@ export const SCHEDULE = [
   },
 ];
 
-export const FAQS = [
+export const FALLBACK_FAQS = [
   {
     q: "When and where is E-Summit 2026?",
     a: "March 6–8, 2026 at IIT Dharwad.",
@@ -252,6 +255,249 @@ export const FAQS = [
   },
 ];
 
+export const FALLBACK_UPI_IDS = [
+  "esummit@iitdh",
+  "esummit26@okhdfcbank",
+  "iitdh.esummit@okaxis",
+  "payment.esummit@paytm",
+];
+
+export const FALLBACK_TARGET_DATE = new Date("2026-08-20T09:00:00").getTime();
+
+// Maintain legacy exported constants so no existing files break
+export const PASSES = FALLBACK_PASSES;
+export const MERCH = FALLBACK_MERCH;
+export const EVENTS = FALLBACK_EVENTS;
+export const SPONSORS = FALLBACK_SPONSORS;
+export const SCHEDULE = FALLBACK_SCHEDULE;
+export const FAQS = FALLBACK_FAQS;
+export const UPI_IDS = FALLBACK_UPI_IDS;
+export const TARGET_DATE = FALLBACK_TARGET_DATE;
+
+// ── API CLIENT FUNCTIONS ───────────────────────────────────────────────────
+
+export async function fetchEvents() {
+  const res = await fetch(`${API_BASE}/content/events`);
+  if (!res.ok) throw new Error("Failed to fetch events");
+  const json = await res.json();
+  return json.status === "success" ? json.data : FALLBACK_EVENTS;
+}
+
+export async function fetchSponsors() {
+  const res = await fetch(`${API_BASE}/content/sponsors`);
+  if (!res.ok) throw new Error("Failed to fetch sponsors");
+  const json = await res.json();
+  return json.status === "success" ? json.data : FALLBACK_SPONSORS;
+}
+
+export async function fetchFAQs() {
+  const res = await fetch(`${API_BASE}/content/faqs`);
+  if (!res.ok) throw new Error("Failed to fetch FAQs");
+  const json = await res.json();
+  return json.status === "success" ? json.data : FALLBACK_FAQS;
+}
+
+export async function fetchSchedule() {
+  const res = await fetch(`${API_BASE}/content/schedule`);
+  if (!res.ok) throw new Error("Failed to fetch schedule");
+  const json = await res.json();
+  return json.status === "success" ? json.data : FALLBACK_SCHEDULE;
+}
+
+export async function fetchMerch() {
+  const res = await fetch(`${API_BASE}/content/merch`);
+  if (!res.ok) throw new Error("Failed to fetch merch");
+  const json = await res.json();
+  return json.status === "success" ? json.data : FALLBACK_MERCH;
+}
+
+export async function fetchTeams() {
+  const res = await fetch(`${API_BASE}/content/teams`);
+  if (!res.ok) throw new Error("Failed to fetch teams");
+  const json = await res.json();
+  return json.status === "success" ? json.data : [];
+}
+
+export async function fetchConfig(key) {
+  const res = await fetch(`${API_BASE}/content/config/${key}`);
+  if (!res.ok) throw new Error(`Failed to fetch config key ${key}`);
+  const json = await res.json();
+  return json.status === "success" ? json.data : null;
+}
+
+// Order management
+export async function submitOrder(orderData) {
+  const res = await fetch(`${API_BASE}/order/submit`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(orderData),
+  });
+  return res.json();
+}
+
+export async function getOrderStatus(phone) {
+  const res = await fetch(
+    `${API_BASE}/order/status?phone=${encodeURIComponent(phone)}`,
+  );
+  return res.json();
+}
+
+// Attendance Check-in
+export async function verifyQR(qrContent) {
+  const res = await fetch(`${API_BASE}/attendance/verify-qr`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ qr_content: qrContent }),
+  });
+  return res.json();
+}
+
+export async function markAttendance(qrContent) {
+  const res = await fetch(`${API_BASE}/attendance/mark`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ qr_content: qrContent }),
+  });
+  return res.json();
+}
+
+// Admin Panel operations
+export async function verifyAdminKey(adminKey) {
+  const res = await fetch(`${API_BASE}/admin/verify-key`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ admin_key: adminKey }),
+  });
+  return res.json();
+}
+
+export async function getAdminDbState(adminKey) {
+  const res = await fetch(`${API_BASE}/admin/db-state`, {
+    headers: { "X-Admin-Key": adminKey },
+  });
+  return res.json();
+}
+
+export async function verifyAdminOrder(
+  adminKey,
+  orderId,
+  status,
+  rejectionReason = "",
+) {
+  const res = await fetch(`${API_BASE}/admin/order/verify`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Admin-Key": adminKey,
+    },
+    body: JSON.stringify({
+      order_id: orderId,
+      status,
+      rejection_reason: rejectionReason,
+    }),
+  });
+  return res.json();
+}
+
+export async function getAdminPasses(adminKey) {
+  const res = await fetch(`${API_BASE}/admin/passes`, {
+    headers: { "X-Admin-Key": adminKey },
+  });
+  return res.json();
+}
+
+// ── REACT HOOKS FOR ASYNC DATA LOADING ─────────────────────────────────────
+
+export function useEvents() {
+  const [data, setData] = useState(FALLBACK_EVENTS);
+  useEffect(() => {
+    fetchEvents()
+      .then(setData)
+      .catch((err) => console.error("Error fetching events:", err));
+  }, []);
+
+  console.log("Fetched the events");
+  return data;
+}
+
+export function useSponsors() {
+  const [data, setData] = useState(FALLBACK_SPONSORS);
+  useEffect(() => {
+    fetchSponsors()
+      .then(setData)
+      .catch((err) => console.error("Error fetching sponsors:", err));
+  }, []);
+
+  console.log("Fetched the sponsors");
+
+  return data;
+}
+
+export function useFAQs() {
+  const [data, setData] = useState(FALLBACK_FAQS);
+  useEffect(() => {
+    fetchFAQs()
+      .then(setData)
+      .catch((err) => console.error("Error fetching FAQs:", err));
+  }, []);
+
+  console.log("Fetched the faqs");
+
+  return data;
+}
+
+export function useSchedule() {
+  const [data, setData] = useState(FALLBACK_SCHEDULE);
+  useEffect(() => {
+    fetchSchedule()
+      .then(setData)
+      .catch((err) => console.error("Error fetching schedule:", err));
+  }, []);
+
+  console.log("Fetched the schedule");
+
+  return data;
+}
+
+export function useMerch() {
+  const [data, setData] = useState(FALLBACK_MERCH);
+  useEffect(() => {
+    fetchMerch()
+      .then(setData)
+      .catch((err) => console.error("Error fetching merch:", err));
+  }, []);
+
+  console.log("Fetched the merch");
+
+  return data;
+}
+
+export function useTeams() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetchTeams()
+      .then(setData)
+      .catch((err) => console.error("Error fetching teams:", err));
+  }, []);
+
+  console.log("Fetched the teams");
+  return data;
+}
+
+export function useConfigValue(key, fallbackValue) {
+  const [val, setVal] = useState(fallbackValue);
+  useEffect(() => {
+    fetchConfig(key)
+      .then((data) => {
+        if (data !== null) setVal(data);
+      })
+      .catch((err) => console.error(`Error fetching config ${key}:`, err));
+  }, [key]);
+
+  console.log("Fetched the config", key);
+  return val;
+}
+
 // Cart helpers
 const CART_KEY = "es26_cart";
 export const getCart = () => {
@@ -263,12 +509,3 @@ export const getCart = () => {
   }
 };
 export const setCart = (c) => localStorage.setItem(CART_KEY, JSON.stringify(c));
-
-export const TARGET_DATE = new Date("2026-08-20T09:00:00").getTime();
-
-export const UPI_IDS = [
-  "esummit@iitdh",
-  "esummit26@okhdfcbank",
-  "iitdh.esummit@okaxis",
-  "payment.esummit@paytm",
-];

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { SCHEDULE, EVENTS } from "@/lib/store";
+import { useSchedule, useEvents } from "@/lib/store";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { Loader } from "@/components/Loader";
 import {
   Clock,
   MapPin,
@@ -14,15 +15,25 @@ import { TransitionLink as Link } from "@/components/ui/TransitionLink";
 
 export function Schedule() {
   useDocumentTitle("Schedule — E-Summit 2026");
+  const schedule = useSchedule();
+  const events = useEvents();
   const [activeDay, setActiveDay] = useState("Day 01");
 
+  if (schedule.length === 0) {
+    return (
+      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
   const activeSchedule =
-    SCHEDULE.find((s) => s.day === activeDay) || SCHEDULE[0];
+    schedule.find((s) => s.day === activeDay) || schedule[0];
 
   // Helper to match schedule title to event slug
   const getEventLink = (title) => {
     const lowerTitle = title.toLowerCase();
-    const matched = EVENTS.find((e) => {
+    const matched = events.find((e) => {
       const name = e.name.toLowerCase();
       // check if event name is in schedule title, or vice-versa
       return (
@@ -54,7 +65,7 @@ export function Schedule() {
 
         {/* Day Selector Buttons */}
         <div className="flex bg-card/40 border border-border/40 p-1.5 rounded-full backdrop-blur-md shrink-0 shadow-lg shadow-black/20 self-start md:self-auto">
-          {SCHEDULE.map((d) => (
+          {schedule.map((d) => (
             <button
               key={d.day}
               onClick={() => setActiveDay(d.day)}

@@ -1,9 +1,11 @@
 import React from "react";
 import { SectionHeader } from "../ui/SectionHeader";
-import { EVENTS } from "@/lib/store";
+import { useEvents } from "@/lib/store";
 import dial from "../../assets/dial.jpg";
 
 export function AboutSection() {
+  const events = useEvents();
+
   const numberToWord = (num) => {
     const words = [
       "zero",
@@ -21,7 +23,7 @@ export function AboutSection() {
     return words[num] || num.toString();
   };
 
-  const eventCountWord = numberToWord(EVENTS.length);
+  const eventCountWord = numberToWord(events.length);
 
   return (
     <section className="mx-auto max-w-400 px-6 lg:px-12 py-28 md:py-36 grid lg:grid-cols-2 gap-16 items-center">
@@ -51,7 +53,7 @@ export function AboutSection() {
         <div className="grid grid-cols-3 gap-6 border-t border-border/30 pt-8 mt-12 text-left">
           {[
             { n: "2", l: "Days" },
-            { n: `${EVENTS.length}`, l: "Flagship Events" },
+            { n: `${events.length}`, l: "Flagship Events" },
             { n: "500+", l: "Registrations" },
           ].map((s) => (
             <div key={s.l} className="flex flex-col">

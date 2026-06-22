@@ -1,9 +1,11 @@
 import React from "react";
 import { SectionHeader } from "../ui/SectionHeader";
 import { TransitionLink as Link } from "../ui/TransitionLink";
-import { EVENTS } from "@/lib/store";
+import { useEvents } from "@/lib/store";
 
 export function EventsConveyor() {
+  const events = useEvents();
+
   const numberToWord = (num) => {
     const words = [
       "zero",
@@ -21,7 +23,7 @@ export function EventsConveyor() {
     return words[num] || num.toString();
   };
 
-  const eventCountWord = numberToWord(EVENTS.length);
+  const eventCountWord = numberToWord(events.length);
   const capitalizedEventCountWord =
     eventCountWord.charAt(0).toUpperCase() + eventCountWord.slice(1);
 
@@ -53,7 +55,7 @@ export function EventsConveyor() {
             {/* Double loop of EVENTS for a seamless infinite loop */}
             {Array.from({ length: 2 }).map((_, loopIdx) => (
               <div key={loopIdx} className="flex gap-6 pr-6">
-                {EVENTS.map((e, i) => (
+                {events.map((e, i) => (
                   <Link
                     key={`${e.slug}-${loopIdx}`}
                     to={`/event/${e.slug}`}

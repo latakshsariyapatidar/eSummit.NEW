@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { SectionHeader } from "../ui/SectionHeader";
-import { FAQS } from "@/lib/store";
+import { useFAQs } from "@/lib/store";
 
 export function FAQSection() {
   const [activeFaq, setActiveFaq] = useState(null);
+  const faqs = useFAQs();
 
   return (
     <section className="py-28 md:py-36">
@@ -19,7 +20,7 @@ export function FAQSection() {
           }
         />
         <div className="divide-y divide-border/20 border-t border-b border-border/20 text-left">
-          {FAQS.map((f, i) => {
+          {faqs.map((f, i) => {
             const isOpen = activeFaq === i;
             return (
               <div key={i} className="py-6">

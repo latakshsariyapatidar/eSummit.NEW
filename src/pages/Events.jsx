@@ -1,12 +1,13 @@
-import { EVENTS } from "@/lib/store";
+import { useEvents } from "@/lib/store";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import FlowingMenu from "@/components/FlowingMenu";
 
 export function Events() {
   useDocumentTitle("Events — E-Summit 2026");
+  const events = useEvents();
 
-  const menuItems = EVENTS.map((e) => ({
+  const menuItems = events.map((e) => ({
     text: e.name,
     link: `/event/${e.slug}`,
     image: `/${e.slug}.png`,
