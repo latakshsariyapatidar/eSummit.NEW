@@ -206,18 +206,6 @@ export const FAQS = [
   },
 ];
 
-// Cart helpers
-const CART_KEY = "es26_cart";
-export const getCart = () => {
-  if (typeof window === "undefined") return [];
-  try {
-    return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-  } catch {
-    return [];
-  }
-};
-export const setCart = (c) => localStorage.setItem(CART_KEY, JSON.stringify(c));
-
 export const TARGET_DATE = new Date("2026-08-25T09:00:00").getTime();
 export const UPI_IDS = [
   "esummit@iitdh",
