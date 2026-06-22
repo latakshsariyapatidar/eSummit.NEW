@@ -39,6 +39,13 @@ export const EVENTS = [
     tagline: "Debugging competition",
     day: "Day 2",
     time: "11:30 AM",
+    description: "Sharpen your instincts and dive deep into tangled codebases where every line is a potential suspect. Find The Bug 3.0 challenges participants to hunt down elusive errors across multiple rounds of escalating complexity, testing both speed and precision. If you live for that 'aha!' moment when the bug finally surfaces, this is your arena.",
+    format: [
+      { step: "Registration & team formation" },
+      { step: "Qualifier debugging round" },
+      { step: "Advanced multi-language round" },
+      { step: "Lightning finale & winners announced" },
+    ],
   },
   {
     slug: "boardroom-battles",
@@ -46,6 +53,13 @@ export const EVENTS = [
     tagline: "Business strategy simulation",
     day: "Day 2",
     time: "10:30 AM",
+    description: "Step into the high-stakes world of corporate decision-making where every move could make or break your empire. Boardroom Battles is a fast-paced business strategy simulation that challenges teams to outmaneuver rivals through sharp negotiation, resource allocation, and market dominance. Only the most calculated minds will rise to the top of the leaderboard when the dust settles.",
+    format: [
+      { step: "Market briefing & capital allocation" },
+      { step: "Strategic decision-making rounds" },
+      { step: "Boardroom negotiations & deal-making" },
+      { step: "Final evaluation & winners announced" },
+    ],
   },
   {
     slug: "novex",
@@ -53,6 +67,13 @@ export const EVENTS = [
     tagline: "Flagship pitch deck event",
     day: "Day 2",
     time: "03:30 PM",
+    description: "NoveX is the flagship pitch deck showdown where bold ideas meet sharp minds and sharper judges. Contestants craft and deliver high-stakes startup pitches, battling it out for recognition in front of a panel of seasoned entrepreneurs and industry experts. If you've got a vision worth funding, this is your stage to make it unforgettable.",
+    format: [
+      { step: "Pitch deck submission & screening" },
+      { step: "Live presentation to judges" },
+      { step: "Rapid-fire Q&A round" },
+      { step: "Scoring & winners announced" },
+    ],
   },
   {
     slug: "build-a-biz",
@@ -60,6 +81,13 @@ export const EVENTS = [
     tagline: "Startup building challenge",
     day: "Day 1",
     time: "02:00 PM",
+    description: "Build-a-Biz is the ultimate startup gauntlet where raw ideas collide with real-world pressure — teams race to conceptualize, validate, and pitch a business from the ground up in a single afternoon. Think fast, build smart, and convince a panel of seasoned entrepreneurs that your venture is the next big thing.",
+    format: [
+      { step: "Sector reveal & ideation sprint" },
+      { step: "Business model development" },
+      { step: "Pitch deck prep & rehearsal" },
+      { step: "Live pitch & judges' verdict" },
+    ],
   },
   {
     slug: "technostrophe",
@@ -67,6 +95,13 @@ export const EVENTS = [
     tagline: "Quiz competition",
     day: "Day 1",
     time: "09:30 PM",
+    description: "When the clock strikes 9:30, the arena lights up for Technostrophe — a high-voltage tech quiz that separates the truly wired from the merely curious. Brace yourself for rapid-fire rounds spanning cutting-edge technology, startup ecosystems, and digital culture that will push your knowledge to the breaking point. Only the sharpest minds will survive the storm.",
+    format: [
+      { step: "Registration & orientation" },
+      { step: "Preliminary buzzer rounds" },
+      { step: "Rapid-fire & visual rounds" },
+      { step: "Final showdown & champions crowned" },
+    ],
   },
   {
     slug: "e-mun",
@@ -74,6 +109,13 @@ export const EVENTS = [
     tagline: "Model United Nations",
     day: "Day 1 & Day 2",
     time: "09:30 AM",
+    description: "Step into the global arena at E-MUN, where diplomacy meets digital innovation in a high-stakes Model United Nations experience. Represent nations, negotiate alliances, and draft resolutions on the world's most pressing tech-policy issues — all under the pressure of the clock. Whether you're a seasoned delegate or a first-time diplomat, E-MUN challenges you to think globally and argue brilliantly.",
+    format: [
+      { step: "Country assignments & opening ceremony" },
+      { step: "Committee sessions & position papers" },
+      { step: "Caucuses & resolution drafting" },
+      { step: "Final vote & delegate awards" },
+    ],
   },
   {
     slug: "finance-for-all",
@@ -81,6 +123,13 @@ export const EVENTS = [
     tagline: "Finance talk show",
     day: "Day 1",
     time: "06:30 PM",
+    description: "Finance For All Talk Show 3.0 brings the world of money, markets, and strategy to life in an electrifying panel-style showdown where sharp minds debate real-world financial dilemmas. Expect unfiltered conversations on investment, entrepreneurship, and economic trends that cut through the jargon and speak directly to the next generation of business leaders. Whether you're a finance nerd or a curious newcomer, this talk show will leave you richer in knowledge and perspective.",
+    format: [
+      { step: "Market headlines & show kickoff" },
+      { step: "Expert panel debates" },
+      { step: "Live audience Q&A" },
+      { step: "Key takeaways & closing challenge" },
+    ],
   },
   {
     slug: "trimble",
@@ -88,6 +137,13 @@ export const EVENTS = [
     tagline: "Paper trading competition",
     day: "TBA",
     time: "TBA",
+    description: "Step into the high-stakes world of financial markets without risking a single rupee — Trimble is a paper trading competition that puts your investment instincts to the ultimate test. Compete against sharp minds as you analyze real-world market data, build portfolios, and chase maximum returns in a simulated trading environment. Whether you're a seasoned stock enthusiast or a curious newcomer, Trimble is where strategy meets opportunity.",
+    format: [
+      { step: "Virtual capital allocation & market access" },
+      { step: "Portfolio building & asset research" },
+      { step: "Live leaderboard & strategy refinement" },
+      { step: "Final evaluation & top traders rewarded" },
+    ],
   },
 ];
 

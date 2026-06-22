@@ -62,17 +62,13 @@ export function EventDetails() {
           <div>
             <h2 className="font-display text-3xl mb-4">The Brief</h2>
             <p className="text-muted-foreground">
-              {event.name} is one of five flagship tracks at E-Summit 2026.
-              Whether you're prototyping the next EV stack or pitching the
-              future of last-mile delivery, this is your starting grid. Expect
-              tight competition, world-class mentors and a stage that the entire
-              mobility ecosystem will be watching.
+              {event.description}
             </p>
           </div>
           <div>
             <h2 className="font-display text-3xl mb-4">Format</h2>
             <ul className="space-y-3 text-muted-foreground">
-              <li className="flex gap-3">
+              {/* <li className="flex gap-3">
                 <span className="text-primary font-mono">01</span> Open call &
                 screening
               </li>
@@ -87,7 +83,13 @@ export function EventDetails() {
               <li className="flex gap-3">
                 <span className="text-primary font-mono">04</span> Winners
                 announced at the Gala
-              </li>
+              </li> */}
+              {event.format.map((f, i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="text-primary font-mono">{String(i+1).padStart(2, "0")}</span>
+                  {f.step}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
