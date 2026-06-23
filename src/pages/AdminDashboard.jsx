@@ -41,7 +41,7 @@ export function AdminDashboard() {
   };
 
   return (
-    <div className="pt-32 pb-24 mx-auto max-w-[1600px] px-6 lg:px-12 text-left">
+    <div className="pt-32 pb-24 mx-auto max-w-400 px-6 lg:px-12 text-left">
       <div className="flex justify-between items-center mb-12 flex-wrap gap-4">
         <PageHeader
           tag="Pit Wall"

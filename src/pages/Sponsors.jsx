@@ -1,47 +1,95 @@
 import React from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { SPONSORS } from "@/lib/store";
 import { ComingSoonCard } from "@/components/ComingSoonCard";
-import { useSponsors } from "@/lib/store";
-import { SponsorLogo } from "@/components/SponsorLogo";
+import { SponsorCard } from "@/components/SponsorCard";
+import { TierSection, groupByTier } from "@/components/SponsorHelpers";
+
+/* Tier and track helpers moved to src/components/SponsorHelpers.jsx */
+
+function AmbientOrbs() {
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
+      <div className="absolute" style={{
+        top: "-20vh", right: "-15vw",
+        width: "60vw", height: "60vw", borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 65%)",
+        filter: "blur(40px)",
+      }} />
+      <div className="absolute" style={{
+        bottom: "-10vh", left: "-10vw",
+        width: "40vw", height: "40vw", borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(249,115,22,0.04) 0%, transparent 65%)",
+        filter: "blur(60px)",
+      }} />
+    </div>
+  );
+}
 
 export function Sponsors() {
   useDocumentTitle("Our Partners — E-Summit 2026");
-  const sponsors = useSponsors();
+  const grouped = groupByTier(SPONSORS);
 
   return (
-    <div className="pt-32 pb-24 mx-auto max-w-400 px-6 lg:px-12 text-left min-h-screen flex flex-col">
-      <div className="max-w-4xl">
-        <PageHeader tag="Pit Crew" title="Our Partners." />
-        <p className="mt-6 text-muted-foreground text-sm sm:text-base font-sans leading-relaxed max-w-2xl">
-          The engines fueling E-Summit 2026. Met at the intersection of venture,
-          engineering, and design, our partners play a crucial role in enabling
-          the next generation of builders.
-        </p>
-      </div>
+    <div className="relative pt-32 pb-24 mx-auto max-w-400 px-6 lg:px-12 min-h-screen flex flex-col">
+      <style>{`
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
 
-      {sponsors && sponsors.length > 0 ? (
-        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {sponsors.map((s) => (
-            <div
-              key={s.name}
-              className="group relative border border-border/20 bg-card/10 backdrop-blur-md p-8 rounded-3xl flex flex-col items-center justify-center text-center space-y-4 hover:bg-card/25 transition-all duration-500 hover:border-primary/45 hover:shadow-lg hover:shadow-primary/5"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-white/5 border border-border/10 flex items-center justify-center text-white/80 group-hover:text-primary transition-all duration-300">
-                <SponsorLogo type={s.logoType} />
-              </div>
-              <div>
-                <h3 className="font-display text-xl font-bold tracking-tight text-white group-hover:text-primary transition-colors duration-300">
-                  {s.name}
-                </h3>
-                <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground mt-1">
-                  {s.tier}
-                </p>
-              </div>
+      <AmbientOrbs />
+
+      <div className="relative z-10 max-w-5xl w-full mx-auto">
+        <div className="max-w-4xl">
+          <PageHeader tag="Pit Crew" title="Our Partners." />
+          <p
+            className="mt-6 text-sm sm:text-base leading-relaxed max-w-2xl"
+            style={{ color: "rgba(255,255,255,0.45)", fontFamily: "sans-serif" }}
+          >
+            The engines fueling E-Summit 2026. Met at the intersection of
+            venture, engineering, and design, our partners play a crucial role
+            in enabling the next generation of builders.
+          </p>
+        </div>
+
+        {/* Sponsor Cards */}
+        {/* <div
+          className="mt-14 flex gap-8 sm:gap-16 py-5 px-6 rounded-2xl"
+          style={{
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          {[
+            { value: SPONSORS.length, label: "Partners" },
+            { value: grouped.length, label: "Tiers" },
+            { value: "2026", label: "Season" },
+          ].map(({ value, label }) => (
+            <div key={label} className="flex flex-col">
+              <span
+                className="font-display font-black text-2xl sm:text-3xl leading-none"
+                style={{ color: "#F97316" }}
+              >
+                {value}
+              </span>
+              <span
+                className="font-mono text-xs uppercase tracking-widest mt-1"
+                style={{ color: "rgba(255,255,255,0.3)" }}
+              >
+                {label}
+              </span>
             </div>
           ))}
         </div>
-      ) : (
+
+        {grouped.map(([tier, sponsors], i) => (
+          <TierSection key={tier} tier={tier} sponsors={sponsors} isFirst={i === 0} />
+        ))} */}
+
+        {/* Coming Soon Card */}
         <div className="mt-16 flex-1 flex items-center justify-center">
           <ComingSoonCard
             title={
@@ -55,7 +103,33 @@ export function Sponsors() {
             ctaHref="mailto:outreach.iic@iitdh.ac.in?subject=Sponsorship%20Inquiry%20-%20ESummit%202026"
           />
         </div>
-      )}
+
+        <div
+          className="mt-24 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 py-8 px-8 rounded-2xl"
+          style={{
+            background: "rgba(249,115,22,0.05)",
+            border: "1px solid rgba(249,115,22,0.2)",
+          }}
+        >
+          <div>
+            <p className="font-display font-bold text-lg" style={{ color: "rgba(255,255,255,0.9)" }}>
+              Want to join the grid?
+            </p>
+            <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.4)", fontFamily: "sans-serif" }}>
+              Partnership slots are limited. Reach out early.
+            </p>
+          </div>
+          <a
+            href="mailto:outreach.iic@iitdh.ac.in?subject=Sponsorship%20Inquiry%20-%20ESummit%202026"
+            className="flex items-center gap-3 px-6 py-3 rounded-xl font-display font-bold text-sm tracking-wide transition-all duration-300"
+            style={{ background: "#F97316", color: "#0A0A0A", whiteSpace: "nowrap", textDecoration: "none" }}
+            onMouseEnter={e => { e.currentTarget.style.background = "#FB923C"; e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(249,115,22,0.4)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "#F97316"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+          >
+            Become a Partner →
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

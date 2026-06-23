@@ -50,7 +50,7 @@ export function Buy() {
 
   return (
     <div className="pt-32 pb-24 text-left min-h-screen flex flex-col">
-      <div className="mx-auto max-w-[1600px] px-6 lg:px-12 flex flex-col flex-1">
+      <div className="mx-auto max-w-400 px-6 lg:px-12 flex flex-col flex-1">
         <div className="flex justify-between items-end mb-12 flex-wrap gap-4">
           <PageHeader
             tag="Pit Lane"

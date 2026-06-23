@@ -6,7 +6,7 @@ export function SponsorLogo({ type }) {
     case "engine":
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
+          className="w-12 h-12 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ export function SponsorLogo({ type }) {
     case "gear":
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 group-hover:rotate-45 duration-700"
+          className="w-12 h-12 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300 group-hover:rotate-45"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@ export function SponsorLogo({ type }) {
     case "battery":
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
+          className="w-12 h-12 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +109,7 @@ export function SponsorLogo({ type }) {
     case "bolt":
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
+          className="w-12 h-12 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@ export function SponsorLogo({ type }) {
     case "shield":
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
+          className="w-12 h-12 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,7 @@ export function SponsorLogo({ type }) {
     case "apex":
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
+          className="w-12 h-12 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +165,7 @@ export function SponsorLogo({ type }) {
     case "wing":
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
+          className="w-12 h-12 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -182,7 +182,7 @@ export function SponsorLogo({ type }) {
     case "circle":
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
+          className="w-12 h-12 text-current opacity-70 group-hover:opacity-100 group-hover:text-primary transition-all duration-300"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +208,7 @@ export function SponsorLogo({ type }) {
     default:
       return (
         <svg
-          className="w-8 h-8 text-current opacity-70"
+          className="w-12 h-12 text-current opacity-70"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
