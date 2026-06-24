@@ -9,7 +9,11 @@ export function SponsorCard({ sponsor, config, index }) {
   return (
     <div
       className="relative flex-1 cursor-pointer"
-      style={{ minWidth: 0, animation: `fadeSlideIn 0.4s ease both`, animationDelay: `${index * 80}ms` }}
+      style={{
+        minWidth: 0,
+        animation: `fadeSlideIn 0.4s ease both`,
+        animationDelay: `${index * 80}ms`,
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -25,7 +29,11 @@ export function SponsorCard({ sponsor, config, index }) {
       <div
         className="relative h-full rounded-2xl overflow-hidden flex flex-col items-center justify-center text-center transition-all duration-500"
         style={{
-          padding: isLarge ? "2.5rem 2rem" : isMed ? "2rem 1.5rem" : "1.75rem 1rem",
+          padding: isLarge
+            ? "2.5rem 2rem"
+            : isMed
+              ? "2rem 1.5rem"
+              : "1.75rem 1rem",
           background: hovered
             ? `linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)`
             : "rgba(255,255,255,0.02)",
@@ -53,7 +61,9 @@ export function SponsorCard({ sponsor, config, index }) {
         <div
           className="flex items-center justify-center rounded-xl mb-5 transition-all duration-300 shrink-0 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20"
           style={{
-            background: hovered ? `${config.accent}18` : "rgba(255,255,255,0.04)",
+            background: hovered
+              ? `${config.accent}18`
+              : "rgba(255,255,255,0.04)",
             border: `1px solid ${hovered ? config.accent + "44" : "rgba(255,255,255,0.08)"}`,
             color: hovered ? config.accent : "rgba(255,255,255,0.6)",
           }}

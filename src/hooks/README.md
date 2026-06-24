@@ -10,4 +10,4 @@ This directory contains custom React hooks used across the E-Summit 2026 applica
 
 ## Pre-existing Files
 
-- **`use-mobile.jsx`**: Responsive layout hook to detect mobile viewport width dynamically.
+- **`useIsMobile.js`**: Responsive layout hook to detect mobile viewport width dynamically.
