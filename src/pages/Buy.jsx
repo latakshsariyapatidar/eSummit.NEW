@@ -1,13 +1,13 @@
 import { PageHeader } from "@/components/ui/PageHeader";
-import { Button } from "@/components/ui/Button";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { ComingSoonCard } from "@/components/ComingSoonCard";
-import { useState } from "react";
-import { PASSES } from "@/lib/store";
-import { PassCard } from "@/components/PassCard";
-import { CheckoutModal } from "@/components/CheckoutModal";
-import { OrderStatusModal } from "@/components/OrderStatusModal";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+// import { Button } from "@/components/ui/Button";
+// import { useState } from "react";
+// import { PASSES } from "@/lib/store";
+// import { PassCard } from "@/components/PassCard";
+// import { CheckoutModal } from "@/components/CheckoutModal";
+// import { OrderStatusModal } from "@/components/OrderStatusModal";
+// import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const MAX = 5;
 
@@ -15,37 +15,37 @@ export function Buy() {
   useDocumentTitle("Get Your Pass — E-Summit 2026");
 
   // ── Uncomment when passes go live ────────────────────────────────────────
-  const [cart, setCart] = useLocalStorage("es26_cart", []);
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [statusOpen, setStatusOpen] = useState(false);
+  // const [cart, setCart] = useLocalStorage("es26_cart", []);
+  // const [checkoutOpen, setCheckoutOpen] = useState(false);
+  // const [statusOpen, setStatusOpen] = useState(false);
   
-  const totalQty = cart.reduce((a, c) => a + c.qty, 0);
-  const total = cart.reduce((a, c) => {
-    const p = PASSES.find((pass) => pass.id === c.passId);
-    return a + (p?.price ?? 0) * c.qty;
-  }, 0);
+  // const totalQty = cart.reduce((a, c) => a + c.qty, 0);
+  // const total = cart.reduce((a, c) => {
+  //   const p = PASSES.find((pass) => pass.id === c.passId);
+  //   return a + (p?.price ?? 0) * c.qty;
+  // }, 0);
   
-  const update = (passId, delta) => {
-    setCart((prev) => {
-      const existing = prev.find((c) => c.passId === passId);
-      const currentTotal = prev.reduce((a, c) => a + c.qty, 0);
-      let next;
-      if (existing) {
-        const newQty = Math.max(0, existing.qty + delta);
-        if (delta > 0 && currentTotal >= MAX) return prev;
-        next =
-          newQty === 0
-            ? prev.filter((c) => c.passId !== passId)
-            : prev.map((c) =>
-                c.passId === passId ? { ...c, qty: newQty } : c,
-              );
-      } else {
-        if (delta <= 0 || currentTotal >= MAX) return prev;
-        next = [...prev, { passId, qty: 1 }];
-      }
-      return next;
-    });
-  };
+  // const update = (passId, delta) => {
+  //   setCart((prev) => {
+  //     const existing = prev.find((c) => c.passId === passId);
+  //     const currentTotal = prev.reduce((a, c) => a + c.qty, 0);
+  //     let next;
+  //     if (existing) {
+  //       const newQty = Math.max(0, existing.qty + delta);
+  //       if (delta > 0 && currentTotal >= MAX) return prev;
+  //       next =
+  //         newQty === 0
+  //           ? prev.filter((c) => c.passId !== passId)
+  //           : prev.map((c) =>
+  //               c.passId === passId ? { ...c, qty: newQty } : c,
+  //             );
+  //     } else {
+  //       if (delta <= 0 || currentTotal >= MAX) return prev;
+  //       next = [...prev, { passId, qty: 1 }];
+  //     }
+  //     return next;
+  //   });
+  // };
   // ─────────────────────────────────────────────────────────────────────────
 
   return (
@@ -66,7 +66,7 @@ export function Buy() {
         </div>
 
         {/* Coming Soon */}
-        {/* <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center">
           <ComingSoonCard
             title={
               <>
@@ -76,12 +76,12 @@ export function Buy() {
             }
             description="We're finalising the pass tiers and pricing for E-Summit 2026. Registration will open shortly — stay tuned for the announcement."
           />
-        </div> */}
+        </div>
 
         
         {/* ── PASS GRID (uncomment when passes go live) ────────────────────────── */}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {PASSES.map((p) => {
             const item = cart.find((c) => c.passId === p.id);
             const qty = item?.qty ?? 0;
@@ -117,7 +117,7 @@ export function Buy() {
               Checkout →
             </Button>
           </div>
-        )}
+        )} */}
 
         {/* ─────────────────────────────────────────────────────────────────────── */}
       </div>
