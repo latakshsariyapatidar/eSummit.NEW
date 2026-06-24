@@ -18,18 +18,65 @@ function getTierRank(tier) {
 }
 
 const TIER_CONFIG = {
-  "title sponsor": { label: "Title Sponsor", accent: "#F97316", size: "lg", glow: "rgba(249,115,22,0.35)" },
-  "co-powered by": { label: "Co-Powered By", accent: "#FB923C", size: "lg", glow: "rgba(251,146,60,0.28)" },
-  "ev tech partner": { label: "EV Tech Partner", accent: "#FDBA74", size: "md", glow: "rgba(253,186,116,0.2)" },
-  "mobility partner": { label: "Mobility Partner", accent: "#FDBA74", size: "md", glow: "rgba(253,186,116,0.2)" },
-  "automotive partner": { label: "Automotive Partner", accent: "#D4742A", size: "sm", glow: "rgba(212,116,42,0.18)" },
-  "racing partner": { label: "Racing Partner", accent: "#D4742A", size: "sm", glow: "rgba(212,116,42,0.18)" },
-  "innovation sponsor": { label: "Innovation Sponsor", accent: "#A35A1E", size: "sm", glow: "rgba(163,90,30,0.15)" },
-  "energy sponsor": { label: "Energy Sponsor", accent: "#A35A1E", size: "sm", glow: "rgba(163,90,30,0.15)" },
+  "title sponsor": {
+    label: "Title Sponsor",
+    accent: "#F97316",
+    size: "lg",
+    glow: "rgba(249,115,22,0.35)",
+  },
+  "co-powered by": {
+    label: "Co-Powered By",
+    accent: "#FB923C",
+    size: "lg",
+    glow: "rgba(251,146,60,0.28)",
+  },
+  "ev tech partner": {
+    label: "EV Tech Partner",
+    accent: "#FDBA74",
+    size: "md",
+    glow: "rgba(253,186,116,0.2)",
+  },
+  "mobility partner": {
+    label: "Mobility Partner",
+    accent: "#FDBA74",
+    size: "md",
+    glow: "rgba(253,186,116,0.2)",
+  },
+  "automotive partner": {
+    label: "Automotive Partner",
+    accent: "#D4742A",
+    size: "sm",
+    glow: "rgba(212,116,42,0.18)",
+  },
+  "racing partner": {
+    label: "Racing Partner",
+    accent: "#D4742A",
+    size: "sm",
+    glow: "rgba(212,116,42,0.18)",
+  },
+  "innovation sponsor": {
+    label: "Innovation Sponsor",
+    accent: "#A35A1E",
+    size: "sm",
+    glow: "rgba(163,90,30,0.15)",
+  },
+  "energy sponsor": {
+    label: "Energy Sponsor",
+    accent: "#A35A1E",
+    size: "sm",
+    glow: "rgba(163,90,30,0.15)",
+  },
 };
 
 export function getConfig(tier) {
-  return TIER_CONFIG[tier?.toLowerCase()] || { label: tier || "Partner", accent: "#F97316", size: "sm", glow: "rgba(249,115,22,0.15)" };
+  return (
+    TIER_CONFIG[tier?.toLowerCase()] || {
+      label: tier || "Partner",
+      accent: "#F97316",
+      size: "sm",
+      glow: "rgba(249,115,22,0.15)",
+    }
+  );
 }
 
 export function groupByTier(sponsors) {
@@ -39,7 +86,9 @@ export function groupByTier(sponsors) {
     if (!map[key]) map[key] = [];
     map[key].push(s);
   }
-  return Object.entries(map).sort(([a], [b]) => getTierRank(a) - getTierRank(b));
+  return Object.entries(map).sort(
+    ([a], [b]) => getTierRank(a) - getTierRank(b),
+  );
 }
 
 export function TrackLine({ accent }) {
@@ -85,8 +134,14 @@ export function TierSection({ tier, sponsors, isFirst }) {
             border: `1px solid ${config.accent}35`,
           }}
         >
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: config.accent }} />
-          <span className="font-mono text-xs uppercase tracking-widest font-medium" style={{ color: config.accent }}>
+          <div
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: config.accent }}
+          />
+          <span
+            className="font-mono text-xs uppercase tracking-widest font-medium"
+            style={{ color: config.accent }}
+          >
             {config.label}
           </span>
         </div>
