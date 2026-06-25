@@ -51,28 +51,71 @@ export function Footer() {
       "ten",
     ][EVENTS.length] || EVENTS.length;
 
+  const socialLinks = [
+    {
+      name: "IG",
+      url: "https://instagram.com",
+      icon: (
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      ),
+    },
+    {
+      name: "X",
+      url: "https://x.com",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      ),
+    },
+    {
+      name: "LI",
+      url: "https://linkedin.com",
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+          <rect x="2" y="9" width="4" height="12" />
+          <circle cx="4" cy="4" r="2" />
+        </svg>
+      ),
+    },
+  ];
+
   return (
     <footer
       ref={footerRef}
-      className="w-full reveal-footer select-none overflow-hidden bg-background"
+      className="w-full reveal-footer select-none overflow-hidden bg-background md:h-screen"
     >
-      {/* Outer wrapper to containerize the card and apply side margins */}
       <div
         ref={contentRef}
-        className="mx-4 mb-4 lg:mx-8 lg:mb-8 pt-12 pb-6 px-6 md:pt-16 md:pb-8 md:px-12 lg:pt-20 lg:pb-12 lg:px-16 flex flex-col justify-between shadow-2xl"
+        className="flex flex-col justify-between md:h-full px-4 sm:px-8 md:px-16 lg:px-30 pt-8 md:pt-24 lg:pt-40 pb-6"
       >
-        <div>
+        {/* ===== DESKTOP LAYOUT (md+) ===== */}
+        <div className="hidden md:block">
           {/* Brand Header */}
-          <div className="flex justify-center mb-15">
+          <div className="flex justify-center mb-24 lg:mb-40">
             <img
-              src="/full.png"
+              src="/esummit_text.svg"
               alt="E-Summit '26 Logo"
-              className="h-30 md:h-36 lg:h-48 object-contain select-none pointer-events-none"
+              className="md:h-36 lg:h-48 object-contain select-none pointer-events-none"
             />
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 text-left">
+          <div className="grid grid-cols-12 gap-6 text-left">
             {/* Description Card */}
             <div className="col-span-12 lg:col-span-6 flex flex-col justify-between p-6 md:p-8 rounded-4xl">
               <div>
@@ -100,7 +143,7 @@ export function Footer() {
             </div>
 
             {/* Venue Card */}
-            <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col justify-between p-6 md:p-8 rounded-4xl">
+            <div className="col-span-6 lg:col-span-3 flex flex-col justify-between p-6 md:p-8 rounded-4xl">
               <div>
                 <div className="flex items-center justify-between mb-8">
                   <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
@@ -137,7 +180,7 @@ export function Footer() {
             </div>
 
             {/* Contact Card */}
-            <div className="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col justify-between p-6 md:p-8 rounded-4xl">
+            <div className="col-span-6 lg:col-span-3 flex flex-col justify-between p-6 md:p-8 rounded-4xl">
               <div>
                 <div className="flex items-center justify-between mb-8">
                   <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
@@ -161,69 +204,99 @@ export function Footer() {
                       Hotline
                     </span>
                     <a
-                      href="tel:+919876543210"
+                      href="tel:+918910189085"
                       className="font-sans text-sm text-foreground hover:text-primary transition-colors mt-1 block"
                     >
-                      +91 98765 43210
+                      +91 89101 89085
                     </a>
                   </div>
                 </div>
               </div>
-              <div className="flex gap-2 mt-8">
-                {[
-                  {
-                    name: "IG",
-                    url: "https://instagram.com",
-                    icon: (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                        <circle cx="12" cy="12" r="4"/>
-                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                      </svg>
-                    ),
-                  },
-                  {
-                    name: "X",
-                    url: "https://x.com",
-                    icon: (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                      </svg>
-                    ),
-                  },
-                  {
-                    name: "LI",
-                    url: "https://linkedin.com",
-                    icon: (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                        <rect x="2" y="9" width="4" height="12"/>
-                        <circle cx="4" cy="4" r="2"/>
-                      </svg>
-                    ),
-                  },
-                  ].map((social) => (
+              <div className="flex gap-2 mt-8 justify-around">
+                {socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-2 border border-border/30 rounded-full flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300"
+                    className="w-fit px-2 py-2 border border-border/30 rounded-full flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300"
                   >
                     {social.icon}
                   </a>
-                  ))}
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Footer Bottom */}
-        <div className="mt-6 pt-8 border-t border-border/25 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left font-mono text-xs text-muted-foreground">
-          <span>© 2026 IIC, IIT Dharwad. All rights reserved.</span>
-          <div className="flex items-center gap-2">
-            <span>Built for speed.</span>
+        {/* ===== MOBILE LAYOUT (below md) ===== */}
+        <div className="md:hidden flex flex-col flex-1 justify-end h-fit">
+          {/* Row: Logo (left) + Venue/Contact stacked (right) */}
+          <div className="flex items-center gap-4">
+            {/* Logo */}
+            <div className="shrink-0 flex items-center justify-center">
+              <img
+                src="/logo.png"
+                alt="E-Summit '26 Logo"
+                className="h-16 w-16 object-contain select-none pointer-events-none"
+              />
+            </div>
+
+            {/* Venue + Contact stacked */}
+            <div className="flex-1 flex flex-col gap-3">
+              {/* Venue */}
+              <div className="px-4 py-3">
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-primary block mb-1">
+                  Venue
+                </span>
+                <span className="font-display text-sm font-semibold text-foreground block">
+                  IIT Dharwad
+                </span>
+                <span className="font-sans text-xs text-muted-foreground">
+                  Karnataka · March 6–8, 2026
+                </span>
+              </div>
+
+              {/* Contact */}
+              <div className="px-4 py-3">
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-primary block mb-1">
+                  Contact
+                </span>
+                <a
+                  href="mailto:outreach.iic@iitdh.ac.in"
+                  className="font-sans text-xs text-foreground block break-all"
+                >
+                  outreach.iic@iitdh.ac.in
+                </a>
+                <a
+                  href="tel:+918910189085"
+                  className="font-sans text-xs text-muted-foreground mt-0.5 block"
+                >
+                  +91 89101 89085
+                </a>
+              </div>
+            </div>
           </div>
+
+          {/* Social Media Links — full width */}
+          <div className="flex gap-2 mt-4 justify-around">
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-fit px-2.5 border rounded-full py-2.5 flex items-center justify-center text-muted-foreground"
+              >
+                {social.icon}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer Bottom */}
+        <div className="mt-4 md:mt-6 mb-0 md:mb-6 pt-4 md:pt-8 border-t border-border/25 flex flex-row justify-between items-center gap-4 text-center sm:text-left font-mono text-xs text-muted-foreground">
+          <span>© 2026 IIC, IIT Dharwad.</span>
         </div>
       </div>
     </footer>
