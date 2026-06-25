@@ -56,55 +56,6 @@ export function Sponsors() {
             ctaHref="mailto:outreach.iic@iitdh.ac.in?subject=Sponsorship%20Inquiry%20-%20ESummit%202026"
           />
         </div>
-
-        <div
-          className="mt-24 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 py-8 px-8 rounded-2xl"
-          style={{
-            background: "rgba(249,115,22,0.05)",
-            border: "1px solid rgba(249,115,22,0.2)",
-          }}
-        >
-          <div>
-            <p
-              className="font-display font-bold text-lg"
-              style={{ color: "rgba(255,255,255,0.9)" }}
-            >
-              Want to join the grid?
-            </p>
-            <p
-              className="text-sm mt-1"
-              style={{
-                color: "rgba(255,255,255,0.4)",
-                fontFamily: "sans-serif",
-              }}
-            >
-              Partnership slots are limited. Reach out early.
-            </p>
-          </div>
-          <a
-            href="mailto:outreach.iic@iitdh.ac.in?subject=Sponsorship%20Inquiry%20-%20ESummit%202026"
-            className="flex items-center gap-3 px-6 py-3 rounded-xl font-display font-bold text-sm tracking-wide transition-all duration-300"
-            style={{
-              background: "#F97316",
-              color: "#0A0A0A",
-              whiteSpace: "nowrap",
-              textDecoration: "none",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#FB923C";
-              e.currentTarget.style.transform = "translateY(-1px)";
-              e.currentTarget.style.boxShadow =
-                "0 8px 24px rgba(249,115,22,0.4)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#F97316";
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            Become a Partner →
-          </a>
-        </div>
       </div>
     </div>
   );
