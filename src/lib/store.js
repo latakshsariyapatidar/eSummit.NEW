@@ -406,7 +406,7 @@ export async function getAdminPasses(adminKey) {
   return res.json();
 }
 
-// ── REACT HOOKS FOR ASYNC DATA LOADING ─────────────────────────────────────
+// // ── REACT HOOKS FOR ASYNC DATA LOADING ─────────────────────────────────────
 
 export function useEvents() {
   const [data, setData] = useState(FALLBACK_EVENTS);
