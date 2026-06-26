@@ -47,7 +47,7 @@ export function FAQSection() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="text-sm text-muted-foreground/80 leading-relaxed max-w-2xl">
+                    <p className="text-base text-muted-foreground/80 leading-relaxed max-w-2xl">
                       {f.a}
                     </p>
                   </div>
