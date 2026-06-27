@@ -18,7 +18,7 @@ export function AdminAuth() {
       typeof window !== "undefined" &&
       sessionStorage.getItem("admin_token")
     ) {
-      navigate("/admin/dashboard");
+      navigate("/admin/malikKiKursi");
     }
   }, [navigate]);
 
@@ -28,7 +28,7 @@ export function AdminAuth() {
       const token = crypto.randomUUID();
       sessionStorage.setItem("admin_token", token);
       sessionStorage.setItem("admin_key", key);
-      navigate("/admin/dashboard");
+      navigate("/admin/malikKiKursi");
     } else {
       setErr("Invalid key. Try again.");
     }

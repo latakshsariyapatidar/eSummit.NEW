@@ -1,6 +1,6 @@
 import React from "react";
 import { TransitionLink as Link } from "../ui/TransitionLink";
-import track from "../../assets/track.jpg";
+import track from "/track.jpg";
 
 export function TrackCTA() {
   return (

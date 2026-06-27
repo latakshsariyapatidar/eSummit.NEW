@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TransitionLink as Link } from "../ui/TransitionLink";
-import heroCar from "../../assets/hero-car-new.png";
+import heroCar from "/hero-car-new.png";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 

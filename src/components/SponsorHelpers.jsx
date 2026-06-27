@@ -68,17 +68,6 @@ const TIER_CONFIG = {
   },
 };
 
-export function getConfig(tier) {
-  return (
-    TIER_CONFIG[tier?.toLowerCase()] || {
-      label: tier || "Partner",
-      accent: "#F97316",
-      size: "sm",
-      glow: "rgba(249,115,22,0.15)",
-    }
-  );
-}
-
 export function groupByTier(sponsors) {
   const map = {};
   for (const s of sponsors) {
@@ -88,27 +77,6 @@ export function groupByTier(sponsors) {
   }
   return Object.entries(map).sort(
     ([a], [b]) => getTierRank(a) - getTierRank(b),
-  );
-}
-
-export function TrackLine({ accent }) {
-  return (
-    <div className="relative w-full h-px my-0 overflow-hidden">
-      <div className="absolute inset-0" style={{ background: `${accent}22` }} />
-      <div
-        className="absolute top-0 left-0 h-full w-24"
-        style={{
-          background: `#F97316`,
-          animation: "slide-line 3s linear infinite",
-        }}
-      />
-      <style>{`
-        @keyframes slide-line {
-          0% { transform: translateX(-100px); }
-          100% { transform: translateX(calc(100vw + 100px)); }
-        }
-      `}</style>
-    </div>
   );
 }
 

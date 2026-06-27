@@ -97,29 +97,30 @@ export function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="w-full reveal-footer select-none overflow-hidden bg-background md:h-screen"
+      className="w-full reveal-footer select-none overflow-hidden bg-background md:min-h-screen"
     >
       <div
         ref={contentRef}
-        className="flex flex-col justify-between md:h-full px-4 sm:px-8 md:px-16 lg:px-30 pt-8 md:pt-24 lg:pt-40 pb-6"
+        className="flex flex-col justify-start h-full px-4 sm:px-8 md:px-16 lg:px-30 pt-8 md:pt-16 lg:pt-24 pb-6"
       >
         {/* ===== DESKTOP LAYOUT (md+) ===== */}
         <div className="hidden md:block">
           {/* Brand Header */}
-          <div className="flex justify-center mb-24 lg:mb-40">
+          <div className="flex justify-center mb-16 lg:mb-24">
+            {" "}
             <img
               src="/esummit_text.svg"
               alt="E-Summit '26 Logo"
-              className="md:h-36 lg:h-48 object-contain select-none pointer-events-none"
+              className="md:h-28 lg:h-40 object-contain select-none pointer-events-none"
             />
           </div>
 
           {/* Cards Grid */}
           <div className="grid grid-cols-12 gap-6 text-left">
             {/* Description Card */}
-            <div className="col-span-12 lg:col-span-6 flex flex-col justify-between p-6 md:p-8 rounded-4xl">
+            <div className="col-span-12 lg:col-span-6 flex flex-col justify-start p-6 md:p-8 rounded-4xl">
               <div>
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-start mb-8">
                   <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
                     / 01 — Mission
                   </span>
@@ -131,7 +132,7 @@ export function Footer() {
                   through {eventCountWord} flagship events.
                 </p>
               </div>
-              <div className="mt-8 pt-6 border-t border-border/10 flex justify-between items-center">
+              <div className="mt-8 pt-6 border-t border-border/10 flex justify-start items-center">
                 <Link
                   to="/events"
                   className="text-primary font-mono text-xs hover:underline flex items-center gap-1"
@@ -143,9 +144,9 @@ export function Footer() {
             </div>
 
             {/* Venue Card */}
-            <div className="col-span-6 lg:col-span-3 flex flex-col justify-between p-6 md:p-8 rounded-4xl">
+            <div className="col-span-6 lg:col-span-3 flex flex-col justify-start p-6 md:p-8 rounded-4xl">
               <div>
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-start mb-8">
                   <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
                     / 02 — Venue
                   </span>
@@ -180,9 +181,9 @@ export function Footer() {
             </div>
 
             {/* Contact Card */}
-            <div className="col-span-6 lg:col-span-3 flex flex-col justify-between p-6 md:p-8 rounded-4xl">
+            <div className="col-span-6 lg:col-span-3 flex flex-col justify-start p-6 md:p-8 rounded-4xl">
               <div>
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-start mb-8">
                   <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
                     / 03 — Contact Us
                   </span>
@@ -295,7 +296,7 @@ export function Footer() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-4 md:mt-6 mb-0 md:mb-6 pt-4 md:pt-8 border-t border-border/25 flex flex-row justify-between items-center gap-4 text-center sm:text-left font-mono text-xs text-muted-foreground">
+        <div className="mt-4 md:mt-6 mb-0 md:mb-6 pt-4 md:pt-8 border-t border-border/25 flex flex-row justify-start items-center gap-4 text-center sm:text-left font-mono text-xs text-muted-foreground">
           <span>© 2026 IIC, IIT Dharwad.</span>
         </div>
       </div>

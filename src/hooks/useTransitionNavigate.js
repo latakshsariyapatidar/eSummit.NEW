@@ -3,10 +3,10 @@ import gsap from "gsap";
 
 // Each direction defines where the overlay hides offscreen
 const DIRECTIONS = [
-  { xPercent: 0, yPercent: 100 },   // bottom
-  { xPercent: 0, yPercent: -100 },  // top
-  { xPercent: 100, yPercent: 0 },   // right
-  { xPercent: -100, yPercent: 0 },  // left
+  { xPercent: 0, yPercent: 100 }, // bottom
+  { xPercent: 0, yPercent: -100 }, // top
+  { xPercent: 100, yPercent: 0 }, // right
+  { xPercent: -100, yPercent: 0 }, // left
 ];
 
 const randomDir = (exclude) => {
@@ -32,7 +32,10 @@ export const useTransitionNavigate = () => {
     const exitTo = randomDir(enterFrom);
 
     // Position overlay at its entry edge
-    gsap.set(overlay, { xPercent: enterFrom.xPercent, yPercent: enterFrom.yPercent });
+    gsap.set(overlay, {
+      xPercent: enterFrom.xPercent,
+      yPercent: enterFrom.yPercent,
+    });
 
     const tl = gsap.timeline();
 

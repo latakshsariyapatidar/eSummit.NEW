@@ -1,7 +1,7 @@
 import React from "react";
 import { SectionHeader } from "../ui/SectionHeader";
 import { useEvents } from "@/lib/store";
-import dial from "../../assets/dial.jpg";
+import dial from "/dial.jpg";
 
 export function AboutSection() {
   const events = useEvents();

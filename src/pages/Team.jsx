@@ -43,7 +43,7 @@ export function Team() {
         {functionalLeads.length > 0 && (
           <div>
             <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-primary border-b border-border/20 pb-3 mb-8">
-              ◉ Functional Leads / Core Committee
+              Functional Leads / Core Committee
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {functionalLeads.map((team) => (
@@ -56,7 +56,7 @@ export function Team() {
         {eventDirectors.length > 0 && (
           <div>
             <h2 className="font-mono text-xs uppercase tracking-[0.25em] text-primary border-b border-border/20 pb-3 mb-8">
-              ◉ Event Directors & Crew
+              Event Directors & Crew
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {eventDirectors.map((team) => (

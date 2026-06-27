@@ -163,6 +163,20 @@
     }
   }
 
+  @keyframes pulseFade {
+    0%,
+    100% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 0.9;
+    }
+  }
+
+  .skeleton-pulse {
+    animation: pulseFade 1.8s ease-in-out infinite;
+  }
+
   .pulse-signal {
     animation: pulse-signal 1.5s ease-in-out infinite;
   }
