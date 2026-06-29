@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const API_BASE = "http://localhost:3000";
+export const API_BASE = "http://localhost:3000/api";
 
 export const FALLBACK_PASSES = [
   {
@@ -56,13 +56,6 @@ export const FALLBACK_PASSES = [
     duration: "8 AM, 23rd Aug 2025 to 10 AM, 25th Aug 2025",
     extra: "Extra stay beyond schedule charged separately"
   }
-];
-
-export const FALLBACK_MERCH = [
-  { id: "m1", name: "Team Jacket", price: 1299, img: "jacket" },
-  { id: "m2", name: "Pit Crew Cap", price: 399, img: "cap" },
-  { id: "m3", name: "Racing Tee", price: 599, img: "tee" },
-  { id: "m4", name: "Driver Gloves", price: 799, img: "gloves" },
 ];
 
 export const FALLBACK_EVENTS = [
@@ -295,7 +288,6 @@ export const FALLBACK_TARGET_DATE = new Date("2026-08-20T09:00:00").getTime();
 
 // Maintain legacy exported constants so no existing files break
 export const PASSES = FALLBACK_PASSES;
-export const MERCH = FALLBACK_MERCH;
 export const EVENTS = FALLBACK_EVENTS;
 export const SPONSORS = FALLBACK_SPONSORS;
 export const SCHEDULE = FALLBACK_SCHEDULE;
@@ -331,13 +323,6 @@ export async function fetchSchedule() {
   if (!res.ok) throw new Error("Failed to fetch schedule");
   const json = await res.json();
   return json.status === "success" ? json.data : FALLBACK_SCHEDULE;
-}
-
-export async function fetchMerch() {
-  const res = await fetch(`${API_BASE}/content/merch`);
-  if (!res.ok) throw new Error("Failed to fetch merch");
-  const json = await res.json();
-  return json.status === "success" ? json.data : FALLBACK_MERCH;
 }
 
 export async function fetchTeams() {
@@ -435,7 +420,7 @@ export async function getAdminPasses(adminKey) {
   return res.json();
 }
 
-// ── REACT HOOKS FOR ASYNC DATA LOADING ─────────────────────────────────────
+// // ── REACT HOOKS FOR ASYNC DATA LOADING ─────────────────────────────────────
 
 export function useEvents() {
   const [data, setData] = useState(FALLBACK_EVENTS);
@@ -484,19 +469,6 @@ export function useSchedule() {
   }, []);
 
   console.log("Fetched the schedule");
-
-  return data;
-}
-
-export function useMerch() {
-  const [data, setData] = useState(FALLBACK_MERCH);
-  useEffect(() => {
-    fetchMerch()
-      .then(setData)
-      .catch((err) => console.error("Error fetching merch:", err));
-  }, []);
-
-  console.log("Fetched the merch");
 
   return data;
 }

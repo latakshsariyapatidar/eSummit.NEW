@@ -10,7 +10,7 @@ export function Events() {
   const menuItems = events.map((e) => ({
     text: e.name,
     link: `/event/${e.slug}`,
-    image: `/${e.slug}.png`,
+    image: `/events_assets/${e.slug}.png`,
     tagline: e.tagline,
     day: e.day,
     time: e.time,

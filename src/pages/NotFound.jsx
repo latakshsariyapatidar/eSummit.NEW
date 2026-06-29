@@ -7,13 +7,13 @@ export function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 text-center">
       <div className="max-w-md">
-        <div className="font-display text-[10rem] leading-none text-primary">
-          404
+        <div className="flex items-center justify-center w-full p-10">
+          <img src="/404.svg" alt="" />
         </div>
-        <h2 className="font-display text-2xl">Off the racing line</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          This page took a wrong turn.
-        </p>
+        <h2 className="capitalize text-zinc-700">
+          the developer was lazy, but will make sure to include this path next
+          year, if I am still in charge of web team XD
+        </h2>
         <Link
           to="/"
           className="inline-block mt-6 px-6 py-3 bg-primary text-primary-foreground font-mono text-xs uppercase tracking-widest font-semibold"

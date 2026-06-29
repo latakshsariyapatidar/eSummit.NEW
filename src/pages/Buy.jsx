@@ -122,7 +122,6 @@ export function Buy() {
         {/* ─────────────────────────────────────────────────────────────────────── */}
       </div>
 
-      {/*
       {checkoutOpen && (
         <CheckoutModal
           cart={cart}
@@ -135,7 +134,6 @@ export function Buy() {
         />
       )}
       {statusOpen && <OrderStatusModal onClose={() => setStatusOpen(false)} />}
-      */}
     </div>
   );
 }

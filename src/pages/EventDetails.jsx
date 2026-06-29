@@ -55,7 +55,7 @@ export function EventDetails() {
             <h1 className="font-display text-5xl sm:text-7xl lg:text-9xl leading-[0.85]">
               {event.name}
             </h1>
-            <p className="mt-6 text-xl md:text-2xl text-muted-foreground max-w-2xl">
+            <p className="mt-6 text-sm md:text-md text-muted-foreground max-w-2xl">
               {event.tagline}
             </p>
           </div>

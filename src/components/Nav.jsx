@@ -11,7 +11,6 @@ const NAV = [
   { to: "/events", label: "Events" },
   { to: "/sponsors", label: "Sponsors" },
   { to: "/team", label: "Team" },
-  { to: "/buy", label: "Passes" },
 ];
 
 export function Nav() {

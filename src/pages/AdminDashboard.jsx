@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { toast } from "sonner";
 
 export function AdminDashboard() {
   const navigate = useTransitionNavigate();
@@ -195,7 +196,7 @@ function ScanPanel() {
   const mark = () => {
     if (!input.trim()) return;
     if (scanned.includes(input)) {
-      alert("Duplicate — already checked in.");
+      toast.error("Duplicate — already checked in.");
       return;
     }
     setScanned([input, ...scanned]);
