@@ -122,7 +122,7 @@ export function Buy() {
         {/* ─────────────────────────────────────────────────────────────────────── */}
       </div>
 
-      {checkoutOpen && (
+      {/* {checkoutOpen && (
         <CheckoutModal
           cart={cart}
           total={total}
@@ -133,7 +133,7 @@ export function Buy() {
           }}
         />
       )}
-      {statusOpen && <OrderStatusModal onClose={() => setStatusOpen(false)} />}
+      {statusOpen && <OrderStatusModal onClose={() => setStatusOpen(false)} />} */}
     </div>
   );
 }

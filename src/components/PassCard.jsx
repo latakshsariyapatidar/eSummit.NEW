@@ -215,13 +215,7 @@ export function PassCard({
               <span>STAY PROVISIONS</span>
             </div>
 
-            <svg className="w-full h-1.5 opacity-20" viewBox="0 0 100 4" preserveAspectRatio="none">
-              <pattern id="checkers-stub-check" width="6" height="4" patternUnits="userSpaceOnUse">
-                <rect width="3" height="2" fill="currentColor" />
-                <rect x="3" y="2" width="3" height="2" fill="currentColor" />
-              </pattern>
-              <rect width="100%" height="100%" fill="url(#checkers-stub-check)" className="text-foreground" />
-            </svg>
+            <div className="h-px w-full bg-white/10" />
 
             <div className="space-y-1 font-mono text-[11px] leading-relaxed text-muted-foreground">
               <div>
