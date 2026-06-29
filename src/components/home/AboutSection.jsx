@@ -54,7 +54,7 @@ export function AboutSection() {
           {[
             { n: "2", l: "Days" },
             { n: `${events.length}`, l: "Flagship Events" },
-            { n: "500+", l: "Registrations" },
+            { n: "300+", l: "Registrations" },
           ].map((s) => (
             <div key={s.l} className="flex flex-col">
               <div className="font-display text-3xl md:text-4xl font-semibold tracking-tight">

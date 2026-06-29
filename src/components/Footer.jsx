@@ -97,11 +97,11 @@ export function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="w-full reveal-footer select-none overflow-hidden bg-background md:min-h-screen"
+      className="w-full reveal-footer select-none overflow-hidden bg-background"
     >
       <div
         ref={contentRef}
-        className="flex flex-col justify-start h-full px-4 sm:px-8 md:px-16 lg:px-30 pt-8 md:pt-16 lg:pt-24 pb-6"
+        className="flex flex-col justify-between h-full px-4 sm:px-8 md:px-16 lg:px-30 pt-8 md:pt-16 lg:pt-24 pb-6"
       >
         {/* ===== DESKTOP LAYOUT (md+) ===== */}
         <div className="hidden md:block">
