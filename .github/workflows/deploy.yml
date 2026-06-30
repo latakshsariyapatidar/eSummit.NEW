@@ -8,22 +8,28 @@ jobs:
   deploy:
     name: Build & Deploy to VPS
     runs-on: self-hosted
-    defaults:
-      run:
-        shell: bash -l {0}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Verify Node
-        run: echo "Node: $(node -v) | NPM: $(npm -v)"
+      - name: Load NVM + verify Node
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          echo "Node: $(node -v) | NPM: $(npm -v)"
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          npm ci
 
       - name: Build
-        run: npm run build
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          npm run build
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
