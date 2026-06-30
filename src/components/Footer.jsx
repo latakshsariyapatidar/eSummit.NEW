@@ -109,7 +109,7 @@ export function Footer() {
           <div className="flex justify-center mb-16 lg:mb-24">
             {" "}
             <img
-              src="/esummit_text.svg"
+              src={`${import.meta.env.BASE_URL}esummit_text.svg`}
               alt="E-Summit '26 Logo"
               className="md:h-28 lg:h-40 object-contain select-none pointer-events-none"
             />
@@ -237,7 +237,7 @@ export function Footer() {
             {/* Logo */}
             <div className="shrink-0 flex items-center justify-center">
               <img
-                src="/logo.png"
+                src={`${import.meta.env.BASE_URL}logo.png`}
                 alt="E-Summit '26 Logo"
                 className="h-16 w-16 object-contain select-none pointer-events-none"
               />

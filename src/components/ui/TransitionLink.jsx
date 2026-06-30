@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHref } from "react-router-dom";
 import { useTransitionNavigate } from "../../hooks/useTransitionNavigate";
 
 export const TransitionLink = ({
@@ -11,6 +11,7 @@ export const TransitionLink = ({
 }) => {
   const navigate = useTransitionNavigate();
   const location = useLocation();
+  const href = useHref(to);
   const isActive = location.pathname === to;
 
   const handleClick = (e) => {
@@ -23,7 +24,7 @@ export const TransitionLink = ({
     typeof className === "function" ? className({ isActive }) : className;
 
   return (
-    <a href={to} onClick={handleClick} className={finalClassName} {...props}>
+    <a href={href} onClick={handleClick} className={finalClassName} {...props}>
       {children}
     </a>
   );

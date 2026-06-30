@@ -66,7 +66,7 @@ const NotFound = lazy(() =>
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/esummit">
       <PageTransitionOverlay />
       <Layout>
         <Suspense fallback={<Loading />}>
