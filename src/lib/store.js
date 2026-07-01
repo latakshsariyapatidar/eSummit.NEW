@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const API_BASE = "https://iic.iitdh.ac.in/esummit/api";
+export const API_BASE = "https://iic.iitdh.ac.in/esummit/api/api";
 
 export const FALLBACK_PASSES = [
   {
