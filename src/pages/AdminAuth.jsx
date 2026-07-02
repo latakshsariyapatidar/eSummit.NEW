@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:6996/api";
+const API_BASE =
+  import.meta.env.VITE_API_BASE || "https://iic.iitdh.ac.in/esummit/api/api";
 
 export function AdminAuth() {
   const [key, setKey] = useState("");
