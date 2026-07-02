@@ -302,8 +302,3 @@ html.lenis body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
 }
-
-
-*{
-  cursor: none;
-}

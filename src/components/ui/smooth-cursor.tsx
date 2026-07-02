@@ -101,6 +101,12 @@ export function SmoothCursor({
   const accumulatedRotation = useRef(0);
   const [isEnabled, setIsEnabled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoaderDone, setIsLoaderDone] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("loader-done") === "true";
+    }
+    return false;
+  });
 
   const cursorX = useSpring(0, springConfig);
   const cursorY = useSpring(0, springConfig);
@@ -136,7 +142,21 @@ export function SmoothCursor({
   }, []);
 
   useEffect(() => {
-    if (!isEnabled) {
+    if (isLoaderDone) return;
+
+    const interval = setInterval(() => {
+      if (sessionStorage.getItem("loader-done") === "true") {
+        setIsLoaderDone(true);
+        clearInterval(interval);
+      }
+    }, 200);
+
+    return () => clearInterval(interval);
+  }, [isLoaderDone]);
+
+  useEffect(() => {
+    if (!isEnabled || !isLoaderDone) {
+      document.body.style.cursor = "auto";
       return;
     }
 
@@ -225,9 +245,9 @@ export function SmoothCursor({
         clearTimeout(timeout);
       }
     };
-  }, [cursorX, cursorY, rotation, scale, isEnabled]);
+  }, [cursorX, cursorY, rotation, scale, isEnabled, isLoaderDone]);
 
-  if (!isEnabled) {
+  if (!isEnabled || !isLoaderDone) {
     return null;
   }
 
