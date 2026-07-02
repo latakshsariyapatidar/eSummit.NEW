@@ -4,60 +4,54 @@ export const API_BASE = "https://iic.iitdh.ac.in/esummit/api/api";
 
 export const FALLBACK_PASSES = [
   {
-    id: "sprint",
-    name: "Sprint Pass",
+    id: "visitor-1day",
+    name: "1 Day Visitor Pass",
     price: 100,
-    perks: [
-      "One-day access to all workshops",
-      "Access to all talks and speaker panels",
-      "Entry to product stalls and open events",
-    ],
+    perks: ["One day access to all workshops, talks, stalls, events, etc."],
     tag: "SINGLE DAY",
-    badge: "Fast Track",
+    soldOut: false,
+    imageUrl: "public/pass1.png",
   },
   {
-    id: "grand-prix",
-    name: "Grand Prix Pass",
+    id: "visitor-2days",
+    name: "2 Days Visitor Pass",
     price: 200,
     perks: [
-      "Full access to all E-Summit’25 events for both days",
-      "Access to all workshops & speaker panels",
-      "Entry to product stalls and open events",
+      "Complete access to all the events of E-Summit'26 for both the days",
     ],
     tag: "2 DAYS ACCESS",
-    badge: "Full Throttle",
+    soldOut: false,
   },
   {
-    id: "pitstop-cabin",
-    name: "Pitstop Cabin",
+    id: "stay-basic",
+    name: "Stay Pass - Basic",
     price: 699,
     perks: [
-      "Complimentary stay",
-      "3 meals per day (Breakfast, Lunch, Dinner)",
+      "Complementary stay and food (3x meals a day: Breakfast, Lunch, Dinner)",
       "Starter kit",
     ],
     tag: "STAY PASS - BASIC",
-    badge: "Refuel & Recharge",
-    duration: "8 AM, 23rd Aug 2025 to 10 AM, 25th Aug 2025",
-    extra: "Extra stay beyond schedule charged separately",
+    duration: "8 AM, 23rd August 2026 to 10 AM, 25th August 2026",
+    extra:
+      "Anything beyond or before that would be charged extra as applicable.",
+    soldOut: false,
   },
   {
-    id: "podium-suite",
-    name: "Podium Suite",
+    id: "stay-premium",
+    name: "Stay Pass - Premium",
     price: 999,
     perks: [
-      "Complimentary stay",
-      "3 meals per day (Breakfast, Lunch, Dinner)",
+      "Complementary stay and food (3x meals a day: Breakfast, Lunch, Dinner)",
       "Starter kit",
       "Exclusive E-Summit swags",
     ],
     tag: "STAY PASS - PREMIUM",
-    badge: "Championship Tier",
-    duration: "8 AM, 23rd Aug 2025 to 10 AM, 25th Aug 2025",
-    extra: "Extra stay beyond schedule charged separately",
+    duration: "8 AM, 23rd August 2026 to 10 AM, 25th August 2026",
+    extra:
+      "Anything beyond or before that would be charged extra as applicable.",
+    soldOut: false,
   },
 ];
-
 export const FALLBACK_EVENTS = [
   {
     slug: "innovex",

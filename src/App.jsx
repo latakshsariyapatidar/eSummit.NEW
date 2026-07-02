@@ -64,6 +64,12 @@ const NotFound = lazy(() =>
   })),
 );
 
+const AdminLayout = lazy(() =>
+  import("./pages/AdminLayout").then((module) => ({
+    default: module.AdminLayout,
+  })),
+);
+
 export function App() {
   return (
     <BrowserRouter basename="/esummit">
@@ -78,8 +84,12 @@ export function App() {
             <Route path="/sponsors" element={<Sponsors />} />
             <Route path="/team" element={<Team />} />
             <Route path="/event/:slug" element={<EventDetails />} />
-            <Route path="/admin" element={<AdminAuth />} />
-            <Route path="/admin/malikKiKursi" element={<AdminDashboard />} />
+
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminAuth />} />
+              <Route path="malikKiKursi" element={<AdminDashboard />} />
+            </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

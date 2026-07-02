@@ -1,36 +1,90 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTransitionNavigate } from "../hooks/useTransitionNavigate";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-const ADMIN_KEY = import.meta.env.VITE_ADMIN_KEY;
+
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:6996/api";
 
 export function AdminAuth() {
   const [key, setKey] = useState("");
   const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useTransitionNavigate();
 
   useDocumentTitle("Admin Login — E-Summit 2026");
 
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      sessionStorage.getItem("admin_token")
-    ) {
-      navigate("/admin/malikKiKursi");
-    }
-  }, [navigate]);
-
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    if (key === ADMIN_KEY) {
-      const token = crypto.randomUUID();
-      sessionStorage.setItem("admin_token", token);
+    setErr("");
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${API_BASE}/auth/verify-key`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key }),
+      });
+
+      if (response.status === 400) {
+        setErr("Key field is missing.");
+        setLoading(false);
+        return;
+      }
+
+      if (response.status === 401) {
+        setErr("Invalid key. Try again.");
+        setLoading(false);
+        return;
+      }
+
+      if (response.status === 429) {
+        setErr("Too many attempts. Please try again later.");
+        setLoading(false);
+        return;
+      }
+
+      if (!response.ok) {
+        setErr("Authentication failed. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      const result = await response.json();
+      const { token, role } = result.data;
+
+      console.log("✅ Login successful:", {
+        token: token?.substring(0, 20) + "...",
+        role,
+      });
+
+      // Store auth data FIRST
+      sessionStorage.setItem("auth_token", token);
+      sessionStorage.setItem("auth_role", role);
       sessionStorage.setItem("admin_key", key);
-      navigate("/admin/malikKiKursi");
-    } else {
-      setErr("Invalid key. Try again.");
+
+      console.log("📦 Stored in sessionStorage:", {
+        token: sessionStorage.getItem("auth_token")?.substring(0, 20) + "...",
+        role: sessionStorage.getItem("auth_role"),
+      });
+
+      // Navigate based on role using transition
+      if (role === "admin") {
+        console.log("🚀 Navigating to admin dashboard...");
+        navigate("malikKiKursi");
+      } else if (role === "volunteer") {
+        navigate("/volunteer/dashboard");
+      } else {
+        setErr("Unknown role. Contact support.");
+      }
+    } catch (error) {
+      console.error("Auth error:", error);
+      setErr("Network error. Please check your connection.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,10 +104,16 @@ export function AdminAuth() {
             onChange={(e) => setKey(e.target.value)}
             placeholder="Admin key"
             className="px-4 py-4"
+            disabled={loading}
           />
           {err && <div className="text-signal font-mono text-xs">{err}</div>}
-          <Button type="submit" variant="primary" className="w-full py-4">
-            Authenticate →
+          <Button
+            type="submit"
+            variant="primary"
+            className="w-full py-4"
+            disabled={loading}
+          >
+            {loading ? "Authenticating..." : "Authenticate →"}
           </Button>
         </form>
       </div>

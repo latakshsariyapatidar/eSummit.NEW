@@ -33,7 +33,11 @@ export function SponsorCard({ sponsor, config, position }) {
       <div
         className="relative h-full rounded-2xl overflow-hidden flex flex-col items-center justify-center text-center transition-all duration-500"
         style={{
-          padding: isLarge ? "2.5rem 2rem" : isMed ? "2rem 1.5rem" : "1.75rem 1rem",
+          padding: isLarge
+            ? "2.5rem 2rem"
+            : isMed
+              ? "2rem 1.5rem"
+              : "1.75rem 1rem",
           background: hovered
             ? `linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%)`
             : "rgba(255,255,255,0.01)",
@@ -44,15 +48,17 @@ export function SponsorCard({ sponsor, config, position }) {
         }}
       >
         {/* Floating Position Badge */}
-        <div 
+        <div
           className="absolute top-3 right-3 font-mono text-[10px] font-black transition-all duration-300"
           style={{
             color: hovered ? config.accent : "rgba(255,255,255,0.18)",
-            background: hovered ? `${config.accent}12` : "rgba(255,255,255,0.02)",
+            background: hovered
+              ? `${config.accent}12`
+              : "rgba(255,255,255,0.02)",
             border: `1px solid ${hovered ? config.accent + "25" : "rgba(255,255,255,0.04)"}`,
             padding: "2px 6px",
             borderRadius: "4px",
-            letterSpacing: "0.05em"
+            letterSpacing: "0.05em",
           }}
         >
           P{position < 10 ? `0${position}` : position}
@@ -84,7 +90,9 @@ export function SponsorCard({ sponsor, config, position }) {
           style={{
             width: isLarge ? "4.5rem" : isMed ? "3.75rem" : "3rem",
             height: isLarge ? "4.5rem" : isMed ? "3.75rem" : "3rem",
-            background: hovered ? `${config.accent}12` : "rgba(255,255,255,0.02)",
+            background: hovered
+              ? `${config.accent}12`
+              : "rgba(255,255,255,0.02)",
             border: `1px solid ${hovered ? config.accent + "35" : "rgba(255,255,255,0.05)"}`,
             color: hovered ? config.accent : "rgba(255,255,255,0.5)",
           }}
@@ -110,14 +118,14 @@ export function SponsorCard({ sponsor, config, position }) {
           style={{
             fontSize: "0.55rem",
             color: hovered ? `${config.accent}aa` : "rgba(255,255,255,0.25)",
-            letterSpacing: "0.15em"
+            letterSpacing: "0.15em",
           }}
         >
           {sponsor.tier}
         </p>
 
         {/* Technical Telemetry Readout */}
-        <div 
+        <div
           className="w-full font-mono text-[9px] uppercase tracking-wider text-center select-none overflow-hidden transition-all duration-500"
           style={{
             height: hovered ? "22px" : "0px",
@@ -126,7 +134,7 @@ export function SponsorCard({ sponsor, config, position }) {
             borderTop: `1px dashed ${config.accent}20`,
             marginTop: hovered ? "12px" : "0px",
             paddingTop: hovered ? "8px" : "0px",
-            letterSpacing: "0.05em"
+            letterSpacing: "0.05em",
           }}
         >
           {config.telemetry}

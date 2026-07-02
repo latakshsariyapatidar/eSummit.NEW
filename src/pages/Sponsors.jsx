@@ -6,26 +6,26 @@
 import { ComingSoonCard } from "@/components/ComingSoonCard";
 
 export function Sponsors() {
-//   useDocumentTitle("Our Partners — E-Summit 2026");
-  
-//   const TIER_ORDER_LOWER = [
-//     "title sponsor",
-//     "co-powered by",
-//     "ev tech partner",
-//     "mobility partner",
-//     "automotive partner",
-//     "racing partner",
-//     "innovation sponsor",
-//     "energy sponsor",
-//   ];
-//   const getTierRank = (t) => {
-//     const idx = TIER_ORDER_LOWER.indexOf(t?.toLowerCase());
-//     return idx === -1 ? 99 : idx;
-//   };
-  
-//   const sortedSponsors = [...SPONSORS].sort((a, b) => getTierRank(a.tier) - getTierRank(b.tier));
-//   const groupedSizes = groupByTierSize(SPONSORS);
-//   const tierCount = new Set(SPONSORS.map(s => s.tier?.toLowerCase())).size;
+  //   useDocumentTitle("Our Partners — E-Summit 2026");
+
+  //   const TIER_ORDER_LOWER = [
+  //     "title sponsor",
+  //     "co-powered by",
+  //     "ev tech partner",
+  //     "mobility partner",
+  //     "automotive partner",
+  //     "racing partner",
+  //     "innovation sponsor",
+  //     "energy sponsor",
+  //   ];
+  //   const getTierRank = (t) => {
+  //     const idx = TIER_ORDER_LOWER.indexOf(t?.toLowerCase());
+  //     return idx === -1 ? 99 : idx;
+  //   };
+
+  //   const sortedSponsors = [...SPONSORS].sort((a, b) => getTierRank(a.tier) - getTierRank(b.tier));
+  //   const groupedSizes = groupByTierSize(SPONSORS);
+  //   const tierCount = new Set(SPONSORS.map(s => s.tier?.toLowerCase())).size;
 
   return (
     <div className="relative pt-32 pb-24 mx-auto max-w-400 px-6 lg:px-12 min-h-screen flex flex-col">

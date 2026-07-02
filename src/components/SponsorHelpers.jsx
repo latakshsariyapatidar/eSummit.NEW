@@ -18,82 +18,86 @@ function getTierRank(tier) {
 }
 
 const TIER_CONFIG = {
-  "title sponsor": { 
-    label: "Title Sponsor", 
-    accent: "#F97316", 
-    size: "lg", 
+  "title sponsor": {
+    label: "Title Sponsor",
+    accent: "#F97316",
+    size: "lg",
     glow: "rgba(249,115,22,0.35)",
-    telemetry: "SYS: ACTIVE // POWER: 100% // KERS: ENABLED"
+    telemetry: "SYS: ACTIVE // POWER: 100% // KERS: ENABLED",
   },
-  "co-powered by": { 
-    label: "Co-Powered By", 
-    accent: "#FB923C", 
-    size: "lg", 
+  "co-powered by": {
+    label: "Co-Powered By",
+    accent: "#FB923C",
+    size: "lg",
     glow: "rgba(251,146,60,0.28)",
-    telemetry: "FLOW: STABLE // OUT: MAX // TEMP: 78°C"
+    telemetry: "FLOW: STABLE // OUT: MAX // TEMP: 78°C",
   },
-  "ev tech partner": { 
-    label: "EV Tech Partner", 
-    accent: "#FDBA74", 
-    size: "md", 
+  "ev tech partner": {
+    label: "EV Tech Partner",
+    accent: "#FDBA74",
+    size: "md",
     glow: "rgba(253,186,116,0.2)",
-    telemetry: "BATT: 100% // VOLT: 800V // REGEN: ACTIVE"
+    telemetry: "BATT: 100% // VOLT: 800V // REGEN: ACTIVE",
   },
-  "mobility partner": { 
-    label: "Mobility Partner", 
-    accent: "#FDBA74", 
-    size: "md", 
+  "mobility partner": {
+    label: "Mobility Partner",
+    accent: "#FDBA74",
+    size: "md",
     glow: "rgba(253,186,116,0.2)",
-    telemetry: "BOOST: READY // SPEED: 320 KM/H"
+    telemetry: "BOOST: READY // SPEED: 320 KM/H",
   },
-  "automotive partner": { 
-    label: "Automotive Partner", 
-    accent: "#D4742A", 
-    size: "sm", 
+  "automotive partner": {
+    label: "Automotive Partner",
+    accent: "#D4742A",
+    size: "sm",
     glow: "rgba(212,116,42,0.18)",
-    telemetry: "GEARS: 8-SPD // CLUTCH: DUAL"
+    telemetry: "GEARS: 8-SPD // CLUTCH: DUAL",
   },
-  "racing partner": { 
-    label: "Racing Partner", 
-    accent: "#D4742A", 
-    size: "sm", 
+  "racing partner": {
+    label: "Racing Partner",
+    accent: "#D4742A",
+    size: "sm",
     glow: "rgba(212,116,42,0.18)",
-    telemetry: "DOWNFORCE: HIGH // DRAG: 0.18"
+    telemetry: "DOWNFORCE: HIGH // DRAG: 0.18",
   },
-  "innovation sponsor": { 
-    label: "Innovation Sponsor", 
-    accent: "#A35A1E", 
-    size: "sm", 
+  "innovation sponsor": {
+    label: "Innovation Sponsor",
+    accent: "#A35A1E",
+    size: "sm",
     glow: "rgba(163,90,30,0.15)",
-    telemetry: "CORE: UNLOCKED // TECH: GEN-3"
+    telemetry: "CORE: UNLOCKED // TECH: GEN-3",
   },
-  "energy sponsor": { 
-    label: "Energy Sponsor", 
-    accent: "#A35A1E", 
-    size: "sm", 
+  "energy sponsor": {
+    label: "Energy Sponsor",
+    accent: "#A35A1E",
+    size: "sm",
     glow: "rgba(163,90,30,0.15)",
-    telemetry: "FUEL: SYNTHETIC // COMP: 14:1"
+    telemetry: "FUEL: SYNTHETIC // COMP: 14:1",
   },
 };
 
 export function getConfig(tier) {
-  return TIER_CONFIG[tier?.toLowerCase()] || { 
-    label: tier || "Partner", 
-    accent: "#F97316", 
-    size: "sm", 
-    glow: "rgba(249,115,22,0.15)",
-    telemetry: "TELEMETRY: DATA_PENDING"
-  };
+  return (
+    TIER_CONFIG[tier?.toLowerCase()] || {
+      label: tier || "Partner",
+      accent: "#F97316",
+      size: "sm",
+      glow: "rgba(249,115,22,0.15)",
+      telemetry: "TELEMETRY: DATA_PENDING",
+    }
+  );
 }
 
 export function groupByTierSize(sponsors) {
   // Sort according to TIER_ORDER first
-  const sorted = [...sponsors].sort((a, b) => getTierRank(a.tier) - getTierRank(b.tier));
-  
+  const sorted = [...sponsors].sort(
+    (a, b) => getTierRank(a.tier) - getTierRank(b.tier),
+  );
+
   const groups = {
     lg: [],
     md: [],
-    sm: []
+    sm: [],
   };
 
   sorted.forEach((s) => {
@@ -103,10 +107,25 @@ export function groupByTierSize(sponsors) {
   });
 
   return [
-    { key: "lg", title: "Pole Position", label: "Championship Tier", sponsors: groups.lg },
-    { key: "md", title: "Mid-Grid Leaders", label: "Pro Track Tier", sponsors: groups.md },
-    { key: "sm", title: "Speed Zone", label: "Contender Tier", sponsors: groups.sm },
-  ].filter(g => g.sponsors.length > 0);
+    {
+      key: "lg",
+      title: "Pole Position",
+      label: "Championship Tier",
+      sponsors: groups.lg,
+    },
+    {
+      key: "md",
+      title: "Mid-Grid Leaders",
+      label: "Pro Track Tier",
+      sponsors: groups.md,
+    },
+    {
+      key: "sm",
+      title: "Speed Zone",
+      label: "Contender Tier",
+      sponsors: groups.sm,
+    },
+  ].filter((g) => g.sponsors.length > 0);
 }
 
 export function TrackLine({ accent }) {
@@ -136,8 +155,8 @@ export function GridSection({ group, globalSortedSponsors }) {
   const gridClasses = isLg
     ? "grid grid-cols-1 md:grid-cols-2 gap-8"
     : isMd
-    ? "grid grid-cols-1 sm:grid-cols-2 gap-6"
-    : "grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6";
+      ? "grid grid-cols-1 sm:grid-cols-2 gap-6"
+      : "grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6";
 
   const accentColor = isLg ? "#F97316" : isMd ? "#FB923C" : "#D4742A";
 
@@ -152,16 +171,22 @@ export function GridSection({ group, globalSortedSponsors }) {
             border: `1px solid ${accentColor}30`,
           }}
         >
-          <div className="w-1.5 h-1.5 rounded-full animate-ping" style={{ background: accentColor }} />
-          <span className="font-mono text-xs uppercase tracking-widest font-bold" style={{ color: accentColor }}>
+          <div
+            className="w-1.5 h-1.5 rounded-full animate-ping"
+            style={{ background: accentColor }}
+          />
+          <span
+            className="font-mono text-xs uppercase tracking-widest font-bold"
+            style={{ color: accentColor }}
+          >
             {group.title}
           </span>
-          <span 
+          <span
             className="text-[9px] uppercase font-mono px-2 py-0.5 rounded font-medium border"
-            style={{ 
-              background: "rgba(255, 255, 255, 0.02)", 
+            style={{
+              background: "rgba(255, 255, 255, 0.02)",
               borderColor: "rgba(255, 255, 255, 0.05)",
-              color: "rgba(255, 255, 255, 0.4)" 
+              color: "rgba(255, 255, 255, 0.4)",
             }}
           >
             {group.label}
@@ -173,15 +198,17 @@ export function GridSection({ group, globalSortedSponsors }) {
       {/* Grid Layout of Cards */}
       <div className={gridClasses}>
         {group.sponsors.map((s) => {
-          const globalIdx = globalSortedSponsors.findIndex((x) => x.name === s.name);
+          const globalIdx = globalSortedSponsors.findIndex(
+            (x) => x.name === s.name,
+          );
           const position = globalIdx !== -1 ? globalIdx + 1 : 1;
           const config = getConfig(s.tier);
           return (
-            <SponsorCard 
-              key={s.name} 
-              sponsor={s} 
-              config={config} 
-              position={position} 
+            <SponsorCard
+              key={s.name}
+              sponsor={s}
+              config={config}
+              position={position}
             />
           );
         })}

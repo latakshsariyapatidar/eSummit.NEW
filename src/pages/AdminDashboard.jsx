@@ -17,7 +17,7 @@ export function AdminDashboard() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!sessionStorage.getItem("admin_token")) {
+    if (!sessionStorage.getItem("auth_token")) {
       navigate("/admin");
     }
   }, [navigate]);
@@ -79,7 +79,7 @@ export function AdminDashboard() {
       </div>
 
       <div className="flex gap-2 mb-8 border-b border-border">
-        {["orders", "passes", "scan"].map((t) => (
+        {["orders", "scan"].map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}

@@ -31,7 +31,8 @@ export function SponsorLogo({ type, hovered }) {
     `}</style>
   );
 
-  const baseSvgClasses = "w-10 h-10 sm:w-12 sm:h-12 text-current transition-all duration-300";
+  const baseSvgClasses =
+    "w-10 h-10 sm:w-12 sm:h-12 text-current transition-all duration-300";
 
   switch (type) {
     case "engine":
@@ -40,10 +41,10 @@ export function SponsorLogo({ type, hovered }) {
           {animationStyles}
           <svg
             className={baseSvgClasses}
-            style={{ 
-              transformOrigin: "center", 
+            style={{
+              transformOrigin: "center",
               animation: hovered ? "logo-vibrate 0.2s linear infinite" : "none",
-              opacity: hovered ? 1 : 0.7 
+              opacity: hovered ? 1 : 0.7,
             }}
             viewBox="0 0 100 100"
             fill="none"
@@ -80,10 +81,10 @@ export function SponsorLogo({ type, hovered }) {
           {animationStyles}
           <svg
             className={baseSvgClasses}
-            style={{ 
-              transformOrigin: "center", 
+            style={{
+              transformOrigin: "center",
               animation: hovered ? "logo-spin 5s linear infinite" : "none",
-              opacity: hovered ? 1 : 0.7 
+              opacity: hovered ? 1 : 0.7,
             }}
             viewBox="0 0 100 100"
             fill="none"
@@ -131,9 +132,9 @@ export function SponsorLogo({ type, hovered }) {
           {animationStyles}
           <svg
             className={baseSvgClasses}
-            style={{ 
+            style={{
               transformOrigin: "center",
-              opacity: hovered ? 1 : 0.7 
+              opacity: hovered ? 1 : 0.7,
             }}
             viewBox="0 0 100 100"
             fill="none"
@@ -156,12 +157,14 @@ export function SponsorLogo({ type, hovered }) {
               rx="2"
               fill="currentColor"
             />
-            <path 
-              d="M47 38 L37 52 H47 L43 66 L53 52 H43 Z" 
-              fill="currentColor" 
+            <path
+              d="M47 38 L37 52 H47 L43 66 L53 52 H43 Z"
+              fill="currentColor"
               style={{
                 transformOrigin: "50px 50px",
-                animation: hovered ? "logo-pulse 1s ease-in-out infinite" : "none"
+                animation: hovered
+                  ? "logo-pulse 1s ease-in-out infinite"
+                  : "none",
               }}
             />
           </svg>
@@ -173,10 +176,12 @@ export function SponsorLogo({ type, hovered }) {
           {animationStyles}
           <svg
             className={baseSvgClasses}
-            style={{ 
-              transformOrigin: "center", 
-              animation: hovered ? "logo-pulse 1.2s ease-in-out infinite" : "none",
-              opacity: hovered ? 1 : 0.7 
+            style={{
+              transformOrigin: "center",
+              animation: hovered
+                ? "logo-pulse 1.2s ease-in-out infinite"
+                : "none",
+              opacity: hovered ? 1 : 0.7,
             }}
             viewBox="0 0 100 100"
             fill="none"
@@ -198,9 +203,9 @@ export function SponsorLogo({ type, hovered }) {
           {animationStyles}
           <svg
             className={baseSvgClasses}
-            style={{ 
+            style={{
               transformOrigin: "center",
-              opacity: hovered ? 1 : 0.7 
+              opacity: hovered ? 1 : 0.7,
             }}
             viewBox="0 0 100 100"
             fill="none"
@@ -218,7 +223,7 @@ export function SponsorLogo({ type, hovered }) {
               strokeWidth="2.5"
               strokeDasharray="4 4"
               style={{
-                animation: hovered ? "logo-dash 0.8s linear infinite" : "none"
+                animation: hovered ? "logo-dash 0.8s linear infinite" : "none",
               }}
             />
           </svg>
@@ -230,10 +235,10 @@ export function SponsorLogo({ type, hovered }) {
           {animationStyles}
           <svg
             className={baseSvgClasses}
-            style={{ 
-              transformOrigin: "center", 
+            style={{
+              transformOrigin: "center",
               transform: hovered ? "scale(1.1) translateY(-2px)" : "scale(1)",
-              opacity: hovered ? 1 : 0.7 
+              opacity: hovered ? 1 : 0.7,
             }}
             viewBox="0 0 100 100"
             fill="none"
@@ -255,10 +260,12 @@ export function SponsorLogo({ type, hovered }) {
           {animationStyles}
           <svg
             className={baseSvgClasses}
-            style={{ 
-              transformOrigin: "center", 
-              animation: hovered ? "logo-wing-lift 1.6s ease-in-out infinite" : "none",
-              opacity: hovered ? 1 : 0.7 
+            style={{
+              transformOrigin: "center",
+              animation: hovered
+                ? "logo-wing-lift 1.6s ease-in-out infinite"
+                : "none",
+              opacity: hovered ? 1 : 0.7,
             }}
             viewBox="0 0 100 100"
             fill="none"
@@ -280,9 +287,9 @@ export function SponsorLogo({ type, hovered }) {
           {animationStyles}
           <svg
             className={baseSvgClasses}
-            style={{ 
+            style={{
               transformOrigin: "center",
-              opacity: hovered ? 1 : 0.7 
+              opacity: hovered ? 1 : 0.7,
             }}
             viewBox="0 0 100 100"
             fill="none"
@@ -304,7 +311,9 @@ export function SponsorLogo({ type, hovered }) {
               strokeDasharray="6 4"
               style={{
                 transformOrigin: "50px 50px",
-                animation: hovered ? "logo-spin 8s linear infinite reverse" : "none"
+                animation: hovered
+                  ? "logo-spin 8s linear infinite reverse"
+                  : "none",
               }}
             />
             <circle cx="50" cy="50" r="6" fill="currentColor" />
