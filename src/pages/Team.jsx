@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { TeamMemberCard } from "@/components/TeamMemberCard";
+import TeamMemberCard from "@/components/TeamMemberCard";
 import { useTeams } from "@/lib/store";
 import { Loader } from "@/components/Loader";
 import { ComingSoonCard } from "@/components/ComingSoonCard";
@@ -10,6 +10,25 @@ export function Team() {
   useDocumentTitle("The Crew — E-Summit 2026");
   const teams = useTeams();
 
+  const { functionalLeads, eventDirectors } = useMemo(() => {
+    const functional = teams.filter(
+      (t) =>
+        t.lead?.team === "Core Committee" ||
+        t.lead?.role === "Overall Coordinator" ||
+        t.lead?.role?.includes("Head") ||
+        (t.lead?.role?.includes("Lead") && !t.lead?.event),
+    );
+
+    const events = teams.filter(
+      (t) => t.lead?.event || !functional.includes(t),
+    );
+
+    return {
+      functionalLeads: functional,
+      eventDirectors: events,
+    };
+  }, [teams]);
+
   if (teams.length === 0) {
     return (
       <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
@@ -17,17 +36,6 @@ export function Team() {
       </div>
     );
   }
-
-  const functionalLeads = teams.filter(
-    (t) =>
-      t.lead?.team === "Core Committee" ||
-      t.lead?.role === "Overall Coordinator" ||
-      t.lead?.role?.includes("Head") ||
-      (t.lead?.role?.includes("Lead") && !t.lead?.event),
-  );
-  const eventDirectors = teams.filter(
-    (t) => t.lead?.event || !functionalLeads.includes(t),
-  );
 
   return (
     <div className="pt-32 pb-24 mx-auto max-w-7xl px-6 lg:px-12 text-left min-h-screen flex flex-col">

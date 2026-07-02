@@ -39,17 +39,6 @@ export function Home() {
     <div>
       <Hero />
       <Marquee />
-
-      <section className="mx-auto max-w-400 px-6 lg:px-12 py-28 md:py-36">
-        <SectionHeader
-          tag="/ 01 — Lights Out"
-          title="Until launch."
-          description="The countdown to E-Summit 2026 has already started."
-          layout="split"
-        />
-        <Countdown />
-      </section>
-
       <LazySection component={AboutSection} />
       <LazySection component={EventsConveyor} />
       <LazySection component={TrackCTA} />

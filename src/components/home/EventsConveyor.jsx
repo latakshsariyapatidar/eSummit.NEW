@@ -28,7 +28,7 @@ export function EventsConveyor() {
     eventCountWord.charAt(0).toUpperCase() + eventCountWord.slice(1);
 
   return (
-    <section className="py-28 md:py-36 border-t border-border/25">
+    <section className="py-28 md:py-36">
       <div className="mx-auto max-w-400 px-6 lg:px-12">
         <SectionHeader
           tag="/ 03 — The Grid"
@@ -43,7 +43,7 @@ export function EventsConveyor() {
         >
           <Link
             to="/events"
-            className="hidden md:inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest hover:text-primary transition-colors text-right"
+            className="md:inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-tightest hover:text-primary transition-colors text-right"
           >
             All events <span className="font-sans">→</span>
           </Link>

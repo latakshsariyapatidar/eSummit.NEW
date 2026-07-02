@@ -3,70 +3,111 @@ import { TARGET_DATE } from "@/lib/store";
 
 function calc() {
   const diff = TARGET_DATE - Date.now();
-  if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0, done: true, urgent: false };
+
+  if (diff <= 0) {
+    return {
+      d: 0,
+      h: 0,
+      m: 0,
+      s: 0,
+      done: true,
+      urgent: false,
+    };
+  }
+
   const d = Math.floor(diff / 86400000);
   const h = Math.floor((diff / 3600000) % 24);
   const m = Math.floor((diff / 60000) % 60);
   const s = Math.floor((diff / 1000) % 60);
-  return { d, h, m, s, done: false, urgent: d === 0 && h < 6 };
+
+  return {
+    d,
+    h,
+    m,
+    s,
+    done: false,
+    urgent: d === 0 && h < 6,
+  };
 }
 
 export function Countdown() {
-  const [t, setT] = useState(calc());
+  const [time, setTime] = useState(calc());
+
   useEffect(() => {
-    const i = setInterval(() => setT(calc()), 1000);
-    return () => clearInterval(i);
+    const interval = setInterval(() => {
+      setTime(calc());
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  if (t.done) {
+  if (time.done) {
     return (
-      <div className="bg-signal text-foreground font-mono uppercase tracking-widest text-center py-4">
-        Registrations Closed — See you trackside
+      <div className="rounded-2xl border border-border/50 bg-background/20 px-6 py-5 backdrop-blur-xl text-center">
+        <p className="font-display text-xl font-semibold">
+          Registrations Closed
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          See you at E-Summit 2026.
+        </p>
       </div>
     );
   }
 
-  const blocks = [
-    { label: "Days", v: t.d },
-    { label: "Hours", v: t.h },
-    { label: "Mins", v: t.m },
-    { label: "Secs", v: t.s },
+  const items = [
+    {
+      value: String(time.d).padStart(2, "0"),
+      label: "Days",
+    },
+    {
+      value: String(time.h).padStart(2, "0"),
+      label: "Hours",
+    },
+    {
+      value: String(time.m).padStart(2, "0"),
+      label: "Minutes",
+    },
+    {
+      value: String(time.s).padStart(2, "0"),
+      label: "Seconds",
+    },
   ];
 
   return (
     <div className="w-full">
-      {t.urgent && (
-        <div className="text-center font-mono text-xs uppercase tracking-[0.25em] text-signal mb-8 flex items-center justify-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-signal pulse-signal inline-block" />
-          <span>Pit Window Closing: Only hours remaining</span>
+      {time.urgent && (
+        <div className="mb-3 flex items-center justify-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">
+            Final Hours
+          </span>
         </div>
       )}
-      <div className="grid grid-cols-4 gap-4 md:gap-8 lg:gap-12">
-        {blocks.map((b, idx) => (
-          <div
-            key={b.label}
-            className="relative flex flex-col items-center md:items-start text-center md:text-left"
-          >
-            <div className="flex items-baseline w-full justify-center md:justify-start">
-              <span
-                className={`font-display text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight tabular-nums ${t.urgent ? "text-signal" : "text-foreground"}`}
-              >
-                {String(b.v).padStart(2, "0")}
-              </span>
-              {idx < 3 && (
-                <span className="hidden md:inline text-muted-foreground/20 text-4xl md:text-6xl font-light ml-auto pr-2 select-none">
-                  :
-                </span>
-              )}
-            </div>
+
+      <div className="rounded-2xl border border-white/10 bg-background/20 backdrop-blur-xl shadow-xl overflow-hidden">
+        <div className="grid grid-cols-4 divide-x divide-white/10">
+          {items.map((item) => (
             <div
-              className={`font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] mt-3 ${t.urgent ? "text-signal/80" : "text-primary"}`}
+              key={item.label}
+              className="flex flex-col items-center justify-center py-4 px-2"
             >
-              {b.label}
+              <span
+                className={`font-display font-semibold tabular-nums leading-none transition-colors duration-300 ${
+                  time.urgent ? "text-primary" : "text-foreground"
+                } text-3xl md:text-4xl`}
+              >
+                {item.value}
+              </span>
+
+              <span className="mt-2 font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground">
+                {item.label}
+              </span>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
 }
+
+export default Countdown;

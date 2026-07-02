@@ -2,56 +2,58 @@ import { useState, useEffect } from "react";
 
 export const API_BASE = "https://iic.iitdh.ac.in/esummit/api/api";
 
-export const FALLBACK_PASSES = [
-  {
-    id: "visitor-1day",
-    name: "1 Day Visitor Pass",
-    price: 100,
-    perks: ["One day access to all workshops, talks, stalls, events, etc."],
-    tag: "SINGLE DAY",
-    soldOut: false,
-    imageUrl: "public/pass1.png",
-  },
-  {
-    id: "visitor-2days",
-    name: "2 Days Visitor Pass",
-    price: 200,
-    perks: [
-      "Complete access to all the events of E-Summit'26 for both the days",
-    ],
-    tag: "2 DAYS ACCESS",
-    soldOut: false,
-  },
-  {
-    id: "stay-basic",
-    name: "Stay Pass - Basic",
-    price: 699,
-    perks: [
-      "Complementary stay and food (3x meals a day: Breakfast, Lunch, Dinner)",
-      "Starter kit",
-    ],
-    tag: "STAY PASS - BASIC",
-    duration: "8 AM, 23rd August 2026 to 10 AM, 25th August 2026",
-    extra:
-      "Anything beyond or before that would be charged extra as applicable.",
-    soldOut: false,
-  },
-  {
-    id: "stay-premium",
-    name: "Stay Pass - Premium",
-    price: 999,
-    perks: [
-      "Complementary stay and food (3x meals a day: Breakfast, Lunch, Dinner)",
-      "Starter kit",
-      "Exclusive E-Summit swags",
-    ],
-    tag: "STAY PASS - PREMIUM",
-    duration: "8 AM, 23rd August 2026 to 10 AM, 25th August 2026",
-    extra:
-      "Anything beyond or before that would be charged extra as applicable.",
-    soldOut: false,
-  },
-];
+// export const FALLBACK_PASSES = [
+//   {
+//     id: "visitor-1day",
+//     name: "1 Day Visitor Pass",
+//     price: 100,
+//     perks: ["One day access to all workshops, talks, stalls, events, etc."],
+//     tag: "SINGLE DAY",
+//     soldOut: false,
+//     imageUrl: "public/pass1.png",
+//   },
+//   {
+//     id: "visitor-2days",
+//     name: "2 Days Visitor Pass",
+//     price: 200,
+//     perks: [
+//       "Complete access to all the events of E-Summit'26 for both the days",
+//     ],
+//     tag: "2 DAYS ACCESS",
+//     soldOut: false,
+//   },
+//   {
+//     id: "stay-basic",
+//     name: "Stay Pass - Basic",
+//     price: 699,
+//     perks: [
+//       "Complementary stay and food (3x meals a day: Breakfast, Lunch, Dinner)",
+//       "Starter kit",
+//     ],
+//     tag: "STAY PASS - BASIC",
+//     duration: "8 AM, 23rd August 2026 to 10 AM, 25th August 2026",
+//     extra:
+//       "Anything beyond or before that would be charged extra as applicable.",
+//     soldOut: false,
+//   },
+//   {
+//     id: "stay-premium",
+//     name: "Stay Pass - Premium",
+//     price: 999,
+//     perks: [
+//       "Complementary stay and food (3x meals a day: Breakfast, Lunch, Dinner)",
+//       "Starter kit",
+//       "Exclusive E-Summit swags",
+//     ],
+//     tag: "STAY PASS - PREMIUM",
+//     duration: "8 AM, 23rd August 2026 to 10 AM, 25th August 2026",
+//     extra:
+//       "Anything beyond or before that would be charged extra as applicable.",
+//     soldOut: false,
+//   },
+// ];
+
+export const FALLBACK_PASSES = [];
 export const FALLBACK_EVENTS = [
   {
     slug: "innovex",
@@ -161,7 +163,6 @@ export const FALLBACK_EVENTS = [
     ],
   },
 ];
-
 export const FALLBACK_SPONSORS = [
   { name: "VELOCITAS", tier: "Title Sponsor", logoType: "engine" },
   { name: "AXLE&CO", tier: "Co-Powered By", logoType: "gear" },
@@ -172,7 +173,6 @@ export const FALLBACK_SPONSORS = [
   { name: "TORQUE LABS", tier: "Innovation Sponsor", logoType: "wing" },
   { name: "APEX FUEL", tier: "Energy Sponsor", logoType: "circle" },
 ];
-
 export const FALLBACK_SCHEDULE = [
   {
     day: "Day 01",
@@ -251,7 +251,6 @@ export const FALLBACK_SCHEDULE = [
     ],
   },
 ];
-
 export const FALLBACK_FAQS = [
   {
     q: "When and where is E-Summit 2026?",
@@ -270,7 +269,6 @@ export const FALLBACK_FAQS = [
     a: "Yes. Accommodation is provided to eligible attendees based on their participation category. Participants may be accommodated in IIT Dharwad hostels, while invited guests are provided accommodation at the campus guest house. Further details will be communicated after registration.",
   },
 ];
-
 export const FALLBACK_TEAMS = [
   {
     lead: {
@@ -571,17 +569,14 @@ export const FALLBACK_TEAMS = [
     ],
   },
 ];
-
 export const FALLBACK_UPI_IDS = [
   "esummit@iitdh",
   "esummit26@okhdfcbank",
   "iitdh.esummit@okaxis",
   "payment.esummit@paytm",
 ];
-
 export const FALLBACK_TARGET_DATE = new Date("2026-08-20T09:00:00").getTime();
 
-// Maintain legacy exported constants so no existing files break
 export const PASSES = FALLBACK_PASSES;
 export const EVENTS = FALLBACK_EVENTS;
 export const SPONSORS = FALLBACK_SPONSORS;
@@ -626,94 +621,6 @@ export async function fetchTeams() {
   if (!res.ok) throw new Error("Failed to fetch teams");
   const json = await res.json();
   return json.status === "success" ? json.data : FALLBACK_TEAMS;
-}
-
-export async function fetchConfig(key) {
-  const res = await fetch(`${API_BASE}/content/config/${key}`);
-  if (!res.ok) throw new Error(`Failed to fetch config key ${key}`);
-  const json = await res.json();
-  return json.status === "success" ? json.data : null;
-}
-
-// Order management
-export async function submitOrder(orderData) {
-  const res = await fetch(`${API_BASE}/order/submit`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(orderData),
-  });
-  return res.json();
-}
-
-export async function getOrderStatus(phone) {
-  const res = await fetch(
-    `${API_BASE}/order/status?phone=${encodeURIComponent(phone)}`,
-  );
-  return res.json();
-}
-
-// Attendance Check-in
-export async function verifyQR(qrContent) {
-  const res = await fetch(`${API_BASE}/attendance/verify-qr`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ qr_content: qrContent }),
-  });
-  return res.json();
-}
-
-export async function markAttendance(qrContent) {
-  const res = await fetch(`${API_BASE}/attendance/mark`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ qr_content: qrContent }),
-  });
-  return res.json();
-}
-
-// Admin Panel operations
-export async function verifyAdminKey(adminKey) {
-  const res = await fetch(`${API_BASE}/admin/verify-key`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ admin_key: adminKey }),
-  });
-  return res.json();
-}
-
-export async function getAdminDbState(adminKey) {
-  const res = await fetch(`${API_BASE}/admin/db-state`, {
-    headers: { "X-Admin-Key": adminKey },
-  });
-  return res.json();
-}
-
-export async function verifyAdminOrder(
-  adminKey,
-  orderId,
-  status,
-  rejectionReason = "",
-) {
-  const res = await fetch(`${API_BASE}/admin/order/verify`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Admin-Key": adminKey,
-    },
-    body: JSON.stringify({
-      order_id: orderId,
-      status,
-      rejection_reason: rejectionReason,
-    }),
-  });
-  return res.json();
-}
-
-export async function getAdminPasses(adminKey) {
-  const res = await fetch(`${API_BASE}/admin/passes`, {
-    headers: { "X-Admin-Key": adminKey },
-  });
-  return res.json();
 }
 
 // // ── REACT HOOKS FOR ASYNC DATA LOADING ─────────────────────────────────────
@@ -781,20 +688,6 @@ export function useTeams() {
   return data;
 }
 
-export function useConfigValue(key, fallbackValue) {
-  const [val, setVal] = useState(fallbackValue);
-  useEffect(() => {
-    fetchConfig(key)
-      .then((data) => {
-        if (data !== null) setVal(data);
-      })
-      .catch((err) => console.error(`Error fetching config ${key}:`, err));
-  }, [key]);
-
-  console.log("Fetched the config", key);
-  return val;
-}
-
 // Cart helpers
 const CART_KEY = "es26_cart";
 export const getCart = () => {
@@ -805,4 +698,5 @@ export const getCart = () => {
     return [];
   }
 };
+
 export const setCart = (c) => localStorage.setItem(CART_KEY, JSON.stringify(c));

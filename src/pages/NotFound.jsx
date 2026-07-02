@@ -1,5 +1,6 @@
 import { TransitionLink as Link } from "../components/ui/TransitionLink";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import notFound from "/notFound.svg";
 
 export function NotFound() {
   useDocumentTitle("Page Not Found — E-Summit 2026");
@@ -8,7 +9,7 @@ export function NotFound() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4 text-center">
       <div className="max-w-md">
         <div className="flex items-center justify-center w-full p-10">
-          <img src="/404.svg" alt="" />
+          <img src={notFound} alt="Page Not Found" />
         </div>
         <h2 className="capitalize text-zinc-700">
           the developer was lazy, but will make sure to include this path next

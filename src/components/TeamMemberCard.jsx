@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
 /**
  * TeamMemberCard
@@ -22,7 +22,7 @@ import React, { useState } from "react";
  *     }>
  *   }
  */
-export function TeamMemberCard({ team }) {
+function TeamMemberCard({ team }) {
   const m = team.lead;
   const crew = team.crew || [];
   const teamTitle = m.team || m.event;
@@ -54,6 +54,8 @@ export function TeamMemberCard({ team }) {
       <img
         src={leadImage}
         alt={m.name}
+        loading="lazy"
+        decoding="async"
         className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${
           isExpanded ? "scale-105" : "group-hover:scale-105"
         }`}
@@ -118,6 +120,7 @@ export function TeamMemberCard({ team }) {
                     <img
                       key={idx}
                       src={crewImage}
+                      decoding="async"
                       alt={c.name}
                       className="w-6 h-6 rounded-full border border-black/80 object-cover shadow-sm bg-card"
                       loading="lazy"
@@ -154,6 +157,7 @@ export function TeamMemberCard({ team }) {
                         alt={c.name}
                         className="w-5 h-5 rounded-full object-cover border border-white/15 bg-card"
                         loading="lazy"
+                        decoding="async"
                       />
                       <a
                         href={
@@ -189,3 +193,5 @@ export function TeamMemberCard({ team }) {
     </div>
   );
 }
+
+export default React.memo(TeamMemberCard);
