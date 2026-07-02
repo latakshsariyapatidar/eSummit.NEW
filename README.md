@@ -1,211 +1,188 @@
-# E-Summit 2026 — Shift Gears
+# E-Summit 2026 Frontend
 
-> The official web portal for **E-Summit 2026**, IIT Dharwad's flagship entrepreneurship summit redefining the future of mobility, electric vehicles, and autonomous transport.
+Official frontend for E-Summit 2026, IIT Dharwad. The app is a Vite + React single page application deployed under the `/esummit/` path. It contains the public marketing site, events catalog, schedule shell, sponsors shell, team page, pass purchase flow, and a lightweight admin area.
 
-The platform lets attendees **browse events**, **purchase passes**, and **get event info** — all wrapped in a high-performance React app with GSAP-powered page transitions and a motorsport-inspired visual theme.
+Start here if you are joining the project. Read this file first, then read the feature docs in `docs/features/`, then read ADRs in `adr/` before making architecture-level changes.
 
----
-
-## Tech Stack
-
-| Layer         | Library / Tool                                                                                                            |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Core          | [React 19](https://react.dev/) & [Vite 7](https://vite.dev/)                                                              |
-| Styling       | [Tailwind CSS v4](https://tailwindcss.com/) + `src/styles.css` (custom vars)                                              |
-| Routing       | [React Router DOM v6](https://reactrouter.com/)                                                                           |
-| Animations    | [GSAP 3](https://gsap.com/) — ScrollTrigger, Timeline, page transitions                                                   |
-| Smooth Scroll | [Locomotive Scroll v5](https://locomotivemtl.github.io/locomotive-scroll/) + [Lenis](https://lenis.darkroom.engineering/) |
-| Server State  | [TanStack React Query v5](https://tanstack.com/query/latest)                                                              |
-| Client State  | `localStorage` (via custom hooks — see `src/hooks/`)                                                                      |
-| UI Primitives | [Radix UI](https://www.radix-ui.com/) + [shadcn/ui](https://ui.shadcn.com/)                                               |
-| Forms         | [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)                                                 |
-| Icons         | [Lucide React](https://lucide.dev/)                                                                                       |
-
----
-
-## Prerequisites
-
-Make sure you have these installed before cloning:
-
-- **Node.js** v20 or higher
-- **npm** v10 or higher (comes with Node 20)
-
-Verify with:
+## Quick Start
 
 ```bash
-node -v   # should be >= 20
-npm -v    # should be >= 10
-```
-
----
-
-## Getting Started
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/latakshsariyapatidar/eSummit.NEW.git
-cd eSummit.NEW
-
-# 2. Install dependencies
 npm install
-
-# 3. Start the dev server
 npm run dev
 ```
 
-The app will be live at `http://localhost:5173`.
+Local app URL: `http://localhost:5173/esummit/`
 
-### All available scripts
-
-| Command           | What it does                         |
-| ----------------- | ------------------------------------ |
-| `npm run dev`     | Start local dev server with HMR      |
-| `npm run build`   | Production bundle into `dist/`       |
-| `npm run preview` | Preview the production build locally |
-| `npm run lint`    | Run ESLint across the codebase       |
-| `npm run format`  | Auto-format with Prettier            |
-
-> **Before every commit:** run `npm run lint && npm run format` to keep the codebase clean.
-
----
-
-## Project Structure
-
-```text
-eSummit.NEW/
-├── adr/                        # Architectural Decision Records
-│   ├── README.md               # How to write and categorize ADRs
-│   └── 0001-*.md               # ADR 0001: DRY Refactoring & Custom Hooks
-├── docs/                       # Developer documentation
-│   └── README.md               # Git commands, rebase, conflict resolution, stashing
-├── src/
-│   ├── assets/                 # Static images (dials, hero cars, track textures)
-│   │   └── README.md
-│   ├── components/             # Shared layout components, modals, and section abstractions
-│   │   ├── ui/                 # Atomic UI primitives (Button, Input, Dialog, etc.)
-│   │   │   └── README.md       # Lists all available primitives — check here first
-│   │   ├── home/               # Section-level components for Home (Hero, About, FAQ, etc.)
-│   │   ├── Nav.jsx             # Global top navigation bar
-│   │   ├── Footer.jsx          # Site footer
-│   │   ├── CheckoutModal.jsx   # Ticket purchase & booking modal
-│   │   ├── ComingSoonCard.jsx  # Reusable card component for unavailable tracks/sections
-│   │   └── README.md
-│   ├── hooks/                  # Custom React hooks
-│   │   └── README.md           # Lists every hook with usage examples — read before writing new state logic
-│   ├── lib/                    # Data, utilities, and animation controllers
-│   │   ├── store.js            # Static data: events catalog, pricing tiers, FAQ content
-│   │   ├── transition.js       # GSAP page-transition timeline (used in App.jsx)
-│   │   └── README.md
-│   ├── pages/                  # Top-level route components
-│   │   ├── Home.jsx            # Landing page with hero & event highlights
-│   │   ├── Events.jsx          # Full event catalog grid
-│   │   ├── Buy.jsx             # Pass selection & checkout flow
-│   │   └── README.md
-│   ├── App.jsx                 # Route definitions & top-level providers
-│   ├── main.jsx                # React DOM mount point
-│   └── styles.css              # Global CSS + Tailwind v4 theme variable definitions
-├── index.html                  # HTML shell (loads Outfit font from Google Fonts)
-├── vite.config.js              # Path aliases (@/ → src/) and Vite plugins
-├── components.json             # shadcn/ui configuration
-└── package.json
-```
-
----
-
-## Styling Guide
-
-The project uses **both Tailwind v4 and vanilla CSS** — here's what goes where:
-
-| Use case                                                     | Where to put it                                           |
-| ------------------------------------------------------------ | --------------------------------------------------------- |
-| Spacing, layout, flex/grid, colors from the design system    | Tailwind utility classes inline                           |
-| CSS custom properties (design tokens, fonts, animation vars) | `src/styles.css`                                          |
-| One-off keyframe animations or complex selectors             | `src/styles.css`                                          |
-| New UI primitive (button, badge, input…)                     | `src/components/ui/` — check if it exists in shadcn first |
-
-**Never** add `@apply` blocks or hardcode pixel values when a Tailwind token exists.
-
----
-
-## Contributing Guidelines
-
-### DRY Principle — reuse before you write
-
-Before writing new logic, check what already exists:
-
-| Instead of...                        | Use...                                         |
-| ------------------------------------ | ---------------------------------------------- |
-| `localStorage.setItem(...)` manually | Custom hook from `src/hooks/` (see its README) |
-| Inline `<input>` or `<button>` HTML  | Primitive from `src/components/ui/`            |
-| Raw `window.location` navigation     | Navigation hook from `src/hooks/`              |
-| Copy-pasting a page banner/header    | Shared component from `src/components/`        |
-
-### Adding new code
-
-1. **New hook** → add it to `src/hooks/`, document it in `src/hooks/README.md`.
-2. **New page** → add the route in `App.jsx`, document the page in `src/pages/README.md`.
-3. **New UI primitive** → add to `src/components/ui/`, document in its `README.md`.
-4. **Major architectural decision** → write an ADR. See `adr/README.md` for the template.
-
----
-
-## Branching & Git Workflow
-
-We use a `main → dev → feature` branch model.
-
-```
-main          ← production-ready, protected
- └── dev      ← integration branch
-      ├── feature/12-stripe-integration
-      └── bugfix/44-layout-alignment
-```
-
-**Branch naming:**
+Production build:
 
 ```bash
-feature/<issue-id>-<short-description>   # e.g. feature/12-stripe-integration
-bugfix/<issue-id>-<short-description>    # e.g. bugfix/44-layout-alignment
+npm run build
+npm run preview
 ```
 
-**Workflow:**
+Quality checks:
+
+```bash
+npm run lint
+npm run format
+```
+
+## Tech Stack
+
+| Area | Choice |
+| --- | --- |
+| App runtime | React 19 |
+| Build tool | Vite 7 |
+| Routing | React Router DOM v6 |
+| Styling | Tailwind CSS v4 with tokens in `src/styles.css` |
+| Animation | GSAP, Motion, Three.js, postprocessing |
+| Smooth scroll | Locomotive Scroll with Lenis options |
+| Icons | Lucide React |
+| Persistence | Browser `localStorage` and `sessionStorage` |
+| API calls | Browser `fetch` against `https://iic.iitdh.ac.in/esummit/api/api` |
+
+## App Flow
+
+`src/main.jsx` mounts the React app into `#root`, imports global CSS, and wraps `App` in `StrictMode`.
+
+`src/App.jsx` owns routing. It uses `BrowserRouter` with `basename="/esummit"`, renders the global page transition overlay and custom cursor, wraps all pages in `Layout`, and lazy-loads each route behind a shared skeleton fallback.
+
+`src/components/Shared/Layout.jsx` renders the first-load `Loader`, `Nav`, `SmoothScroll`, the route content, and `Footer`.
+
+Most pages follow this pattern:
+
+1. Set the document title with `useDocumentTitle`.
+2. Load data from `src/lib/store.js`.
+3. Render a page-level shell from `src/pages/*`.
+4. Delegate detailed UI to `src/components/*`.
+
+## Routes
+
+| Route | Page file | Purpose |
+| --- | --- | --- |
+| `/` | `src/pages/Home/Home.jsx` | Landing page with hero, marquee, about, events, CTA, and FAQ sections. |
+| `/buy` | `src/pages/PassBuy/Buy.jsx` | Pass selection and UPI payment flow. |
+| `/schedule` | `src/pages/EventsSchedule/Schedule.jsx` | Schedule page shell with day selector and coming-soon state. |
+| `/events` | `src/pages/Event/Events.jsx` | Event catalog using the animated flowing menu. |
+| `/event/:slug` | `src/pages/Event/EventDetails.jsx` | Event detail page matched by event slug. |
+| `/sponsors` | `src/pages/Sponsors/Sponsors.jsx` | Sponsor grid, currently fallbacking to coming-soon when no sponsor data exists. |
+| `/team` | `src/pages/Team/Team.jsx` | Team and crew page. |
+| `/admin` | `src/pages/Admin/AdminAuth.jsx` inside `AdminLayout` | Admin key login. |
+| `/admin/malikKiKursi` | `src/pages/Admin/AdminDashboard.jsx` inside `AdminLayout` | Admin dashboard and check-in demo. |
+| `*` | `src/pages/404/NotFound.jsx` | Catch-all page. |
+
+## Folder Map
+
+| Path | What it contains | Used by |
+| --- | --- | --- |
+| `.github/workflows/deploy.yml` | Main-branch CI/CD workflow for self-hosted VPS deployment. | GitHub Actions. |
+| `adr/` | Architecture Decision Records. | Developers before changing project conventions. |
+| `docs/` | KT, contribution, architecture, inventory, and feature docs. | New joiners and reviewers. |
+| `docs/features/` | Feature-specific readmes named `featurename_readme.md`. | Juniors doing feature work. |
+| `public/` | Static assets served from Vite public root. | Components using `/asset.ext` or `import.meta.env.BASE_URL`. |
+| `src/App.jsx` | Route tree, lazy page imports, app-level wrappers. | `src/main.jsx`. |
+| `src/main.jsx` | React DOM entry point. | `index.html`. |
+| `src/styles.css` | Tailwind v4 import, design tokens, global utilities, animations, scrollbar helpers. | Imported once by `src/main.jsx`. |
+| `src/lib/store.js` | Fallback content, API fetch helpers, content hooks, cart helpers. | Home, events, schedule, sponsors, team, buy, admin. |
+| `src/lib/utils.js` | `cn()` class-name merge helper. | UI primitives and shared components. |
+| `src/hooks/` | Local reusable hooks. | Pages/components needing title, storage, mobile state, transition navigation. |
+| `src/pages/` | Top-level route components. | Imported lazily by `src/App.jsx`. |
+| `src/components/Shared/` | Layout, nav, footer, smooth scroll, lazy section loading. | Global app shell and home sections. |
+| `src/components/ui/` | Reusable primitives and navigation helpers. | Pages and feature components. |
+| `src/components/home/` | Landing page sections. | `src/pages/Home/Home.jsx`. |
+| `src/components/CustomPremade/` | Large custom visual/interaction components. | Home hero, event list, about section, app cursor. |
+| `src/components/OrderPurchaseComponents/` | Checkout step components. | `src/pages/PassBuy/Buy.jsx`. |
+| `src/components/Passes/` | Pass card UI. | `src/pages/PassBuy/Buy.jsx`. |
+| `src/components/Sponsors/` | Sponsor grouping and card UI. | `src/pages/Sponsors/Sponsors.jsx`. |
+| `src/components/Team/` | Team member card UI. | `src/pages/Team/Team.jsx`. |
+| `src/components/Countdown/` | Countdown timer. | Home hero. |
+| `src/components/Loader/` | First-visit interactive loader with audio/GIF/GSAP exit. | Global layout. |
+| `src/components/SkeletonLoader/` | Route-level suspense fallback. | `src/App.jsx`. |
+| `src/components/ComingSoon/` | Shared empty/coming-soon card. | Buy, schedule, sponsors. |
+
+## Key Config Files
+
+| File | Use |
+| --- | --- |
+| `package.json` | Scripts and dependencies. |
+| `vite.config.js` | React plugin, Tailwind plugin, `/esummit/` base path, `@` alias to `src`. |
+| `jsconfig.json` | Editor support for the `@/*` alias. |
+| `components.json` | shadcn/ui style and alias configuration. |
+| `eslint.config.js` | ESLint flat config with React Hooks and React Refresh rules. |
+| `.env.example` | Example admin env key. Current code also supports `VITE_API_BASE` in admin auth. |
+| `index.html` | HTML shell, fonts, favicon, `#root`, and script entry. |
+
+## Static Assets
+
+| Asset | Used for |
+| --- | --- |
+| `public/logo.png` | Nav, footer, ASCII art source. |
+| `public/esummit_text.svg` | Desktop footer brand mark. |
+| `public/HeroImage.svg` | Hero title image. |
+| `public/track.avif` | Home CTA background. |
+| `public/notFound.svg` | 404 illustration. |
+| `public/car_start.mp3` | Loader sound. |
+| `public/loader_assets/*.gif` | Loader animation states. |
+| `public/events_assets/*.avif` | Event hover images in the events flowing menu. File names must match event slugs. |
+
+## Data Model
+
+`src/lib/store.js` is the current content hub. It exports:
+
+- `FALLBACK_EVENTS`, `FALLBACK_SCHEDULE`, `FALLBACK_FAQS`, `FALLBACK_TEAMS`, `FALLBACK_SPONSORS`, `FALLBACK_PASSES`.
+- Public constants like `EVENTS`, `SCHEDULE`, `FAQS`, `TEAMS`, `SPONSORS`, `PASSES`.
+- Fetch helpers: `fetchEvents`, `fetchSponsors`, `fetchFAQs`, `fetchSchedule`, `fetchTeams`.
+- React hooks: `useEvents`, `useSponsors`, `useFAQs`, `useSchedule`, `useTeams`.
+- Cart helpers: `getCart`, `setCart`.
+
+Important current state:
+
+- `FALLBACK_PASSES` is empty, so the buy page shows "No passes available".
+- `FALLBACK_SPONSORS` is empty, so the sponsors page shows the coming-soon card.
+- `FALLBACK_EVENTS`, `FALLBACK_SCHEDULE`, `FALLBACK_FAQS`, and `FALLBACK_TEAMS` are populated.
+
+## Feature Docs
+
+Read these after this README:
+
+- [Architecture overview](./docs/architecture_overview.md)
+- [File inventory](./docs/file_inventory.md)
+- [KT checklist](./docs/kt_checklist.md)
+- [Home feature](./docs/features/home_readme.md)
+- [Events feature](./docs/features/events_readme.md)
+- [Pass purchase feature](./docs/features/pass_purchase_readme.md)
+- [Schedule feature](./docs/features/schedule_readme.md)
+- [Sponsors feature](./docs/features/sponsors_readme.md)
+- [Team feature](./docs/features/team_readme.md)
+- [Admin feature](./docs/features/admin_readme.md)
+- [Layout and navigation feature](./docs/features/layout_navigation_readme.md)
+- [Data and content feature](./docs/features/data_content_readme.md)
+- [Shared UI feature](./docs/features/shared_ui_readme.md)
+
+## Contribution Flow
+
+All work starts from `dev` and returns to `dev` by pull request.
 
 ```bash
 git checkout dev
 git pull origin dev
-git checkout -b feature/<issue-id>-<description>
+git checkout -b feature/your-change-name
 
-# ... make changes ...
+# make changes
+npm run lint
+npm run build
 
-npm run lint && npm run format
 git add .
-git commit -m "feat: short description of change"
-git push origin feature/<issue-id>-<description>
-# → open a PR into dev
+git commit -m "feat: describe your change"
+git push -u origin feature/your-change-name
 ```
 
-> Stuck with rebasing, merge conflicts, or stashing? See **[docs/README.md](./docs/README.md)** for step-by-step commands.
+Then raise a PR from your branch into `dev`. The admin/maintainer reviews and merges into `dev`. The admin/maintainer later merges `dev` into `main` for release.
 
----
+Never raise feature PRs directly against `main`.
 
-## Architectural Decisions (ADRs)
+More details: [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md).
 
-Significant design decisions are tracked in the [`adr/`](./adr/) folder.
+## ADRs
 
-**Write an ADR when you:**
-
-- Introduce a new dependency
-- Change the state management approach
-- Modify the styling paradigm
-- Propose a major architectural refactor
-
-See [`adr/README.md`](./adr/README.md) for the ADR template.
-
----
-
-## Pages Overview
-
-| Route     | Page         | Description                                    |
-| --------- | ------------ | ---------------------------------------------- |
-| `/`       | `Home.jsx`   | Landing page — hero section, summit highlights |
-| `/events` | `Events.jsx` | Full catalog of summit events                  |
-| `/buy`    | `Buy.jsx`    | Pass selection and ticket checkout             |
+Architecture decisions are tracked in [adr/](./adr/). Read the ADR index before changing route structure, data flow, styling conventions, deployment base path, or checkout/admin behavior.
