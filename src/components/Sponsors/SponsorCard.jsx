@@ -44,57 +44,14 @@ export function SponsorCard({ sponsor, config, position }) {
           zIndex: 1,
         }}
       >
-        {/* Floating Position Badge */}
-        <div
-          className="absolute top-3 right-3 font-mono text-[10px] font-black transition-all duration-300"
-          style={{
-            color: hovered ? config.accent : "rgba(255,255,255,0.18)",
-            background: hovered
-              ? `${config.accent}12`
-              : "rgba(255,255,255,0.02)",
-            border: `1px solid ${hovered ? config.accent + "25" : "rgba(255,255,255,0.04)"}`,
-            padding: "2px 6px",
-            borderRadius: "4px",
-            letterSpacing: "0.05em",
-          }}
-        >
-          P{position < 10 ? `0${position}` : position}
-        </div>
-
-        {/* Dynamic sliding corner brackets */}
-        <div
-          className="absolute w-4 h-4 transition-all duration-300"
-          style={{
-            top: hovered ? "-2px" : "0px",
-            left: hovered ? "-2px" : "0px",
-            borderTop: `2px solid ${hovered ? config.accent : "rgba(255,255,255,0.15)"}`,
-            borderLeft: `2px solid ${hovered ? config.accent : "rgba(255,255,255,0.15)"}`,
-          }}
-        />
-        <div
-          className="absolute w-4 h-4 transition-all duration-300"
-          style={{
-            bottom: hovered ? "-2px" : "0px",
-            right: hovered ? "-2px" : "0px",
-            borderBottom: `2px solid ${hovered ? config.accent : "rgba(255,255,255,0.15)"}`,
-            borderRight: `2px solid ${hovered ? config.accent : "rgba(255,255,255,0.15)"}`,
-          }}
-        />
-
         {/* Logo Frame */}
-        <div
-          className="flex items-center justify-center rounded-xl mb-4 transition-all duration-300 shrink-0"
-          style={{
-            width: isLarge ? "4.5rem" : isMed ? "3.75rem" : "3rem",
-            height: isLarge ? "4.5rem" : isMed ? "3.75rem" : "3rem",
-            background: hovered
-              ? `${config.accent}12`
-              : "rgba(255,255,255,0.02)",
-            border: `1px solid ${hovered ? config.accent + "35" : "rgba(255,255,255,0.05)"}`,
-            color: hovered ? config.accent : "rgba(255,255,255,0.5)",
-          }}
-        >
+        <div className="flex items-center justify-center rounded-xl mb-4 transition-all duration-300 shrink-0  overflow-hidden">
           {/* Sponsor Image here */}
+          <img
+            src={sponsor.imgUrl}
+            alt={sponsor.name}
+            className="w-full h-full object-cover"
+          />
         </div>
 
         {/* Name */}

@@ -164,14 +164,46 @@ export const FALLBACK_EVENTS = [
   },
 ];
 export const FALLBACK_SPONSORS = [
-  // { name: "VELOCITAS", tier: "Title Sponsor", logoType: "engine" },
-  // { name: "AXLE&CO", tier: "Co-Powered By", logoType: "gear" },
-  // { name: "KAIROS EV", tier: "EV Tech Partner", logoType: "battery" },
-  // { name: "OCTANE", tier: "Mobility Partner", logoType: "bolt" },
-  // { name: "MERIDIAN MOTORS", tier: "Automotive Partner", logoType: "shield" },
-  // { name: "REDLINE APEX", tier: "Racing Partner", logoType: "apex" },
-  // { name: "TORQUE LABS", tier: "Innovation Sponsor", logoType: "wing" },
-  // { name: "APEX FUEL", tier: "Energy Sponsor", logoType: "circle" },
+  // {
+  //   name: "VELOCITAS",
+  //   tier: "Title Sponsor",
+  //   imgUrl: "https://picsum.photos/600/200",
+  // },
+  // {
+  //   name: "AXLE&CO",
+  //   tier: "Co-Powered By",
+  //   imgUrl: "https://picsum.photos/600/200",
+  // },
+  // {
+  //   name: "KAIROS EV",
+  //   tier: "EV Tech Partner",
+  //   imgUrl: "https://picsum.photos/600/200",
+  // },
+  // {
+  //   name: "OCTANE",
+  //   tier: "Mobility Partner",
+  //   imgUrl: "https://picsum.photos/600/200",
+  // },
+  // {
+  //   name: "MERIDIAN MOTORS",
+  //   tier: "Automotive Partner",
+  //   imgUrl: "https://picsum.photos/600/200",
+  // },
+  // {
+  //   name: "REDLINE APEX",
+  //   tier: "Racing Partner",
+  //   imgUrl: "https://picsum.photos/600/200",
+  // },
+  // {
+  //   name: "TORQUE LABS",
+  //   tier: "Innovation Sponsor",
+  //   imgUrl: "https://picsum.photos/600/200",
+  // },
+  // {
+  //   name: "APEX FUEL",
+  //   tier: "Energy Sponsor",
+  //   imgUrl: "https://picsum.photos/600/200",
+  // },
 ];
 export const FALLBACK_SCHEDULE = [
   {
