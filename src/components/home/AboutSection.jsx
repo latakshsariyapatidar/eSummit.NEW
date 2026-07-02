@@ -2,7 +2,7 @@ import React from "react";
 import { SectionHeader } from "../ui/SectionHeader";
 import { useEvents } from "@/lib/store";
 import logo from "/logo.png";
-import { AsciiArt } from "../ui/ascii-art";
+import { AsciiArt } from "../CustomPremade/ascii-art";
 
 export function AboutSection() {
   const events = useEvents();

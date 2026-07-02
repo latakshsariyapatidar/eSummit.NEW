@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TransitionLink as Link } from "../ui/TransitionLink";
-import { Countdown } from "../Countdown";
-import Hyperspeed from "../Hyperspeed";
+import { Countdown } from "../Countdown/Countdown";
+import Hyperspeed from "../CustomPremade/Hyperspeed";
 import HeroImage from "/HeroImage.svg";
 
 if (typeof window !== "undefined") {
