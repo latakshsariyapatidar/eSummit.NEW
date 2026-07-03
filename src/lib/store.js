@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export const API_BASE =
-  import.meta.env.VITE_API_BASE || "http://localhost:6996/api";
+  import.meta.env.VITE_API_BASE || "https://iic.iitdh.ac.in/esummit/api/api";
 
 export const PASSES = [];
 export const TARGET_DATE = new Date("2026-08-20T09:00:00").getTime();
