@@ -34,15 +34,15 @@ Both are lazy imported in `src/App.jsx`.
 
 ## Modules Used
 
-| Module | Imported from | Used for |
-| --- | --- | --- |
-| `useEvents` | `@/lib/store` | Event list and event detail data. |
-| `PageHeader` | `@/components/ui/PageHeader` | Catalog heading. |
-| `useDocumentTitle` | `@/hooks/useDocumentTitle` | Browser title. |
-| `FlowingMenu` | `@/components/CustomPremade/FlowingMenu` | Animated event catalog. |
-| `useParams` | `react-router-dom` | Reads event slug. |
-| `TransitionLink` | `@/components/ui/TransitionLink` | Internal animated links. |
-| `Loader` | `@/components/Loader/Loader` | Empty loading state in detail page. |
+| Module             | Imported from                            | Used for                            |
+| ------------------ | ---------------------------------------- | ----------------------------------- |
+| `useEvents`        | `@/lib/store`                            | Event list and event detail data.   |
+| `PageHeader`       | `@/components/ui/PageHeader`             | Catalog heading.                    |
+| `useDocumentTitle` | `@/hooks/useDocumentTitle`               | Browser title.                      |
+| `FlowingMenu`      | `@/components/CustomPremade/FlowingMenu` | Animated event catalog.             |
+| `useParams`        | `react-router-dom`                       | Reads event slug.                   |
+| `TransitionLink`   | `@/components/ui/TransitionLink`         | Internal animated links.            |
+| `Loader`           | `@/components/Loader/Loader`             | Empty loading state in detail page. |
 
 ## Data Shape
 
@@ -50,14 +50,7 @@ Events in `src/lib/store.js` use:
 
 ```js
 {
-  slug,
-  name,
-  tagline,
-  day,
-  time,
-  about,
-  brief,
-  format
+  (slug, name, tagline, day, time, about, brief, format);
 }
 ```
 

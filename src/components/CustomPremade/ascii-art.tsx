@@ -19,7 +19,8 @@ const ASCII_CHARSETS = {
   binary: " 01",
   dots: " ·•●",
   minimal: " .:░▒",
-  dense: " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$",
+  dense:
+    " .'`^\",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$",
   arrows: " ←↑→↓↔↕↖↗↘↙",
   stars: " ·✦✧★",
   hash: " -=#",
@@ -46,7 +47,7 @@ const resolveCharset = (charset: string): string => {
 
 const resolveCssColor = (
   color: string,
-  element: HTMLElement | null
+  element: HTMLElement | null,
 ): string => {
   if (!color) return color;
 
@@ -189,12 +190,12 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
         let dw, dh, dx, dy;
         if (imgAspect > visualAspect) {
           dw = cols;
-          dh = cols / imgAspect * charAspectRatio;
+          dh = (cols / imgAspect) * charAspectRatio;
           dx = 0;
           dy = (rows - dh) / 2;
         } else {
           dh = rows;
-          dw = rows * imgAspect / charAspectRatio;
+          dw = (rows * imgAspect) / charAspectRatio;
           dx = (cols - dw) / 2;
           dy = 0;
         }
@@ -229,7 +230,7 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
           const adjustedBrightness = a === 0 ? 0 : brightness;
 
           const charIndex = Math.floor(
-            adjustedBrightness * (effectiveCharset.length - 1)
+            adjustedBrightness * (effectiveCharset.length - 1),
           );
           const char = effectiveCharset[charIndex] || " ";
 
@@ -351,7 +352,7 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
       textColor,
       fontFamily,
       animationStyle,
-    ]
+    ],
   );
 
   useEffect(() => {
@@ -449,7 +450,7 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
       <div
         className={cn(
           "flex items-center justify-center text-red-500 text-sm font-mono",
-          className
+          className,
         )}
       >
         Error: {error}
@@ -462,7 +463,7 @@ export const AsciiArt: React.FC<AsciiArtProps> = ({
       <div
         className={cn(
           "flex items-center justify-center text-neutral-500 text-sm font-mono animate-pulse",
-          className
+          className,
         )}
         style={{ backgroundColor }}
       >

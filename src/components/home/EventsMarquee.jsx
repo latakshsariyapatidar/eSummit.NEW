@@ -1,10 +1,23 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { SectionHeader } from "../ui/SectionHeader";
 import { TransitionLink as Link } from "../ui/TransitionLink";
-import { useEvents } from "@/lib/store";
+import { fetchEvents } from "@/lib/store";
 
 export function EventsConveyor() {
-  const events = useEvents();
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchEvents()
+      .then((data) => {
+        setEvents(data || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching events:", err);
+        setLoading(false);
+      });
+  }, []);
 
   const numberToWord = (num) => {
     const words = [
@@ -22,6 +35,10 @@ export function EventsConveyor() {
     ];
     return words[num] || num.toString();
   };
+
+  if (loading || events.length === 0) {
+    return null;
+  }
 
   const eventCountWord = numberToWord(events.length);
   const capitalizedEventCountWord =

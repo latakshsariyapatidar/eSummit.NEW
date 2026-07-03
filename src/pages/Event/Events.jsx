@@ -1,11 +1,51 @@
-import { useEvents } from "@/lib/store";
+import { useState, useEffect } from "react";
+import { fetchEvents } from "@/lib/store";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import FlowingMenu from "@/components/CustomPremade/FlowingMenu";
+import { Loader } from "@/components/Loader/Loader";
+import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
 
 export function Events() {
   useDocumentTitle("Events — E-Summit 2026");
-  const events = useEvents();
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchEvents()
+      .then((data) => {
+        setEvents(data || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching events:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (events.length === 0) {
+    return (
+      <div className="pt-40 pb-24 min-h-screen flex items-center justify-center px-6">
+        <ComingSoonCard
+          title={
+            <>
+              Events Grid <br className="hidden sm:block" />
+              <span className="text-primary">Coming Soon</span>
+            </>
+          }
+          description="We are currently finalizing the competitive events grid. The complete lineup of strategy, tech, and design challenges will be unveiled trackside shortly."
+        />
+      </div>
+    );
+  }
 
   const menuItems = events.map((e) => ({
     text: e.name,

@@ -1,4 +1,3 @@
-import React from "react";
 import { SponsorCard } from "@/components/Sponsors/SponsorCard";
 
 const TIER_ORDER = [

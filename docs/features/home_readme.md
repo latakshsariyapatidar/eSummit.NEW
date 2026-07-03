@@ -32,16 +32,16 @@ Route:
 
 ## Modules Used
 
-| Module | Imported from | Used for |
-| --- | --- | --- |
-| `useDocumentTitle` | `@/hooks/useDocumentTitle` | Sets browser title. |
-| `Hero` | `@/components/home/Hero` | Top full-screen visual hero. |
-| `Marquee` | `@/components/home/Marquee` | Topic strip under hero. |
-| `LazySection` | `@/components/Shared/LazySection` | Delays heavy section rendering. |
-| `AboutSection` | `@/components/home/AboutSection` | About text, ASCII logo, event count. |
-| `EventsConveyor` | `@/components/home/EventsMarquee` | Horizontal event cards. |
-| `TrackCTA` | `@/components/home/CTA` | Pass purchase CTA. |
-| `FAQSection` | `@/components/home/FAQSection` | FAQ accordion. |
+| Module             | Imported from                     | Used for                             |
+| ------------------ | --------------------------------- | ------------------------------------ |
+| `useDocumentTitle` | `@/hooks/useDocumentTitle`        | Sets browser title.                  |
+| `Hero`             | `@/components/home/Hero`          | Top full-screen visual hero.         |
+| `Marquee`          | `@/components/home/Marquee`       | Topic strip under hero.              |
+| `LazySection`      | `@/components/Shared/LazySection` | Delays heavy section rendering.      |
+| `AboutSection`     | `@/components/home/AboutSection`  | About text, ASCII logo, event count. |
+| `EventsConveyor`   | `@/components/home/EventsMarquee` | Horizontal event cards.              |
+| `TrackCTA`         | `@/components/home/CTA`           | Pass purchase CTA.                   |
+| `FAQSection`       | `@/components/home/FAQSection`    | FAQ accordion.                       |
 
 ## Component Details
 

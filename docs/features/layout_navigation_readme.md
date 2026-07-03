@@ -70,17 +70,17 @@ This feature covers the app shell, nav, footer, smooth scroll, page transition o
 
 ## Modules Used
 
-| Module | Imported from | Used for |
-| --- | --- | --- |
-| `Loader` | `../Loader/Loader` | First-visit overlay. |
-| `Nav` | `./Nav` | Global navigation. |
-| `Footer` | `./Footer` | Global footer. |
-| `SmoothScroll` | `./SmoothScroll` | Smooth page scrolling. |
-| `LocomotiveScroll` | `locomotive-scroll` | Scroll implementation. |
-| `TransitionLink` | `../ui/TransitionLink` | Animated internal links. |
-| `useTransitionNavigate` | `../../hooks/useTransitionNavigate` | Programmatic transition navigation. |
-| `PageTransitionOverlay` | `@/components/ui/PageTransitionOverlay` | Animated route overlay. |
-| `SmoothCursor` | `@/components/CustomPremade/smooth-cursor` | Desktop custom cursor. |
+| Module                  | Imported from                              | Used for                            |
+| ----------------------- | ------------------------------------------ | ----------------------------------- |
+| `Loader`                | `../Loader/Loader`                         | First-visit overlay.                |
+| `Nav`                   | `./Nav`                                    | Global navigation.                  |
+| `Footer`                | `./Footer`                                 | Global footer.                      |
+| `SmoothScroll`          | `./SmoothScroll`                           | Smooth page scrolling.              |
+| `LocomotiveScroll`      | `locomotive-scroll`                        | Scroll implementation.              |
+| `TransitionLink`        | `../ui/TransitionLink`                     | Animated internal links.            |
+| `useTransitionNavigate` | `../../hooks/useTransitionNavigate`        | Programmatic transition navigation. |
+| `PageTransitionOverlay` | `@/components/ui/PageTransitionOverlay`    | Animated route overlay.             |
+| `SmoothCursor`          | `@/components/CustomPremade/smooth-cursor` | Desktop custom cursor.              |
 
 ## Files to Edit
 

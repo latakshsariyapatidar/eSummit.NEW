@@ -42,18 +42,18 @@ Route in `src/App.jsx`:
 
 ## Modules Used
 
-| Module | Imported from | Used for |
-| --- | --- | --- |
-| `PageHeader` | `@/components/ui/PageHeader` | Page and form headings. |
-| `useDocumentTitle` | `@/hooks/useDocumentTitle` | Browser title. |
-| `Button` | `@/components/ui/Button` | Actions. |
-| `PASSES` | `@/lib/store` | Available pass data. |
-| `PassCard` | `@/components/Passes/PassCard` | Pass display and quantity controls. |
-| `useLocalStorage` | `@/hooks/useLocalStorage` | Cart persistence. |
-| `ComingSoonCard` | `@/components/ComingSoon/ComingSoonCard` | Empty passes state. |
-| `AttendeeDetailsForm` | `@/components/OrderPurchaseComponents/AttendeeDetailsForm` | Attendee detail form. |
-| `PaymentGatewayModal` | `@/components/OrderPurchaseComponents/PaymentGatewayModal` | QR and UTR form. |
-| `OrderSuccessScreen` | `@/components/OrderPurchaseComponents/OrderSuccessScreen` | Final state. |
+| Module                | Imported from                                              | Used for                            |
+| --------------------- | ---------------------------------------------------------- | ----------------------------------- |
+| `PageHeader`          | `@/components/ui/PageHeader`                               | Page and form headings.             |
+| `useDocumentTitle`    | `@/hooks/useDocumentTitle`                                 | Browser title.                      |
+| `Button`              | `@/components/ui/Button`                                   | Actions.                            |
+| `PASSES`              | `@/lib/store`                                              | Available pass data.                |
+| `PassCard`            | `@/components/Passes/PassCard`                             | Pass display and quantity controls. |
+| `useLocalStorage`     | `@/hooks/useLocalStorage`                                  | Cart persistence.                   |
+| `ComingSoonCard`      | `@/components/ComingSoon/ComingSoonCard`                   | Empty passes state.                 |
+| `AttendeeDetailsForm` | `@/components/OrderPurchaseComponents/AttendeeDetailsForm` | Attendee detail form.               |
+| `PaymentGatewayModal` | `@/components/OrderPurchaseComponents/PaymentGatewayModal` | QR and UTR form.                    |
+| `OrderSuccessScreen`  | `@/components/OrderPurchaseComponents/OrderSuccessScreen`  | Final state.                        |
 
 ## API Endpoints
 
@@ -73,19 +73,21 @@ Endpoints:
 Cart item:
 
 ```js
-{ passId, qty }
+{
+  (passId, qty);
+}
 ```
 
 Attendee object:
 
 ```js
 {
-  passType,
-  passPrice,
-  attendeeName,
-  attendeeEmail,
-  attendeeGender,
-  collegeName
+  (passType,
+    passPrice,
+    attendeeName,
+    attendeeEmail,
+    attendeeGender,
+    collegeName);
 }
 ```
 

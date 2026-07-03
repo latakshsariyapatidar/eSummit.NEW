@@ -1,7 +1,8 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { SPONSORS } from "@/lib/store";
+import { fetchSponsors } from "@/lib/store";
+import { Loader } from "@/components/Loader/Loader";
 import {
   GridSection,
   groupByTierSize,
@@ -10,6 +11,20 @@ import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
 
 export function Sponsors() {
   useDocumentTitle("Our Partners — E-Summit 2026");
+  const [sponsors, setSponsors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchSponsors()
+      .then((data) => {
+        setSponsors(data || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching sponsors:", err);
+        setLoading(false);
+      });
+  }, []);
 
   const TIER_ORDER_LOWER = [
     "title sponsor",
@@ -27,15 +42,23 @@ export function Sponsors() {
     return idx === -1 ? 99 : idx;
   };
 
-  const sortedSponsors = [...SPONSORS].sort(
+  const sortedSponsors = [...sponsors].sort(
     (a, b) => getTierRank(a.tier) - getTierRank(b.tier),
   );
 
   const groupedSizes = groupByTierSize(sortedSponsors);
 
+  if (loading) {
+    return (
+      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <>
-      {SPONSORS.length > 0 ? (
+      {sponsors.length > 0 ? (
         <div className="relative pt-32 pb-24 mx-auto max-w-400 px-6 lg:px-12 min-h-screen flex flex-col">
           <style>{`
             @keyframes fadeSlideIn {

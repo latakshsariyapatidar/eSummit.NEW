@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TransitionLink as Link } from "../ui/TransitionLink";
-import { EVENTS } from "../../lib/store";
+import { fetchEvents } from "../../lib/store";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -11,6 +11,13 @@ if (typeof window !== "undefined") {
 export function Footer() {
   const footerRef = useRef(null);
   const contentRef = useRef(null);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    fetchEvents()
+      .then((data) => setEvents(data || []))
+      .catch((err) => console.error("Error fetching events for footer:", err));
+  }, []);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -49,7 +56,7 @@ export function Footer() {
       "eight",
       "nine",
       "ten",
-    ][EVENTS.length] || EVENTS.length;
+    ][events.length] || events.length;
 
   const socialLinks = [
     {

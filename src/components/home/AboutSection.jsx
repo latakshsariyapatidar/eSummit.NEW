@@ -1,11 +1,17 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { SectionHeader } from "../ui/SectionHeader";
-import { useEvents } from "@/lib/store";
+import { fetchEvents } from "@/lib/store";
 import logo from "/logo.png";
 import { AsciiArt } from "../CustomPremade/ascii-art";
 
 export function AboutSection() {
-  const events = useEvents();
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    fetchEvents()
+      .then((data) => setEvents(data || []))
+      .catch((err) => console.error("Error fetching events:", err));
+  }, []);
 
   const numberToWord = (num) => {
     const words = [

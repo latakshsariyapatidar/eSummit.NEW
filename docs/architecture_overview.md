@@ -64,7 +64,7 @@ The project leans heavily on custom motion:
 Vite is configured with:
 
 ```js
-base: "/esummit/"
+base: "/esummit/";
 ```
 
 The GitHub workflow builds on `main` and deploys `dist/*` to `/var/www/iic/esummit` on a self-hosted runner.

@@ -1,7 +1,5 @@
 import { lazy } from "react";
 
-import { Countdown } from "@/components/Countdown/Countdown";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 import { Hero } from "@/components/home/Hero";

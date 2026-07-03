@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useSchedule, useEvents } from "@/lib/store";
+import { useState, useEffect } from "react";
+import { fetchSchedule, useEvents } from "@/lib/store";
 import { Loader } from "@/components/Loader/Loader";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { Clock, MapPin, ArrowRight, Flag, Activity } from "lucide-react";
+import { Clock, MapPin, ArrowRight, Flag } from "lucide-react";
 import { TransitionLink as Link } from "@/components/ui/TransitionLink";
+import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
 
 // --- Time Parsing Helpers ---
 const timeToMinutes = (timeStr) => {
@@ -22,16 +23,27 @@ const timeToMinutes = (timeStr) => {
 
 export function Schedule() {
   useDocumentTitle("Schedule — E-Summit 2026");
-  const schedule = [...useSchedule()].sort((a, b) =>
-    a.day.localeCompare(b.day),
-  );
+  const [rawSchedule, setRawSchedule] = useState([]);
+  const [loading, setLoading] = useState(true);
   const events = useEvents();
   const [activeDay, setActiveDay] = useState("Day 01");
 
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Live Telemetry Clock (Updates every minute for accurate real-time status)
+  // Fetch schedule on mount
+  useEffect(() => {
+    fetchSchedule()
+      .then((data) => {
+        setRawSchedule(data || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching schedule:", err);
+        setLoading(false);
+      });
+  }, []);
 
+  // Live Telemetry Clock (Updates every minute for accurate real-time status)
   useEffect(() => {
     const updateTime = () => setCurrentTime(new Date());
     updateTime();
@@ -39,10 +51,28 @@ export function Schedule() {
     return () => clearInterval(interval);
   }, []);
 
-  if (schedule.length === 0) {
+  const schedule = [...rawSchedule].sort((a, b) => a.day.localeCompare(b.day));
+
+  if (loading) {
     return (
       <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
         <Loader />
+      </div>
+    );
+  }
+
+  if (schedule.length === 0) {
+    return (
+      <div className="relative pt-32 pb-24 min-h-screen flex items-center justify-center px-6">
+        <ComingSoonCard
+          title={
+            <>
+              Race Schedule <br className="hidden sm:block" />
+              <span className="text-primary">Coming Soon.</span>
+            </>
+          }
+          description="We are currently finalizing the race schedule. The complete starting grid of events will be unveiled trackside shortly."
+        />
       </div>
     );
   }
@@ -53,10 +83,6 @@ export function Schedule() {
   const sortedItems = [...activeSchedule.items].sort(
     (a, b) => timeToMinutes(a.time) - timeToMinutes(b.time),
   );
-
-  const lastEventIndex = sortedItems.length - 1;
-  const lastEventIsLeft = lastEventIndex % 2 !== 0;
-  const finishSide = lastEventIsLeft ? "25%" : "75%";
 
   // --- STRICT REAL-TIME STATUS LOGIC ---
   const getEventStatus = (itemTimeStr) => {
@@ -94,42 +120,20 @@ export function Schedule() {
 
   return (
     <div className="pt-32 pb-32 mx-auto max-w-7xl px-4 lg:px-12 text-center min-h-screen relative overflow-hidden font-sans">
-      {/* Custom F1 Entrance Animation Styles */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        @keyframes f1-streak-in {
-          0% {
-            transform: translateX(-50vw) skewX(-20deg);
-            opacity: 0;
-            filter: blur(8px);
-          }
-          70% {
-            transform: translateX(15px) skewX(5deg);
-            opacity: 1;
-            filter: blur(0px);
-          }
-          100% {
-            transform: translateX(0) skewX(0deg);
-            opacity: 1;
-          }
-        }
-        .animate-f1-entrance {
-          opacity: 0;
-          animation: f1-streak-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-      `,
-        }}
-      />
-
       {/* --- HEADER (Animated) --- */}
       <div
-        className="flex flex-col items-start  gap-6 mb-16 relative z-20 animate-f1-entrance"
+        className="flex flex-col items-start gap-6 mb-16 relative z-20"
         style={{ animationDelay: "0.1s" }}
       >
-        <PageHeader title="Race Schedule." />
+        <div className="mb-20">
+          <PageHeader tag="Timeline" title="Race Schedule." className="mb-0" />
+          <p className="mt-6 text-muted-foreground text-sm sm:text-base font-sans leading-relaxed max-w-2xl text-left">
+            Track the complete lineup of events, keynotes, and competitive
+            tracks across all laps of E-Summit 2026.
+          </p>
+        </div>
 
-        <div className="flex bg-[#1A1E23] border border-white/10 p-1.5 rounded-full backdrop-blur-xl shadow-2xl mt-2">
+        <div className="flex bg-accent-foreground border p-1.5 rounded-full backdrop-blur-xl shadow-2xl mt-2 gap-5">
           {schedule.map((d) => (
             <button
               key={d.day}
@@ -161,30 +165,21 @@ export function Schedule() {
 
           let cardOpacity = "opacity-100";
           let borderClass = "border-white/10";
-          let nodeGlow = "bg-white/50";
           let pointerClass = "border-white/10";
           let timeTextClass = "text-white/70";
 
           if (status === "past") {
             cardOpacity =
               "opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all";
-            nodeGlow =
-              "bg-[#F97316] shadow-[0_0_20px_rgba(249,115,22,0.8)] animate-pulse";
             pointerClass = "border-red-500/50";
             timeTextClass = "text-gray-400";
           } else if (status === "ongoing") {
-            nodeGlow =
-              "bg-[#F97316] shadow-[0_0_20px_rgba(249,115,22,0.8)] animate-pulse";
             pointerClass = "border-green-500";
             timeTextClass = "text-white-400";
           } else if (status === "upcoming-soon") {
-            nodeGlow =
-              "bg-[#F97316] shadow-[0_0_20px_rgba(249,115,22,0.8)] animate-pulse";
             pointerClass = "border-yellow-500";
             timeTextClass = "text-white-400";
           }
-
-          const animationDelay = `${0.3 + index * 0.15}s`;
 
           return (
             <div
@@ -331,10 +326,7 @@ export function Schedule() {
                 ${!isLeft && "md:left-[75%]"}
               `}
               >
-                <div
-                  className="animate-f1-entrance w-full"
-                  style={{ animationDelay }}
-                >
+                <div className=" w-full">
                   <div
                     className={`bg-[#090909] border-2 ${borderClass} rounded-xl p-4 md:p-5 shadow-2xl relative flex flex-col backdrop-blur-md transition-all duration-300 hover:scale-[1.02]`}
                   >
@@ -498,7 +490,7 @@ export function Schedule() {
             </div>
 
             <div
-              className="animate-f1-entrance w-full flex flex-col items-center"
+              className=" w-full flex flex-col items-center"
               style={{ animationDelay: `${0.3 + sortedItems.length * 0.15}s` }}
             >
               {/* Title */}
