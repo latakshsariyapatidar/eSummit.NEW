@@ -134,10 +134,11 @@ export function Schedule() {
             <button
               key={d.day}
               onClick={() => setActiveDay(d.day)}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm uppercase tracking-[0.2em] transition-all duration-300 ${activeDay === d.day
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm uppercase tracking-[0.2em] transition-all duration-300 ${
+                activeDay === d.day
                   ? "bg-primary text-black font-black shadow-[0_0_20px_rgba(249,115,22,0.4)] scale-[1.02]"
                   : "text-white/50 hover:text-white hover:bg-white/5 font-bold"
-                }`}
+              }`}
             >
               <Flag className="w-4 h-4" />
               LAP {d.day.replace("Day ", "")}
