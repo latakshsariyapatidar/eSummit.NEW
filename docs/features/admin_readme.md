@@ -56,28 +56,28 @@ Route setup in `src/App.jsx`:
 
 ## Modules Used
 
-| Module | Imported from | Used for |
-| --- | --- | --- |
-| `Outlet`, `useNavigate`, `useLocation` | `react-router-dom` | Admin nested routing and redirects. |
-| `useTransitionNavigate` | `@/hooks/useTransitionNavigate` | Animated navigation in auth/dashboard. |
-| `PageHeader` | `@/components/ui/PageHeader` | Headings. |
-| `Input` | `@/components/ui/Input` | Admin key and scan input. |
-| `Button` | `@/components/ui/Button` | Actions. |
-| `useDocumentTitle` | `@/hooks/useDocumentTitle` | Browser title. |
-| `useLocalStorage` | `@/hooks/useLocalStorage` | Demo order storage and pass config. |
-| `PASSES` | `@/lib/store` | Pass configuration panel. |
-| `toast` | `sonner` | Duplicate scan feedback. |
+| Module                                 | Imported from                   | Used for                               |
+| -------------------------------------- | ------------------------------- | -------------------------------------- |
+| `Outlet`, `useNavigate`, `useLocation` | `react-router-dom`              | Admin nested routing and redirects.    |
+| `useTransitionNavigate`                | `@/hooks/useTransitionNavigate` | Animated navigation in auth/dashboard. |
+| `PageHeader`                           | `@/components/ui/PageHeader`    | Headings.                              |
+| `Input`                                | `@/components/ui/Input`         | Admin key and scan input.              |
+| `Button`                               | `@/components/ui/Button`        | Actions.                               |
+| `useDocumentTitle`                     | `@/hooks/useDocumentTitle`      | Browser title.                         |
+| `useLocalStorage`                      | `@/hooks/useLocalStorage`       | Demo order storage and pass config.    |
+| `PASSES`                               | `@/lib/store`                   | Pass configuration panel.              |
+| `toast`                                | `sonner`                        | Duplicate scan feedback.               |
 
 ## Storage Keys
 
-| Key | Storage | Purpose |
-| --- | --- | --- |
+| Key                   | Storage          | Purpose                                        |
+| --------------------- | ---------------- | ---------------------------------------------- |
 | `_admin_auth_checked` | `sessionStorage` | Prevent repeated auth checks in `AdminLayout`. |
-| `auth_token` | `sessionStorage` | Auth token from backend. |
-| `auth_role` | `sessionStorage` | User role from backend. |
-| `admin_key` | `sessionStorage` | Entered key. |
-| `es26_orders` | `localStorage` | Demo/local admin orders. |
-| `admin_passes` | `localStorage` | Demo/local pass sold-out config. |
+| `auth_token`          | `sessionStorage` | Auth token from backend.                       |
+| `auth_role`           | `sessionStorage` | User role from backend.                        |
+| `admin_key`           | `sessionStorage` | Entered key.                                   |
+| `es26_orders`         | `localStorage`   | Demo/local admin orders.                       |
+| `admin_passes`        | `localStorage`   | Demo/local pass sold-out config.               |
 
 ## Files to Edit
 

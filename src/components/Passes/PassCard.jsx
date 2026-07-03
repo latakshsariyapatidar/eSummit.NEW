@@ -1,4 +1,4 @@
-import { Ticket, Calendar, CheckCircle2 } from "lucide-react";
+import { Calendar, CheckCircle2 } from "lucide-react";
 
 // ═══════════════════════════════════════════════════════════════
 // STYLING & CONFIGURATION
@@ -39,14 +39,13 @@ export function PassCard({
   // Backend state monitoring: Fallback to evaluating remaining balance count
   const isTierSoldOut = p.soldOut;
 
-  const showStayProvision = Boolean(p.duration);
   const stayProvisionLabel = p.duration
     ? p.duration
     : "No stay included. Accommodation can be arranged separately at daily rates.";
 
   return (
     <div
-      className={`group relative overflow-hidden border flex flex-col rounded-3xl h-fit  z-10 ${
+      className={`group relative overflow-hidden border flex flex-col rounded-3xl h-full  z-10 ${
         isTierSoldOut
           ? style.borderSoldOut
           : qty > 0
@@ -110,7 +109,7 @@ export function PassCard({
           ))}
         </div>
         <div className="text-[6px] font-mono tracking-wider rotate-90 origin-left mt-3 text-muted-foreground shrink-0 whitespace-nowrap">
-          ES26-{p.id.toUpperCase()}
+          ES26-{(p.id || p._id || "").toUpperCase()}
         </div>
       </div>
 
@@ -170,7 +169,7 @@ export function PassCard({
       {/* ═══ BOTTOM SECTION ═══ */}
       <div className="p-6 sm:p-8 pt-4 flex flex-col justify-between z-10 bg-black/10 rounded-b-3xl flex-1">
         <ul className="space-y-2.5 text-xs text-muted-foreground flex-1">
-          {p.perks.map((perk) => (
+          {(p.benefits || p.perks || []).map((perk) => (
             <li key={perk} className="flex items-start gap-2.5">
               <CheckCircle2
                 className={`w-3.5 h-3.5 shrink-0 mt-0.5 transition-colors ${

@@ -26,15 +26,15 @@ Route in `src/App.jsx`:
 
 ## Modules Used
 
-| Module | Imported from | Used for |
-| --- | --- | --- |
-| `useMemo` | `react` | Splits team data efficiently. |
-| `PageHeader` | `@/components/ui/PageHeader` | Page heading. |
-| `useDocumentTitle` | `@/hooks/useDocumentTitle` | Browser title. |
-| `TeamMemberCard` | `@/components/Team/TeamMemberCard` | Lead and crew card UI. |
-| `useTeams` | `@/lib/store` | Team data. |
-| `Loader` | `@/components/Loader/Loader` | Empty loading state. |
-| `ComingSoonCard` | `@/components/ComingSoon/ComingSoonCard` | Present but currently commented out. |
+| Module             | Imported from                            | Used for                             |
+| ------------------ | ---------------------------------------- | ------------------------------------ |
+| `useMemo`          | `react`                                  | Splits team data efficiently.        |
+| `PageHeader`       | `@/components/ui/PageHeader`             | Page heading.                        |
+| `useDocumentTitle` | `@/hooks/useDocumentTitle`               | Browser title.                       |
+| `TeamMemberCard`   | `@/components/Team/TeamMemberCard`       | Lead and crew card UI.               |
+| `useTeams`         | `@/lib/store`                            | Team data.                           |
+| `Loader`           | `@/components/Loader/Loader`             | Empty loading state.                 |
+| `ComingSoonCard`   | `@/components/ComingSoon/ComingSoonCard` | Present but currently commented out. |
 
 ## Team Split Logic
 

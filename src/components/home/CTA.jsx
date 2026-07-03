@@ -1,4 +1,3 @@
-import React from "react";
 import { TransitionLink as Link } from "../ui/TransitionLink";
 import track from "/track.avif";
 

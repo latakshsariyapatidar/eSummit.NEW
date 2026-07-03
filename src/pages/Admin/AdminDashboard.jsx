@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTransitionNavigate } from "../../hooks/useTransitionNavigate";
-import { PASSES } from "@/lib/store";
+import { API_BASE } from "@/lib/store";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -79,7 +79,7 @@ export function AdminDashboard() {
       </div>
 
       <div className="flex gap-2 mb-8 border-b border-border">
-        {["orders", "scan"].map((t) => (
+        {["orders", "passes", "scan", "settings"].map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -150,23 +150,80 @@ export function AdminDashboard() {
 
       {tab === "passes" && <PassesPanel />}
       {tab === "scan" && <ScanPanel />}
+      {tab === "settings" && <SettingsPanel />}
     </div>
   );
 }
 
 function PassesPanel() {
-  const [config, setConfig] = useLocalStorage("admin_passes", {});
+  const [passes, setPasses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const toggle = (id) => {
-    setConfig((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const fetchAllPasses = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/content/passes`);
+      if (!res.ok) throw new Error("Failed to fetch passes");
+      const json = await res.json();
+      if (json.status === "success") {
+        setPasses(json.data || []);
+      }
+    } catch (err) {
+      toast.error("Error loading passes from backend");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchAllPasses();
+  }, []);
+
+  const toggle = async (p) => {
+    const targetSoldOut = !p.soldOut;
+    try {
+      const token = sessionStorage.getItem("auth_token");
+      const adminKey = sessionStorage.getItem("admin_key");
+      const res = await fetch(`${API_BASE}/content/passes/${p.id}/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+          "X-Admin-Key": adminKey || "",
+        },
+        body: JSON.stringify({ soldOut: targetSoldOut }),
+      });
+      const json = await res.json();
+      if (json.status === "success") {
+        toast.success(
+          `Pass is now ${targetSoldOut ? "Sold out" : "Available"}`,
+        );
+        setPasses((prev) =>
+          prev.map((pass) =>
+            pass.id === p.id ? { ...pass, soldOut: targetSoldOut } : pass,
+          ),
+        );
+      } else {
+        toast.error(json.message || "Failed to update pass status");
+      }
+    } catch (err) {
+      toast.error("Network error updating pass status");
+      console.error(err);
+    }
+  };
+
+  if (loading) {
+    return <div className="text-center py-8">Loading passes...</div>;
+  }
 
   return (
     <div className="space-y-3">
-      {PASSES.map((p) => (
+      {passes.length === 0 && (
+        <p className="text-muted-foreground">
+          No passes configured in backend.
+        </p>
+      )}
+      {passes.map((p) => (
         <div
           key={p.id}
           className="border border-border bg-card p-5 flex justify-between items-center rounded-2xl"
@@ -178,14 +235,118 @@ function PassesPanel() {
             </div>
           </div>
           <Button
-            onClick={() => toggle(p.id)}
-            variant={config[p.id] ? "signal" : "primary"}
+            onClick={() => toggle(p)}
+            variant={p.soldOut ? "signal" : "primary"}
             className="px-4 py-2"
           >
-            {config[p.id] ? "Sold out" : "Available"}
+            {p.soldOut ? "Sold out" : "Available"}
           </Button>
         </div>
       ))}
+    </div>
+  );
+}
+
+function SettingsPanel() {
+  const [settings, setSettings] = useState({
+    events: "yes",
+    sponsors: "yes",
+    faqs: "yes",
+    schedule: "yes",
+    teams: "yes",
+    passes: "yes",
+  });
+  const [loading, setLoading] = useState(true);
+
+  const fetchSettings = async () => {
+    const keys = ["events", "sponsors", "faqs", "schedule", "teams", "passes"];
+    const results = {};
+    try {
+      await Promise.all(
+        keys.map(async (key) => {
+          const res = await fetch(`${API_BASE}/content/${key}/status`);
+          if (res.ok) {
+            const json = await res.json();
+            results[key] = json.data || "yes";
+          } else {
+            results[key] = "yes";
+          }
+        }),
+      );
+      setSettings(results);
+    } catch (err) {
+      toast.error("Error loading page statuses");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const toggle = async (key) => {
+    const nextVal = settings[key] === "yes" ? "no" : "yes";
+    try {
+      const token = sessionStorage.getItem("auth_token");
+      const adminKey = sessionStorage.getItem("admin_key");
+      const res = await fetch(`${API_BASE}/content/${key}/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+          "X-Admin-Key": adminKey || "",
+        },
+        body: JSON.stringify({ status: nextVal }),
+      });
+      const json = await res.json();
+      if (json.status === "success") {
+        toast.success(`${key} status set to ${nextVal}`);
+        setSettings((prev) => ({ ...prev, [key]: nextVal }));
+      } else {
+        toast.error(json.message || "Failed to update status");
+      }
+    } catch (err) {
+      toast.error("Network error updating page status");
+      console.error(err);
+    }
+  };
+
+  if (loading) {
+    return <div className="text-center py-8">Loading settings...</div>;
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">
+        Page & Section Availability
+      </div>
+      <div className="space-y-3">
+        {Object.entries(settings).map(([key, val]) => (
+          <div
+            key={key}
+            className="border border-border bg-card p-5 flex justify-between items-center rounded-2xl"
+          >
+            <div className="text-left">
+              <div className="font-display text-2xl capitalize">{key}</div>
+              <div className="font-mono text-xs text-muted-foreground">
+                Current status:{" "}
+                {val === "yes"
+                  ? "Active (Fetching data)"
+                  : "Inactive (Coming Soon)"}
+              </div>
+            </div>
+            <Button
+              onClick={() => toggle(key)}
+              variant={val === "yes" ? "primary" : "signal"}
+              className="px-4 py-2"
+            >
+              {val === "yes" ? "Deactivate" : "Activate"}
+            </Button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -67,7 +67,7 @@ Cart helpers:
 Each fetch helper calls:
 
 ```js
-fetch(`${API_BASE}/content/<resource>`)
+fetch(`${API_BASE}/content/<resource>`);
 ```
 
 If `json.status === "success"`, it returns `json.data`; otherwise it returns fallback data.
@@ -81,29 +81,29 @@ Each hook:
 
 ## Current Content State
 
-| Dataset | Current state |
-| --- | --- |
-| Passes | Empty fallback. `/buy` shows no passes. |
-| Events | Populated fallback. |
-| Sponsors | Empty fallback. `/sponsors` shows coming soon. |
-| Schedule | Populated fallback, but page renders coming soon. |
-| FAQs | Populated fallback. |
-| Teams | Populated fallback. |
-| UPI IDs | Populated fallback, not currently central to the active buy flow. |
-| Target date | `2026-08-20T09:00:00`. |
+| Dataset     | Current state                                                     |
+| ----------- | ----------------------------------------------------------------- |
+| Passes      | Empty fallback. `/buy` shows no passes.                           |
+| Events      | Populated fallback.                                               |
+| Sponsors    | Empty fallback. `/sponsors` shows coming soon.                    |
+| Schedule    | Populated fallback, but page renders coming soon.                 |
+| FAQs        | Populated fallback.                                               |
+| Teams       | Populated fallback.                                               |
+| UPI IDs     | Populated fallback, not currently central to the active buy flow. |
+| Target date | `2026-08-20T09:00:00`.                                            |
 
 ## Importers
 
-| Export | Used by |
-| --- | --- |
-| `TARGET_DATE` | `src/components/Countdown/Countdown.jsx` |
-| `useEvents` | Home about, home events, events catalog/detail, schedule |
-| `useFAQs` | Home FAQ |
-| `useSchedule` | Schedule page |
-| `useTeams` | Team page |
-| `SPONSORS` | Sponsors page |
-| `PASSES` | Buy page, Admin dashboard pass panel |
-| `EVENTS` | Footer |
+| Export        | Used by                                                  |
+| ------------- | -------------------------------------------------------- |
+| `TARGET_DATE` | `src/components/Countdown/Countdown.jsx`                 |
+| `useEvents`   | Home about, home events, events catalog/detail, schedule |
+| `useFAQs`     | Home FAQ                                                 |
+| `useSchedule` | Schedule page                                            |
+| `useTeams`    | Team page                                                |
+| `SPONSORS`    | Sponsors page                                            |
+| `PASSES`      | Buy page, Admin dashboard pass panel                     |
+| `EVENTS`      | Footer                                                   |
 
 ## Files to Edit
 

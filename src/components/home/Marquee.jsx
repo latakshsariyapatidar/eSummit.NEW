@@ -1,5 +1,3 @@
-import React from "react";
-
 export function Marquee() {
   return (
     <section className="border-y border-border/20 bg-asphalt/50 backdrop-blur-sm py-4 overflow-hidden">

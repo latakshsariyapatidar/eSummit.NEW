@@ -1,10 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SectionHeader } from "../ui/SectionHeader";
-import { useFAQs } from "@/lib/store";
+import { fetchFAQs } from "@/lib/store";
 
 export function FAQSection() {
   const [activeFaq, setActiveFaq] = useState(null);
-  const faqs = useFAQs();
+  const [faqs, setFaqs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchFAQs()
+      .then((data) => {
+        setFaqs(data || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching FAQs:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading || faqs.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-28 md:py-36">

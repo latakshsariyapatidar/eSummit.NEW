@@ -1,24 +1,54 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useTransitionNavigate } from "../../hooks/useTransitionNavigate";
 import { TransitionLink as Link } from "../../components/ui/TransitionLink";
-import { useEvents } from "@/lib/store";
+import { fetchEvents } from "@/lib/store";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { Loader } from "@/components/Loader/Loader";
+import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
 
 export function EventDetails() {
   const { slug } = useParams();
-  const navigate = useTransitionNavigate();
-  const events = useEvents();
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchEvents()
+      .then((data) => {
+        setEvents(data || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching events:", err);
+        setLoading(false);
+      });
+  }, []);
+
   const event = events.find((e) => e.slug === slug);
 
   useDocumentTitle(
     event ? `${event.name} — E-Summit 2026` : "Event Not Found — E-Summit 2026",
   );
 
-  if (events.length === 0) {
+  if (loading) {
     return (
       <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
         <Loader />
+      </div>
+    );
+  }
+
+  if (events.length === 0) {
+    return (
+      <div className="pt-40 pb-24 min-h-screen flex items-center justify-center px-6">
+        <ComingSoonCard
+          title={
+            <>
+              Event Details <br className="hidden sm:block" />
+              <span className="text-primary">Coming Soon</span>
+            </>
+          }
+          description="We are currently finalizing the competitive events grid. The complete details for all strategy, tech, and design challenges will be unveiled trackside shortly."
+        />
       </div>
     );
   }

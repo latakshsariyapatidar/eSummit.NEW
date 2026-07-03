@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/ui/Button";
 
 export function ComingSoonCard({ title, description, ctaText, ctaHref }) {

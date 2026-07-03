@@ -20,6 +20,22 @@ export function Modal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
+  // Disable background scrolling when modal is open
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    html.classList.add("lenis-stopped");
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    return () => {
+      html.classList.remove("lenis-stopped");
+      html.style.overflow = "";
+      body.style.overflow = "";
+    };
+  }, []);
+
   return (
     <div
       data-lenis-prevent

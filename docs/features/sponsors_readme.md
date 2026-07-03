@@ -25,14 +25,14 @@ Route in `src/App.jsx`:
 
 ## Modules Used
 
-| Module | Imported from | Used for |
-| --- | --- | --- |
-| `PageHeader` | `@/components/ui/PageHeader` | Page heading. |
-| `useDocumentTitle` | `@/hooks/useDocumentTitle` | Browser title. |
-| `SPONSORS` | `@/lib/store` | Sponsor data. |
-| `GridSection` | `@/components/Sponsors/SponsorHelpers` | Renders grouped sponsor section. |
-| `groupByTierSize` | `@/components/Sponsors/SponsorHelpers` | Groups sponsors into large/medium/small tiers. |
-| `ComingSoonCard` | `@/components/ComingSoon/ComingSoonCard` | Empty sponsor state. |
+| Module             | Imported from                            | Used for                                       |
+| ------------------ | ---------------------------------------- | ---------------------------------------------- |
+| `PageHeader`       | `@/components/ui/PageHeader`             | Page heading.                                  |
+| `useDocumentTitle` | `@/hooks/useDocumentTitle`               | Browser title.                                 |
+| `SPONSORS`         | `@/lib/store`                            | Sponsor data.                                  |
+| `GridSection`      | `@/components/Sponsors/SponsorHelpers`   | Renders grouped sponsor section.               |
+| `groupByTierSize`  | `@/components/Sponsors/SponsorHelpers`   | Groups sponsors into large/medium/small tiers. |
+| `ComingSoonCard`   | `@/components/ComingSoon/ComingSoonCard` | Empty sponsor state.                           |
 
 ## Supporting Components
 
@@ -58,9 +58,7 @@ Sponsor object:
 
 ```js
 {
-  name,
-  tier,
-  imgUrl
+  (name, tier, imgUrl);
 }
 ```
 

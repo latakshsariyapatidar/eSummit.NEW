@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React from "react";
 
 /**
  * TeamMemberCard
@@ -21,44 +21,34 @@ import React, { useState, useMemo } from "react";
  *       linkedin?: string,
  *     }>
  *   }
+ *   onClick: Function
  */
-function TeamMemberCard({ team }) {
+function TeamMemberCard({ team, onClick }) {
   const m = team.lead;
   const crew = team.crew || [];
   const teamTitle = m.team || m.event;
   const leadImage = m.image;
 
-  const [isExpanded, setIsExpanded] = useState(false);
-
   const handleCardClick = (e) => {
     if (e.target.closest("a") || e.target.closest("button")) {
       return;
     }
-    if (crew.length > 0) {
-      setIsExpanded(!isExpanded);
+    if (onClick) {
+      onClick(team);
     }
   };
 
   return (
     <div
       onClick={handleCardClick}
-      onMouseLeave={() => setIsExpanded(false)}
-      className={`group relative aspect-4/5 w-full rounded-3xl overflow-hidden border shadow-2xl flex flex-col justify-end text-left select-none transition-all duration-500 ${
-        crew.length > 0 ? "cursor-pointer" : ""
-      } ${
-        isExpanded
-          ? "border-primary/50 shadow-primary/5"
-          : "border-border/30 hover:border-primary/50 hover:shadow-primary/5"
-      }`}
+      className="group relative aspect-4/5 w-full rounded-3xl overflow-hidden border shadow-2xl flex flex-col justify-end text-left select-none transition-all duration-500 cursor-pointer border-border/30 hover:border-primary/50 hover:shadow-primary/5 hover:scale-[1.01]"
     >
       <img
         src={leadImage}
         alt={m.name}
         loading="lazy"
         decoding="async"
-        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${
-          isExpanded ? "scale-105" : "group-hover:scale-105"
-        }`}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
 
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 to-transparent opacity-95 transition-opacity duration-300" />
@@ -90,104 +80,46 @@ function TeamMemberCard({ team }) {
           {m.role}
         </p>
 
-        <p
-          className={`text-white/80 text-xs font-sans leading-relaxed mt-2 line-clamp-3 transition-all duration-300 ${
-            crew.length > 0
-              ? isExpanded
-                ? "line-clamp-1"
-                : "group-hover:line-clamp-1"
-              : ""
-          }`}
-        >
+        <p className="text-white/80 text-xs font-sans leading-relaxed mt-2 line-clamp-3">
           {m.bio}
         </p>
 
-        {crew.length > 0 && (
-          <div className="mt-3 border-t border-white/10 pt-3 flex flex-col gap-2">
-            {/* Idle State: Stacked Avatars */}
-            <div
-              className={`flex items-center justify-between transition-all duration-300 ease-in-out overflow-hidden ${
-                isExpanded
-                  ? "max-h-0 opacity-0"
-                  : "max-h-8 opacity-100 group-hover:max-h-0 group-hover:opacity-0"
-              }`}
-            >
-              <div className="flex items-center -space-x-2">
-                {crew.map((c, idx) => {
-                  const crewImage = c.image;
-                  return (
-                    <img
-                      key={idx}
-                      src={crewImage}
-                      decoding="async"
-                      alt={c.name}
-                      className="w-6 h-6 rounded-full border border-black/80 object-cover shadow-sm bg-card"
-                      loading="lazy"
-                    />
-                  );
-                })}
-              </div>
-              <span className="font-mono text-[9px] text-white/55">
-                +{crew.length} Crew
-              </span>
+        {crew.length > 0 ? (
+          <div className="mt-3 border-t border-white/10 pt-3 flex items-center justify-between w-full">
+            <div className="flex items-center -space-x-2">
+              {crew.slice(0, 4).map((c, idx) => {
+                const crewImage = c.image;
+                return (
+                  <img
+                    key={idx}
+                    src={crewImage}
+                    decoding="async"
+                    alt={c.name}
+                    className="w-6 h-6 rounded-full border border-black/80 object-cover shadow-sm bg-card"
+                    loading="lazy"
+                  />
+                );
+              })}
+              {crew.length > 4 && (
+                <div className="w-6 h-6 rounded-full border border-black/80 bg-zinc-800 flex items-center justify-center text-[8px] font-mono font-bold text-white shadow-sm">
+                  +{crew.length - 4}
+                </div>
+              )}
             </div>
-
-            {/* Hover State: Crew List with Names & POFs */}
-            <div
-              className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                isExpanded
-                  ? "max-h-36 opacity-100"
-                  : "max-h-0 opacity-0 group-hover:max-h-36 group-hover:opacity-100"
-              }`}
-            >
-              <p className="font-mono text-[8px] uppercase tracking-widest text-primary/80 mb-1.5">
-                Sub-Team Crew
-              </p>
-              <div
-                data-lenis-prevent
-                className="grid grid-cols-1 gap-1.5 max-h-24 overflow-y-auto pr-1 overscroll-contain custom-scrollbar"
-              >
-                {crew.map((c, idx) => {
-                  const crewImage = c.image;
-                  return (
-                    <div key={idx} className="flex items-center gap-2">
-                      <img
-                        src={crewImage}
-                        alt={c.name}
-                        className="w-5 h-5 rounded-full object-cover border border-white/15 bg-card"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <a
-                        href={
-                          c.linkedin ||
-                          `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(c.name)}`
-                        }
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-white/95 hover:text-primary hover:underline font-sans truncate transition-colors"
-                      >
-                        {c.name}
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <span className="font-mono text-[9px] text-primary/80 group-hover:text-primary transition-colors flex items-center gap-1 font-semibold">
+              Meet Crew ({crew.length}) →
+            </span>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between border-t border-white/10 pt-3 mt-3 w-full">
+            <span className="font-mono text-[9px] text-white/55">
+              Contact Lead
+            </span>
+            <span className="font-mono text-[9px] text-primary/80 group-hover:text-primary transition-colors flex items-center gap-1 font-semibold">
+              Profile →
+            </span>
           </div>
         )}
-
-        <div className="flex items-center justify-between border-t border-white/10 pt-3 mt-3 w-full">
-          <span className="font-mono text-[9px] text-white/55">
-            Contact Lead
-          </span>
-          <a
-            href={`mailto:${m.email}?subject=ESummit%202026%20-%20Inquiry%20to%20${m.name}`}
-            className="inline-flex items-center justify-center px-3 py-1 bg-white/10 hover:bg-primary text-white hover:text-primary-foreground font-mono text-[9px] uppercase tracking-widest font-semibold rounded-lg border border-white/10 hover:border-transparent transition-all duration-300 select-none shadow-sm"
-          >
-            Contact +
-          </a>
-        </div>
       </div>
     </div>
   );

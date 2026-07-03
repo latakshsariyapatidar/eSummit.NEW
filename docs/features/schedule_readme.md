@@ -25,16 +25,16 @@ Route in `src/App.jsx`:
 
 ## Modules Used
 
-| Module | Imported from | Used for |
-| --- | --- | --- |
-| `useSchedule` | `@/lib/store` | Schedule fallback/API data. |
-| `useEvents` | `@/lib/store` | Matching schedule titles to event routes. |
-| `PageHeader` | `@/components/ui/PageHeader` | Page heading. |
-| `useDocumentTitle` | `@/hooks/useDocumentTitle` | Browser title. |
-| `Loader` | `@/components/Loader/Loader` | Empty loading state. |
-| `ComingSoonCard` | `@/components/ComingSoon/ComingSoonCard` | Current visible state. |
-| Lucide icons | `lucide-react` | Intended schedule row iconography. |
-| `TransitionLink` | `@/components/ui/TransitionLink` | Intended links to event details. |
+| Module             | Imported from                            | Used for                                  |
+| ------------------ | ---------------------------------------- | ----------------------------------------- |
+| `useSchedule`      | `@/lib/store`                            | Schedule fallback/API data.               |
+| `useEvents`        | `@/lib/store`                            | Matching schedule titles to event routes. |
+| `PageHeader`       | `@/components/ui/PageHeader`             | Page heading.                             |
+| `useDocumentTitle` | `@/hooks/useDocumentTitle`               | Browser title.                            |
+| `Loader`           | `@/components/Loader/Loader`             | Empty loading state.                      |
+| `ComingSoonCard`   | `@/components/ComingSoon/ComingSoonCard` | Current visible state.                    |
+| Lucide icons       | `lucide-react`                           | Intended schedule row iconography.        |
+| `TransitionLink`   | `@/components/ui/TransitionLink`         | Intended links to event details.          |
 
 ## Data Shape
 

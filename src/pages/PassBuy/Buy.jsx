@@ -2,10 +2,11 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { Button } from "@/components/ui/Button";
 import { useState, useEffect } from "react";
-import { PASSES } from "@/lib/store";
+import { fetchPasses, API_BASE } from "@/lib/store";
 import { PassCard } from "@/components/Passes/PassCard";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
+import { Loader } from "@/components/Loader/Loader";
 
 // Modular Form Step Components
 import { AttendeeDetailsForm } from "@/components/OrderPurchaseComponents/AttendeeDetailsForm";
@@ -14,11 +15,12 @@ import { OrderSuccessScreen } from "@/components/OrderPurchaseComponents/OrderSu
 
 // This is the maximum passes a person can purchase in a single order.
 const MAX = 4;
-const BASE_URL = "https://iic.iitdh.ac.in/esummit/api/api";
 
 export function Buy() {
   useDocumentTitle("Get Your Pass — E-Summit 2026");
 
+  const [passes, setPasses] = useState([]);
+  const [pageLoading, setPageLoading] = useState(true);
   const [cart, setCart] = useLocalStorage("es26_cart", []);
   const [step, setStep] = useState("selection"); // 'selection' | 'details' | 'payment' | 'status'
 
@@ -27,37 +29,57 @@ export function Buy() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    fetchPasses()
+      .then((data) => {
+        setPasses(data || []);
+        setPageLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching passes:", err);
+        setPageLoading(false);
+      });
+  }, []);
+
   // ═══════════════════════════════════════════════════════════════
   // REFACTOR: AUTOMATIC SOLD OUT STORAGE PURGE
   // ═══════════════════════════════════════════════════════════════
   useEffect(() => {
     // Check if any item currently in the cart belongs to a tier that is now sold out
     const hasSoldOutItems = cart.some((item) => {
-      const passInfo = PASSES.find((p) => p.id === item.passId);
+      const passInfo = passes.find((p) => (p.id || p._id) === item.passId);
       return passInfo ? passInfo.soldOut : false;
     });
 
     if (hasSoldOutItems) {
       setCart((prevCart) =>
         prevCart.filter((item) => {
-          const passInfo = PASSES.find((p) => p.id === item.passId);
+          const passInfo = passes.find((p) => (p.id || p._id) === item.passId);
           // Keep the item only if the pass exists and is NOT sold out
           return passInfo ? !passInfo.soldOut : false;
         }),
       );
     }
-  }, [cart, setCart]);
+  }, [cart, setCart, passes]);
+
+  if (pageLoading) {
+    return (
+      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
 
   const totalQty = cart.reduce((a, c) => a + c.qty, 0);
 
   const total = cart.reduce((a, c) => {
-    const p = PASSES.find((pass) => pass.id === c.passId);
+    const p = passes.find((pass) => (pass.id || pass._id) === c.passId);
     return a + (p?.price ?? 0) * c.qty;
   }, 0);
 
   const update = (passId, delta) => {
     // Extra safety safeguard: block incoming updates if the target ticket tier is sold out
-    const targetPass = PASSES.find((p) => p.id === passId);
+    const targetPass = passes.find((p) => (p.id || p._id) === passId);
     if (targetPass && targetPass.soldOut) return;
 
     setCart((prev) => {
@@ -79,7 +101,7 @@ export function Buy() {
   const handleProceedToDetails = () => {
     const detailsArray = [];
     cart.forEach((item) => {
-      const passInfo = PASSES.find((p) => p.id === item.passId);
+      const passInfo = passes.find((p) => (p.id || p._id) === item.passId);
       for (let i = 0; i < item.qty; i++) {
         detailsArray.push({
           passType: passInfo?.name || "General Pass",
@@ -109,7 +131,7 @@ export function Buy() {
     setError("");
 
     try {
-      const response = await fetch(`${BASE_URL}/orders/submit`, {
+      const response = await fetch(`${API_BASE}/orders/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cartValue: total, passes: attendeeDetails }),
@@ -122,7 +144,7 @@ export function Buy() {
       } else {
         setError(resData.message || "Validation failed.");
       }
-    } catch (err) {
+    } catch {
       setError("Network failure. Please try again.");
     } finally {
       setLoading(false);
@@ -134,7 +156,7 @@ export function Buy() {
     setError("");
 
     try {
-      const response = await fetch(`${BASE_URL}/orders/utr`, {
+      const response = await fetch(`${API_BASE}/orders/utr`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ orderId: orderData.orderId, utr: utrValue }),
@@ -147,7 +169,7 @@ export function Buy() {
       } else {
         setError(resData.message || "Failed to submit UTR statement.");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Could not post UTR verification details.");
     } finally {
       setLoading(false);
@@ -180,19 +202,20 @@ export function Buy() {
               />
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 flex-1">
-              {PASSES.length > 0 ? (
-                PASSES.map((p) => {
-                  const item = cart.find((c) => c.passId === p.id);
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center mx-auto w-full max-w-6xl flex-1">
+              {passes.length > 0 ? (
+                passes.map((p) => {
+                  const passId = p.id || p._id;
+                  const item = cart.find((c) => c.passId === passId);
                   return (
                     <PassCard
-                      key={p.id}
+                      key={passId}
                       pass={p}
                       qty={item?.qty ?? 0}
                       totalQty={totalQty}
                       maxQty={MAX}
-                      onIncrement={() => update(p.id, 1)}
-                      onDecrement={() => update(p.id, -1)}
+                      onIncrement={() => update(passId, 1)}
+                      onDecrement={() => update(passId, -1)}
                     />
                   );
                 })
