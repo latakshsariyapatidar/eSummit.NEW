@@ -1,66 +1,73 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import { Layout } from "./components/Layout";
+import { Layout } from "./components/Shared/Layout";
 import { PageTransitionOverlay } from "./components/ui/PageTransitionOverlay";
-import { Loading } from "./pages/Loading";
+import { Loading } from "./components/SkeletonLoader/SkeletonLoader";
+import { SmoothCursor } from "./components/CustomPremade/smooth-cursor";
 
 const Home = lazy(() =>
-  import("./pages/Home").then((module) => ({
+  import("./pages/Home/Home").then((module) => ({
     default: module.Home,
   })),
 );
 
 const Buy = lazy(() =>
-  import("./pages/Buy").then((module) => ({
+  import("./pages/PassBuy/Buy").then((module) => ({
     default: module.Buy,
   })),
 );
 
 const Schedule = lazy(() =>
-  import("./pages/Schedule").then((module) => ({
+  import("./pages/EventsSchedule/Schedule").then((module) => ({
     default: module.Schedule,
   })),
 );
 
 const Events = lazy(() =>
-  import("./pages/Events").then((module) => ({
+  import("./pages/Event/Events").then((module) => ({
     default: module.Events,
   })),
 );
 
 const EventDetails = lazy(() =>
-  import("./pages/EventDetails").then((module) => ({
+  import("./pages/Event/EventDetails").then((module) => ({
     default: module.EventDetails,
   })),
 );
 
 const AdminAuth = lazy(() =>
-  import("./pages/AdminAuth").then((module) => ({
+  import("./pages/Admin/AdminAuth").then((module) => ({
     default: module.AdminAuth,
   })),
 );
 
 const AdminDashboard = lazy(() =>
-  import("./pages/AdminDashboard").then((module) => ({
+  import("./pages/Admin/AdminDashboard").then((module) => ({
     default: module.AdminDashboard,
   })),
 );
 
 const Sponsors = lazy(() =>
-  import("./pages/Sponsors").then((module) => ({
+  import("./pages/Sponsors/Sponsors").then((module) => ({
     default: module.Sponsors,
   })),
 );
 
 const Team = lazy(() =>
-  import("./pages/Team").then((module) => ({
+  import("./pages/Team/Team").then((module) => ({
     default: module.Team,
   })),
 );
 
 const NotFound = lazy(() =>
-  import("./pages/NotFound").then((module) => ({
+  import("./pages/404/NotFound").then((module) => ({
     default: module.NotFound,
+  })),
+);
+
+const AdminLayout = lazy(() =>
+  import("./pages/Admin/AdminLayout").then((module) => ({
+    default: module.AdminLayout,
   })),
 );
 
@@ -68,6 +75,7 @@ export function App() {
   return (
     <BrowserRouter basename="/esummit">
       <PageTransitionOverlay />
+      <SmoothCursor />
       <Layout>
         <Suspense fallback={<Loading />}>
           <Routes>
@@ -78,8 +86,10 @@ export function App() {
             <Route path="/sponsors" element={<Sponsors />} />
             <Route path="/team" element={<Team />} />
             <Route path="/event/:slug" element={<EventDetails />} />
-            <Route path="/admin" element={<AdminAuth />} />
-            <Route path="/admin/malikKiKursi" element={<AdminDashboard />} />
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminAuth />} />
+              <Route path="malikKiKursi" element={<AdminDashboard />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

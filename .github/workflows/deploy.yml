@@ -33,7 +33,6 @@ jobs:
         env:
           VITE_ADMIN_KEY: octane2026
 
-
       - name: Deploy to /var/www/iic/esummit
         run: |
           rm -rf /var/www/iic/esummit
