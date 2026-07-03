@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import gsap from "gsap";
 
 // Each direction defines where the overlay hides offscreen
@@ -16,10 +16,11 @@ const randomDir = (exclude) => {
 
 export const useTransitionNavigate = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const transitionNavigate = (to, options) => {
     // Prevent transition if already on the requested page
-    if (to === window.location.pathname) return;
+    if (to === location.pathname) return;
 
     const overlay = document.getElementById("page-transition-overlay");
 

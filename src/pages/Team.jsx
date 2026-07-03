@@ -4,6 +4,7 @@ import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { TeamMemberCard } from "@/components/TeamMemberCard";
 import { useTeams } from "@/lib/store";
 import { Loader } from "@/components/Loader";
+import { ComingSoonCard } from "@/components/ComingSoonCard";
 
 export function Team() {
   useDocumentTitle("The Crew — E-Summit 2026");
@@ -66,6 +67,18 @@ export function Team() {
           </div>
         )}
       </div>
+      {/* Coming Soon */}
+      {/* <div className="flex-1 flex items-center justify-center py-12">
+        <ComingSoonCard
+          title={
+            <>
+              Team Page <br className="hidden sm:block" />
+              <span className="text-primary">Coming Soon</span>
+            </>
+          }
+          description="We’re adding more detailed member bios and stories. Stay tuned for updates."
+        />
+      </div> */}
     </div>
   );
 }

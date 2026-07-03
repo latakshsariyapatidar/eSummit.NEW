@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const API_BASE = "http://localhost:3000/api";
+export const API_BASE = "https://iic.iitdh.ac.in/esummit/api/api";
 
 export const FALLBACK_PASSES = [
   {
@@ -10,10 +10,10 @@ export const FALLBACK_PASSES = [
     perks: [
       "One-day access to all workshops",
       "Access to all talks and speaker panels",
-      "Entry to product stalls and open events"
+      "Entry to product stalls and open events",
     ],
     tag: "SINGLE DAY",
-    badge: "Fast Track"
+    badge: "Fast Track",
   },
   {
     id: "grand-prix",
@@ -22,10 +22,10 @@ export const FALLBACK_PASSES = [
     perks: [
       "Full access to all E-Summit’25 events for both days",
       "Access to all workshops & speaker panels",
-      "Entry to product stalls and open events"
+      "Entry to product stalls and open events",
     ],
     tag: "2 DAYS ACCESS",
-    badge: "Full Throttle"
+    badge: "Full Throttle",
   },
   {
     id: "pitstop-cabin",
@@ -34,12 +34,12 @@ export const FALLBACK_PASSES = [
     perks: [
       "Complimentary stay",
       "3 meals per day (Breakfast, Lunch, Dinner)",
-      "Starter kit"
+      "Starter kit",
     ],
     tag: "STAY PASS - BASIC",
     badge: "Refuel & Recharge",
     duration: "8 AM, 23rd Aug 2025 to 10 AM, 25th Aug 2025",
-    extra: "Extra stay beyond schedule charged separately"
+    extra: "Extra stay beyond schedule charged separately",
   },
   {
     id: "podium-suite",
@@ -49,13 +49,13 @@ export const FALLBACK_PASSES = [
       "Complimentary stay",
       "3 meals per day (Breakfast, Lunch, Dinner)",
       "Starter kit",
-      "Exclusive E-Summit swags"
+      "Exclusive E-Summit swags",
     ],
     tag: "STAY PASS - PREMIUM",
     badge: "Championship Tier",
     duration: "8 AM, 23rd Aug 2025 to 10 AM, 25th Aug 2025",
-    extra: "Extra stay beyond schedule charged separately"
-  }
+    extra: "Extra stay beyond schedule charged separately",
+  },
 ];
 
 export const FALLBACK_EVENTS = [
@@ -182,6 +182,7 @@ export const FALLBACK_SPONSORS = [
 export const FALLBACK_SCHEDULE = [
   {
     day: "Day 01",
+    date: "2026-08-23",
     items: [
       {
         time: "09:45 AM",
@@ -217,6 +218,7 @@ export const FALLBACK_SCHEDULE = [
   },
   {
     day: "Day 02",
+    date: "2026-08-24",
     items: [
       {
         time: "09:30 AM",
@@ -277,6 +279,307 @@ export const FALLBACK_FAQS = [
   },
 ];
 
+export const FALLBACK_TEAMS = [
+  {
+    lead: {
+      name: "Rajat Gupta",
+      role: "Overall Coordinator",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Directing the overall execution and strategic partnerships of E-Summit 2026.",
+      image:
+        "https://ui-avatars.com/api/?name=Rajat+Gupta&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Anant Tripathi",
+      role: "Operations Head",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Managing overall ground operations, logistics, and resource planning for E-Summit 2026.",
+      image:
+        "https://ui-avatars.com/api/?name=Anant+Tripathi&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "L Shreya",
+      role: "Outreach Head",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Driving institutional partnerships, external relations, and marketing campaigns.",
+      image:
+        "https://ui-avatars.com/api/?name=L+Shreya&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Soumya Basuli",
+      role: "Design Lead",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Curating E-Summit 2026's visual identity, graphic design assets, and event style guide.",
+      image:
+        "https://ui-avatars.com/api/?name=Soumya+Basuli&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Nirav Mittal",
+      role: "Events Coordinator",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Managing event timelines, judging rubrics, and scheduling across all competition grids.",
+      image:
+        "https://ui-avatars.com/api/?name=Nirav+Mittal&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Mayank Mishra",
+      role: "PR Lead",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Handling public relations, media reach, speaker coordination, and press releases.",
+      image:
+        "https://ui-avatars.com/api/?name=Mayank+Mishra&background=0D0D0C&color=fff",
+    },
+    crew: [],
+  },
+  {
+    lead: {
+      name: "Lataksh Sariya",
+      role: "Web Team Lead",
+      team: "Core Committee",
+      email: "outreach.iic@iitdh.ac.in",
+      bio: "Architecting the digital interfaces, transitions, and user experiences for E-Summit 2026.",
+      image:
+        "https://ui-avatars.com/api/?name=Lataksh+Sariya&background=0D0D0C&color=fff",
+    },
+    crew: [
+      {
+        name: "Aaditya Kumar",
+        image:
+          "https://ui-avatars.com/api/?name=Aaditya+Kumar&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Anju",
+        image:
+          "https://ui-avatars.com/api/?name=Anju&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Ashutosh Tiwari",
+        image:
+          "https://ui-avatars.com/api/?name=Ashutosh+Tiwari&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Jayesh",
+        image:
+          "https://ui-avatars.com/api/?name=Jayesh&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Krish Gupta",
+        image:
+          "https://ui-avatars.com/api/?name=Krish+Gupta&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Lakshman",
+        image:
+          "https://ui-avatars.com/api/?name=Lakshman&background=0D0D0C&color=fff",
+      },
+    ],
+  },
+  {
+    lead: {
+      event: "Innovex",
+      name: "Navajeevan K S",
+      role: "Event Lead",
+      bio: "Leading execution of the flagship Innovex startup pitch stage.",
+      image:
+        "https://ui-avatars.com/api/?name=Navajeevan+K+S&background=0D0D0C&color=fff",
+      email: "outreach.iic@iitdh.ac.in",
+    },
+    crew: [
+      {
+        name: "Tejas Sharma",
+        image:
+          "https://ui-avatars.com/api/?name=Tejas+Sharma&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Saikat Ghosh",
+        image:
+          "https://ui-avatars.com/api/?name=Saikat+Ghosh&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Jayesh",
+        image:
+          "https://ui-avatars.com/api/?name=Jayesh&background=0D0D0C&color=fff",
+      },
+    ],
+  },
+  {
+    lead: {
+      event: "Find The Bug",
+      name: "SAI RAM",
+      role: "Event Lead",
+      bio: "Orchestrating the code debugging and code reviews tracking challenge.",
+      image:
+        "https://ui-avatars.com/api/?name=SAI+RAM&background=0D0D0C&color=fff",
+      email: "outreach.iic@iitdh.ac.in",
+    },
+    crew: [
+      {
+        name: "Hithesh V R",
+        image:
+          "https://ui-avatars.com/api/?name=Hithesh+V+R&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Aditya Jain",
+        image:
+          "https://ui-avatars.com/api/?name=Aditya+Jain&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Chaitanya Handore",
+        image:
+          "https://ui-avatars.com/api/?name=Chaitanya+Handore&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Aaditya Kumar",
+        image:
+          "https://ui-avatars.com/api/?name=Aaditya+Kumar&background=0D0D0C&color=fff",
+      },
+    ],
+  },
+  {
+    lead: {
+      event: "Bid-A-Biz",
+      name: "Pranav S Newton",
+      role: "Event Lead",
+      bio: "Leading the business strategy bid and auction simulation.",
+      image:
+        "https://ui-avatars.com/api/?name=Pranav+S+Newton&background=0D0D0C&color=fff",
+      email: "outreach.iic@iitdh.ac.in",
+    },
+    crew: [
+      {
+        name: "Rahul Ahirwar",
+        image:
+          "https://ui-avatars.com/api/?name=Rahul+Ahirwar&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Shivam Srivastava",
+        image:
+          "https://ui-avatars.com/api/?name=Shivam+Srivastava&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Aadhi",
+        image:
+          "https://ui-avatars.com/api/?name=Aadhi&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Sameer Patel",
+        image:
+          "https://ui-avatars.com/api/?name=Sameer+Patel&background=0D0D0C&color=fff",
+      },
+    ],
+  },
+  {
+    lead: {
+      event: "Technostrophe",
+      name: "Pranav",
+      role: "Event Lead",
+      bio: "Running the technology quiz event and adrenaline-filled buzzer finals.",
+      image:
+        "https://ui-avatars.com/api/?name=Pranav&background=0D0D0C&color=fff",
+      email: "outreach.iic@iitdh.ac.in",
+    },
+    crew: [
+      {
+        name: "Achinthya",
+        image:
+          "https://ui-avatars.com/api/?name=Achinthya&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Shubhra Kishor Nikam",
+        image:
+          "https://ui-avatars.com/api/?name=Shubhra+Kishor+Nikam&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Lakshya Kumar",
+        image:
+          "https://ui-avatars.com/api/?name=Lakshya+Kumar&background=0D0D0C&color=fff",
+      },
+    ],
+  },
+  {
+    lead: {
+      event: "Boardroom Battles",
+      name: "Anushaa B",
+      role: "Event Lead",
+      bio: "Leading the business strategy pitches and boardroom simulation battles.",
+      image:
+        "https://ui-avatars.com/api/?name=Anushaa+B&background=0D0D0C&color=fff",
+      email: "outreach.iic@iitdh.ac.in",
+    },
+    crew: [
+      {
+        name: "Priyanshu Nimbalkar",
+        image:
+          "https://ui-avatars.com/api/?name=Priyanshu+Nimbalkar&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Gourav Sherikar",
+        image:
+          "https://ui-avatars.com/api/?name=Gourav+Sherikar&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Saisha Nimbalkar",
+        image:
+          "https://ui-avatars.com/api/?name=Saisha+Nimbalkar&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Lakshman Naidu Bandela",
+        image:
+          "https://ui-avatars.com/api/?name=Lakshman+Naidu+Bandela&background=0D0D0C&color=fff",
+      },
+    ],
+  },
+  {
+    lead: {
+      event: "E-MUN + GD",
+      name: "Sudhakar",
+      role: "Event Lead",
+      bio: "Orchestrating the corporate diplomacy council crisis model.",
+      image:
+        "https://ui-avatars.com/api/?name=Sudhakar&background=0D0D0C&color=fff",
+      email: "outreach.iic@iitdh.ac.in",
+    },
+    crew: [
+      {
+        name: "Anjali Kumari",
+        image:
+          "https://ui-avatars.com/api/?name=Anjali+Kumari&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Aditi Upadhye",
+        image:
+          "https://ui-avatars.com/api/?name=Aditi+Upadhye&background=0D0D0C&color=fff",
+      },
+      {
+        name: "Tangirala Dhanunjaya Rao",
+        image:
+          "https://ui-avatars.com/api/?name=Tangirala+Dhanunjaya+Rao&background=0D0D0C&color=fff",
+      },
+    ],
+  },
+];
+
 export const FALLBACK_UPI_IDS = [
   "esummit@iitdh",
   "esummit26@okhdfcbank",
@@ -294,6 +597,7 @@ export const SCHEDULE = FALLBACK_SCHEDULE;
 export const FAQS = FALLBACK_FAQS;
 export const UPI_IDS = FALLBACK_UPI_IDS;
 export const TARGET_DATE = FALLBACK_TARGET_DATE;
+export const TEAMS = FALLBACK_TEAMS;
 
 // ── API CLIENT FUNCTIONS ───────────────────────────────────────────────────
 
@@ -329,7 +633,7 @@ export async function fetchTeams() {
   const res = await fetch(`${API_BASE}/content/teams`);
   if (!res.ok) throw new Error("Failed to fetch teams");
   const json = await res.json();
-  return json.status === "success" ? json.data : [];
+  return json.status === "success" ? json.data : FALLBACK_TEAMS;
 }
 
 export async function fetchConfig(key) {
@@ -474,7 +778,7 @@ export function useSchedule() {
 }
 
 export function useTeams() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(FALLBACK_TEAMS);
   useEffect(() => {
     fetchTeams()
       .then(setData)

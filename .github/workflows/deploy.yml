@@ -1,0 +1,41 @@
+name: CI/CD — E-Summit 2026 Frontend
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Build & Deploy to VPS
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Load NVM + verify Node
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          echo "Node: $(node -v) | NPM: $(npm -v)"
+
+      - name: Install dependencies
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          npm ci
+
+      - name: Build
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          npm run build
+        env:
+          VITE_ADMIN_KEY: octane2026
+
+
+      - name: Deploy to /var/www/iic/esummit
+        run: |
+          rm -rf /var/www/iic/esummit
+          mkdir -p /var/www/iic/esummit
+          cp -r ./dist/* /var/www/iic/esummit/

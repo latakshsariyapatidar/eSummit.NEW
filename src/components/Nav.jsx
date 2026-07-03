@@ -75,7 +75,7 @@ export function Nav() {
           >
             <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
               <img
-                src="/logo.png"
+                src={`${import.meta.env.BASE_URL}logo.png`}
                 alt="Logo"
                 className="w-10 h-10 object-contain group-hover:scale-105 transition-transform duration-300"
               />
@@ -156,7 +156,7 @@ export function Nav() {
           <div className="flex items-center gap-3">
             <div className="relative w-8 h-8 flex items-center justify-center shrink-0">
               <img
-                src="/logo.png"
+                src={`${import.meta.env.BASE_URL}logo.png`}
                 alt="Logo"
                 className="w-10 h-10 object-contain"
               />

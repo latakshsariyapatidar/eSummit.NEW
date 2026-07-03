@@ -15,7 +15,7 @@ export function PageHeader({ tag, title, className, titleClassName }) {
       )}
       <h1
         className={cn(
-          "font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-none",
+          "font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-none",
           titleClassName,
         )}
       >

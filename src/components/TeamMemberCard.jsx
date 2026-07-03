@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 /**
  * TeamMemberCard
@@ -26,15 +26,37 @@ export function TeamMemberCard({ team }) {
   const m = team.lead;
   const crew = team.crew || [];
   const teamTitle = m.team || m.event;
+  const leadImage = m.image;
 
-  const leadImage = `https://robohash.org/${encodeURIComponent(m.name)}`;
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleCardClick = (e) => {
+    if (e.target.closest("a") || e.target.closest("button")) {
+      return;
+    }
+    if (crew.length > 0) {
+      setIsExpanded(!isExpanded);
+    }
+  };
 
   return (
-    <div className="group relative aspect-4/5 w-full rounded-3xl overflow-hidden border border-border/30 shadow-2xl flex flex-col justify-end text-left select-none transition-all duration-500 hover:border-primary/50 hover:shadow-primary/5">
+    <div
+      onClick={handleCardClick}
+      onMouseLeave={() => setIsExpanded(false)}
+      className={`group relative aspect-4/5 w-full rounded-3xl overflow-hidden border shadow-2xl flex flex-col justify-end text-left select-none transition-all duration-500 ${
+        crew.length > 0 ? "cursor-pointer" : ""
+      } ${
+        isExpanded
+          ? "border-primary/50 shadow-primary/5"
+          : "border-border/30 hover:border-primary/50 hover:shadow-primary/5"
+      }`}
+    >
       <img
         src={leadImage}
         alt={m.name}
-        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${
+          isExpanded ? "scale-105" : "group-hover:scale-105"
+        }`}
         loading="lazy"
       />
 
@@ -69,7 +91,11 @@ export function TeamMemberCard({ team }) {
 
         <p
           className={`text-white/80 text-xs font-sans leading-relaxed mt-2 line-clamp-3 transition-all duration-300 ${
-            crew.length > 0 ? "group-hover:line-clamp-1" : ""
+            crew.length > 0
+              ? isExpanded
+                ? "line-clamp-1"
+                : "group-hover:line-clamp-1"
+              : ""
           }`}
         >
           {m.bio}
@@ -78,10 +104,16 @@ export function TeamMemberCard({ team }) {
         {crew.length > 0 && (
           <div className="mt-3 border-t border-white/10 pt-3 flex flex-col gap-2">
             {/* Idle State: Stacked Avatars */}
-            <div className="flex items-center justify-between transition-all duration-300 ease-in-out max-h-8 opacity-100 group-hover:max-h-0 group-hover:opacity-0 overflow-hidden">
+            <div
+              className={`flex items-center justify-between transition-all duration-300 ease-in-out overflow-hidden ${
+                isExpanded
+                  ? "max-h-0 opacity-0"
+                  : "max-h-8 opacity-100 group-hover:max-h-0 group-hover:opacity-0"
+              }`}
+            >
               <div className="flex items-center -space-x-2">
                 {crew.map((c, idx) => {
-                  const crewImage = `https://robohash.org/${encodeURIComponent(c.name)}`;
+                  const crewImage = c.image;
                   return (
                     <img
                       key={idx}
@@ -99,7 +131,13 @@ export function TeamMemberCard({ team }) {
             </div>
 
             {/* Hover State: Crew List with Names & POFs */}
-            <div className="transition-all duration-500 ease-in-out max-h-0 opacity-0 overflow-hidden group-hover:max-h-36 group-hover:opacity-100">
+            <div
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                isExpanded
+                  ? "max-h-36 opacity-100"
+                  : "max-h-0 opacity-0 group-hover:max-h-36 group-hover:opacity-100"
+              }`}
+            >
               <p className="font-mono text-[8px] uppercase tracking-widest text-primary/80 mb-1.5">
                 Sub-Team Crew
               </p>
@@ -108,7 +146,7 @@ export function TeamMemberCard({ team }) {
                 className="grid grid-cols-1 gap-1.5 max-h-24 overflow-y-auto pr-1 overscroll-contain custom-scrollbar"
               >
                 {crew.map((c, idx) => {
-                  const crewImage = `https://robohash.org/${encodeURIComponent(c.name)}`;
+                  const crewImage = c.image;
                   return (
                     <div key={idx} className="flex items-center gap-2">
                       <img

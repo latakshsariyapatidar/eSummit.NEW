@@ -84,14 +84,14 @@ export function Loader() {
         {isLoaded ? (
           <img
             key="done"
-            src="/loader_assets/Car_loading_done.gif"
+            src={`${import.meta.env.BASE_URL}loader_assets/Car_loading_done.gif`}
             alt="Done"
             className="w-full h-full object-contain"
           />
         ) : (
           <img
             key="loading"
-            src="/loader_assets/Car_loading.gif"
+            src={`${import.meta.env.BASE_URL}loader_assets/Car_loading.gif`}
             alt="Loading..."
             className="w-full h-full object-contain"
           />
