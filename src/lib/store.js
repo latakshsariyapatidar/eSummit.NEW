@@ -182,6 +182,7 @@ export const FALLBACK_SPONSORS = [
 export const FALLBACK_SCHEDULE = [
   {
     day: "Day 01",
+    date: "2026-08-23",
     items: [
       {
         time: "09:45 AM",
@@ -217,6 +218,7 @@ export const FALLBACK_SCHEDULE = [
   },
   {
     day: "Day 02",
+    date: "2026-08-24",
     items: [
       {
         time: "09:30 AM",
