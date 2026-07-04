@@ -1,4 +1,4 @@
-import { Calendar, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 // ═══════════════════════════════════════════════════════════════
 // STYLING & CONFIGURATION
@@ -38,10 +38,6 @@ export function PassCard({
 
   // Backend state monitoring: Fallback to evaluating remaining balance count
   const isTierSoldOut = p.soldOut;
-
-  const stayProvisionLabel = p.duration
-    ? p.duration
-    : "No stay included. Accommodation can be arranged separately at daily rates.";
 
   return (
     <div
@@ -188,28 +184,6 @@ export function PassCard({
             </li>
           ))}
         </ul>
-
-        <div className="mt-4 p-3 rounded-2xl bg-secondary/15 border border-border/30 text-xs space-y-1.5 backdrop-blur-md relative overflow-hidden ">
-          <div
-            className={`flex items-center gap-1.5 font-bold font-display text-xs tracking-wider ${isTierSoldOut ? "text-neutral-500" : "text-foreground"}`}
-          >
-            <Calendar
-              className={`w-3.5 h-3.5 shrink-0 ${isTierSoldOut ? "text-neutral-600" : style.accentColorText}`}
-            />
-            <span>STAY PROVISIONS</span>
-          </div>
-          <div className="h-px w-full bg-white/10" />
-          <div className="space-y-1 font-mono text-[11px] leading-relaxed text-muted-foreground">
-            <div>
-              <span
-                className={`font-sans font-semibold ${isTierSoldOut ? "text-neutral-500" : "text-foreground/80"}`}
-              >
-                Stay:
-              </span>{" "}
-              {stayProvisionLabel}
-            </div>
-          </div>
-        </div>
 
         {/* Quantity Controls */}
         <div className="mt-5 flex items-center justify-between border-t border-border/30 pt-4 z-10">
