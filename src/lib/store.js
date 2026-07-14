@@ -4,6 +4,90 @@ export const API_BASE =
   import.meta.env.VITE_API_BASE || "https://iic.iitdh.ac.in/esummit/api/api";
 
 export const PASSES = [];
+export const SCHEDULE = [
+  {
+    day: "Day 1 - 22nd August",
+    items: [
+      {
+        time: "8:30 AM - 10:00 AM",
+        title: "Opening Ceremony",
+        category: "Ceremony",
+        location: "TBD",
+      },
+      {
+        time: "10:00 AM - 1:00 PM",
+        title: "Find the Bug",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "10:00 AM - 2:00 PM",
+        title: "E-Mun",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "10:30 AM - 2:00 PM",
+        title: "Boardroom Battle",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "2:30 PM - 5:30 PM",
+        title: "Intersect",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "6:00 PM - 8:00 PM",
+        title: "Object Hunt",
+        category: "Event",
+        location: "TBD",
+      },
+    ],
+  },
+  {
+    day: "Day 2 - 23rd August",
+    items: [
+      {
+        time: "9:00 AM - 1:00 PM",
+        title: "E-Mun",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "9:00 AM - 1:00 PM",
+        title: "Innovex",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "10:00 AM - 12:00 PM",
+        title: "Boardroom Battle",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "1:00 PM - 5:00 PM",
+        title: "GD",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "1:00 PM - 5:00 PM",
+        title: "Auction-Boardroom Battle",
+        category: "Event",
+        location: "TBD",
+      },
+      {
+        time: "5:00 PM - 11:00 PM",
+        title: "Cultural Night",
+        category: "Event",
+        location: "TBD",
+      },
+    ],
+  },
+];
 export const TARGET_DATE = new Date("2026-08-22T09:00:00").getTime();
 
 // Helper to check if a content type is available in the database
