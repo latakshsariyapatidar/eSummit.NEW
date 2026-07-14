@@ -7,7 +7,7 @@ export function SponsorCard({ sponsor, config, position }) {
 
   return (
     <div
-      className="relative flex-1 cursor-none transition-all duration-500"
+      className="relative flex-1 transition-all duration-500"
       style={{
         minWidth: 0,
         animation: `fadeSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both`,

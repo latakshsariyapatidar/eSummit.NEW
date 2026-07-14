@@ -3,7 +3,6 @@ import { lazy, Suspense } from "react";
 import { Layout } from "./components/Shared/Layout";
 import { PageTransitionOverlay } from "./components/ui/PageTransitionOverlay";
 import { Loading } from "./components/SkeletonLoader/SkeletonLoader";
-import { SmoothCursor } from "./components/CustomPremade/smooth-cursor";
 
 const Home = lazy(() =>
   import("./pages/Home/Home").then((module) => ({
@@ -75,7 +74,6 @@ export function App() {
   return (
     <BrowserRouter basename="/esummit">
       <PageTransitionOverlay />
-      <SmoothCursor />
       <Layout>
         <Suspense fallback={<Loading />}>
           <Routes>
