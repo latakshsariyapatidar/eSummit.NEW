@@ -172,7 +172,7 @@ export function Footer() {
                       Event Dates
                     </span>
                     <span className="font-sans text-sm text-foreground font-medium mt-1 block">
-                      March 6–8, 2026
+                      August 22–23, 2026
                     </span>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export function Footer() {
                   IIT Dharwad
                 </span>
                 <span className="font-sans text-xs text-muted-foreground">
-                  Karnataka · March 6–8, 2026
+                  Karnataka · August 22–23, 2026
                 </span>
               </div>
 

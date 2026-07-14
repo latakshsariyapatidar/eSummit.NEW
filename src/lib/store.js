@@ -4,7 +4,7 @@ export const API_BASE =
   import.meta.env.VITE_API_BASE || "https://iic.iitdh.ac.in/esummit/api/api";
 
 export const PASSES = [];
-export const TARGET_DATE = new Date("2026-08-20T09:00:00").getTime();
+export const TARGET_DATE = new Date("2026-08-22T09:00:00").getTime();
 
 // Helper to check if a content type is available in the database
 async function isContentAvailable(type) {
