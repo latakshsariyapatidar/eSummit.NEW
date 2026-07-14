@@ -211,12 +211,6 @@ export function Footer() {
                     <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider block">
                       Hotline
                     </span>
-                    <a
-                      href="tel:+918910189085"
-                      className="font-sans text-sm text-foreground hover:text-primary transition-colors mt-1 block"
-                    >
-                      +91 89101 89085
-                    </a>
                   </div>
                 </div>
               </div>
