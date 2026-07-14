@@ -26,7 +26,8 @@ export function Schedule() {
   const [rawSchedule, setRawSchedule] = useState([]);
   const [loading, setLoading] = useState(true);
   const events = useEvents();
-  const [activeDay, setActiveDay] = useState("Day 01");
+  const [activeDay, setActiveDay] = useState("");
+
 
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -35,6 +36,9 @@ export function Schedule() {
     fetchSchedule()
       .then((data) => {
         setRawSchedule(data || []);
+        if (data && data.length > 0) {
+          setActiveDay(data[0].day);
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -140,8 +144,8 @@ export function Schedule() {
               onClick={() => setActiveDay(d.day)}
               className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm uppercase tracking-[0.2em] transition-all duration-300 ${
                 activeDay === d.day
-                  ? "bg-primary text-black font-black shadow-[0_0_20px_rgba(249,115,22,0.4)] scale-[1.02]"
-                  : "text-white/50 hover:text-white hover:bg-white/5 font-bold"
+                  ? "bg-gradient-to-r from-primary/90 to-primary text-black font-black shadow-[0_0_20px_rgba(249,115,22,0.6)] scale-[1.05]"
+                  : "text-white/60 hover:text-white hover:bg-white/10 font-semibold"
               }`}
             >
               <Flag className="w-4 h-4" />
@@ -183,7 +187,7 @@ export function Schedule() {
 
           return (
             <div
-              key={`${activeDay}-${item.time}`}
+              key={`${activeDay}-${item.time}-${item.title}`}
               className={`relative w-full h-56 md:h-48 transition-all duration-500 ${cardOpacity}`}
             >
               <svg className="hidden md:block absolute top-0 left-0 w-full h-full overflow-visible -z-10 pointer-events-none">
@@ -297,7 +301,7 @@ export function Schedule() {
                     w-8 h-8 md:w-10 md:h-10 rounded-full
                     border-[3px] border-[#F97316]
                     bg-[#090909]
-                    shadow-[0_0_15px_rgba(249,115,22,0.15)]
+                    shadow-[0_0_15px_rgba(249,115,22,0.3)]
                     z-20 flex items-center justify-center
                     left-10 ${isLeft ? "md:left-[25%]" : "md:left-[75%]"}`}
               >
@@ -326,9 +330,9 @@ export function Schedule() {
                 ${!isLeft && "md:left-[75%]"}
               `}
               >
-                <div className=" w-full">
+                <div className="w-full group">
                   <div
-                    className={`bg-[#090909] border-2 ${borderClass} rounded-xl p-4 md:p-5 shadow-2xl relative flex flex-col backdrop-blur-md transition-all duration-300 hover:scale-[1.02]`}
+                    className={`bg-gradient-to-br from-[#121212] to-[#090909] border-2 ${borderClass} group-hover:border-[#F97316]/50 rounded-xl p-4 md:p-5 shadow-2xl relative flex flex-col backdrop-blur-md transition-all duration-500 hover:scale-[1.03] group-hover:shadow-[0_0_30px_rgba(249,115,22,0.2)]`}
                   >
                     <div
                       className={`hidden md:block absolute -bottom-1.75 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-[#1A1E23] border-b-2 border-r-2 ${pointerClass}`}
@@ -353,10 +357,10 @@ export function Schedule() {
 
                     <div className="space-y-2 mb-4 text-left">
                       <div className="flex items-start gap-4">
-                        <span className="text-[#F97316]/70 text-xs font-medium uppercase tracking-[0.18em] w-12 shrink-0 mt-0.5">
+                        <span className="text-[#F97316]/70 text-xs font-semibold uppercase tracking-[0.18em] w-12 shrink-0 mt-0.5">
                           Title
                         </span>
-                        <h3 className="font-sans text-base md:text-lg font-medium tracking-tight leading-none text-white">
+                        <h3 className="font-sans text-base md:text-lg font-semibold tracking-tight leading-none text-white group-hover:text-primary transition-colors duration-300">
                           {item.title}
                         </h3>
                       </div>
