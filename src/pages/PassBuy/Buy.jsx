@@ -6,7 +6,7 @@ import { fetchPasses, API_BASE } from "@/lib/store";
 import { PassCard } from "@/components/Passes/PassCard";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
-import { Loader } from "@/components/Loader/Loader";
+
 
 // Modular Form Step Components
 import { AttendeeDetailsForm } from "@/components/OrderPurchaseComponents/AttendeeDetailsForm";
@@ -65,7 +65,7 @@ export function Buy() {
   if (pageLoading) {
     return (
       <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
-        <Loader />
+
       </div>
     );
   }

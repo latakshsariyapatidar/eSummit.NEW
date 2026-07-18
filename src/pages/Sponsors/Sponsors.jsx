@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { fetchSponsors } from "@/lib/store";
-import { Loader } from "@/components/Loader/Loader";
+
 import {
   GridSection,
   groupByTierSize,
@@ -51,7 +51,7 @@ export function Sponsors() {
   if (loading) {
     return (
       <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
-        <Loader />
+
       </div>
     );
   }

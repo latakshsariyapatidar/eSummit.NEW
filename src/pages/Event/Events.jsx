@@ -3,7 +3,7 @@ import { fetchEvents } from "@/lib/store";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import FlowingMenu from "@/components/CustomPremade/FlowingMenu";
-import { Loader } from "@/components/Loader/Loader";
+
 import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
 
 export function Events() {
@@ -26,7 +26,7 @@ export function Events() {
   if (loading) {
     return (
       <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
-        <Loader />
+
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import TeamMemberCard from "@/components/Team/TeamMemberCard";
 import { fetchTeams } from "@/lib/store";
-import { Loader } from "@/components/Loader/Loader";
+
 import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
 import { Modal } from "@/components/ui/Modal";
 import { Linkedin, Mail } from "lucide-react";
@@ -56,7 +56,7 @@ export function Team() {
   if (loading) {
     return (
       <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
-        <Loader />
+
       </div>
     );
   }

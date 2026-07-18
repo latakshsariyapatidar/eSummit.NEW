@@ -216,7 +216,7 @@ export function Nav() {
             Get Pass →
           </Link>
           <div className="flex flex-col gap-1 text-left font-mono text-[9px] uppercase tracking-widest text-muted-foreground border-t border-border/40 pt-4">
-            <div>IIT Dharwad · March 06—08, 2026</div>
+            <div>IIT Dharwad · August 22—23, 2026</div>
             <div>Designed for the next generation of builders</div>
           </div>
         </div>

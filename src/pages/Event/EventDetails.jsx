@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { TransitionLink as Link } from "../../components/ui/TransitionLink";
 import { fetchEvents } from "@/lib/store";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { Loader } from "@/components/Loader/Loader";
+
 import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
 
 export function EventDetails() {
@@ -32,7 +32,7 @@ export function EventDetails() {
   if (loading) {
     return (
       <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
-        <Loader />
+
       </div>
     );
   }

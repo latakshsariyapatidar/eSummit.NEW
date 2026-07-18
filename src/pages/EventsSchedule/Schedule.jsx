@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchSchedule, useEvents } from "@/lib/store";
-import { Loader } from "@/components/Loader/Loader";
+
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { Clock, MapPin, ArrowRight, Flag } from "lucide-react";
@@ -14,11 +14,22 @@ const timeToMinutes = (timeStr) => {
   let [hours, minutes] = time.split(":").map(Number);
 
   if (hours === 12) {
-    hours = modifier.toUpperCase() === "PM" ? 12 : 0;
+    hours = modifier?.toUpperCase() === "PM" ? 12 : 0;
   } else if (modifier?.toUpperCase() === "PM") {
     hours += 12;
   }
   return hours * 60 + minutes;
+};
+
+const parseTimeRange = (timeRange) => {
+  if (!timeRange) return { startMinutes: 0, endMinutes: 0 };
+
+  const [start, end] = timeRange.split("-").map((t) => t.trim());
+
+  return {
+    startMinutes: timeToMinutes(start),
+    endMinutes: timeToMinutes(end),
+  };
 };
 
 export function Schedule() {
@@ -26,7 +37,7 @@ export function Schedule() {
   const [rawSchedule, setRawSchedule] = useState([]);
   const [loading, setLoading] = useState(true);
   const events = useEvents();
-  const [activeDay, setActiveDay] = useState("Day 01");
+  const [activeDay, setActiveDay] = useState("");
 
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -34,14 +45,25 @@ export function Schedule() {
   useEffect(() => {
     fetchSchedule()
       .then((data) => {
-        setRawSchedule(data || []);
+        const sorted = [...(data || [])].sort((a, b) =>
+          a.day.localeCompare(b.day),
+        );
+
+        setRawSchedule(sorted);
+
+        if (sorted.length > 0) {
+          setActiveDay(sorted[0].day);
+        }
+
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching schedule:", err);
+        console.error("Failed to load schedule:", err);
         setLoading(false);
       });
   }, []);
+
+  //TEST//
 
   // Live Telemetry Clock (Updates every minute for accurate real-time status)
   useEffect(() => {
@@ -55,9 +77,7 @@ export function Schedule() {
 
   if (loading) {
     return (
-      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
-        <Loader />
-      </div>
+      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center"></div>
     );
   }
 
@@ -80,7 +100,7 @@ export function Schedule() {
   const activeSchedule =
     schedule.find((s) => s.day === activeDay) || schedule[0];
 
-  const sortedItems = [...activeSchedule.items].sort(
+  const sortedItems = [...(activeSchedule.items || [])].sort(
     (a, b) => timeToMinutes(a.time) - timeToMinutes(b.time),
   );
 
@@ -88,33 +108,40 @@ export function Schedule() {
   const getEventStatus = (itemTimeStr) => {
     if (!activeSchedule.date) return "upcoming";
 
-    const eventDate = new Date(activeSchedule.date);
-    if (isNaN(eventDate)) return "upcoming";
+    const { startMinutes, endMinutes } = parseTimeRange(itemTimeStr);
 
-    const timeMinutes = timeToMinutes(itemTimeStr);
-    eventDate.setHours(Math.floor(timeMinutes / 60), timeMinutes % 60, 0, 0);
+    const eventStart = new Date(activeSchedule.date);
+    eventStart.setHours(Math.floor(startMinutes / 60), startMinutes % 60, 0, 0);
 
-    const eventEnd = new Date(eventDate);
-    eventEnd.setMinutes(eventDate.getMinutes() + 120);
+    const eventEnd = new Date(activeSchedule.date);
+    eventEnd.setHours(Math.floor(endMinutes / 60), endMinutes % 60, 0, 0);
+
+    // Handle events that cross midnight (e.g. "11:00 PM - 1:00 AM")
+    if (endMinutes < startMinutes) {
+      eventEnd.setDate(eventEnd.getDate() + 1);
+    }
+
     if (currentTime >= eventEnd) return "past";
-    if (currentTime >= eventDate && currentTime < eventEnd) return "ongoing";
-    if (currentTime < eventDate && eventDate - currentTime <= 60 * 60 * 1000)
+
+    if (currentTime >= eventStart && currentTime < eventEnd) return "ongoing";
+
+    if (currentTime < eventStart && eventStart - currentTime <= 60 * 60 * 1000)
       return "upcoming-soon";
 
     return "upcoming";
   };
 
   const getEventLink = (title) => {
-    const lowerTitle = title.toLowerCase();
-    const matched = events.find((e) => {
-      const name = e.name.toLowerCase();
+    const titleWords = title.toLowerCase().split(/\W+/).filter(Boolean);
+
+    const matched = (events || []).find((e) => {
+      const nameWords = e.name.toLowerCase().split(/\W+/).filter(Boolean);
       return (
-        lowerTitle.includes(name) ||
-        name.includes(lowerTitle) ||
-        (name.includes("bug") && lowerTitle.includes("bug")) ||
-        (name.includes("e-mun") && lowerTitle.includes("e-mun"))
+        nameWords.every((w) => titleWords.includes(w)) ||
+        titleWords.every((w) => nameWords.includes(w))
       );
     });
+
     return matched ? `/event/${matched.slug}` : null;
   };
 
@@ -140,8 +167,8 @@ export function Schedule() {
               onClick={() => setActiveDay(d.day)}
               className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm uppercase tracking-[0.2em] transition-all duration-300 ${
                 activeDay === d.day
-                  ? "bg-primary text-black font-black shadow-[0_0_20px_rgba(249,115,22,0.4)] scale-[1.02]"
-                  : "text-white/50 hover:text-white hover:bg-white/5 font-bold"
+                  ? "bg-gradient-to-r from-primary/90 to-primary text-black font-black shadow-[0_0_20px_rgba(249,115,22,0.6)] scale-[1.05]"
+                  : "text-white/60 hover:text-white hover:bg-white/10 font-semibold"
               }`}
             >
               <Flag className="w-4 h-4" />
@@ -161,8 +188,6 @@ export function Schedule() {
 
           const status = getEventStatus(item.time);
 
-          // console.log(item.title, status);
-
           let cardOpacity = "opacity-100";
           let borderClass = "border-white/10";
           let pointerClass = "border-white/10";
@@ -175,7 +200,7 @@ export function Schedule() {
             timeTextClass = "text-gray-400";
           } else if (status === "ongoing") {
             pointerClass = "border-green-500";
-            timeTextClass = "text-white-400";
+            timeTextClass = "text-white";
           } else if (status === "upcoming-soon") {
             pointerClass = "border-yellow-500";
             timeTextClass = "text-white-400";
@@ -183,7 +208,7 @@ export function Schedule() {
 
           return (
             <div
-              key={`${activeDay}-${item.time}`}
+              key={`${activeDay}-${item.time}-${item.title}`}
               className={`relative w-full h-56 md:h-48 transition-all duration-500 ${cardOpacity}`}
             >
               <svg className="hidden md:block absolute top-0 left-0 w-full h-full overflow-visible -z-10 pointer-events-none">
@@ -297,7 +322,7 @@ export function Schedule() {
                     w-8 h-8 md:w-10 md:h-10 rounded-full
                     border-[3px] border-[#F97316]
                     bg-[#090909]
-                    shadow-[0_0_15px_rgba(249,115,22,0.15)]
+                    shadow-[0_0_15px_rgba(249,115,22,0.3)]
                     z-20 flex items-center justify-center
                     left-10 ${isLeft ? "md:left-[25%]" : "md:left-[75%]"}`}
               >
@@ -326,9 +351,9 @@ export function Schedule() {
                 ${!isLeft && "md:left-[75%]"}
               `}
               >
-                <div className=" w-full">
+                <div className="w-full group">
                   <div
-                    className={`bg-[#090909] border-2 ${borderClass} rounded-xl p-4 md:p-5 shadow-2xl relative flex flex-col backdrop-blur-md transition-all duration-300 hover:scale-[1.02]`}
+                    className={`bg-gradient-to-br from-[#121212] to-[#090909] border-2 ${borderClass}  rounded-xl p-4 md:p-5 shadow-2xl relative flex flex-col backdrop-blur-md transition-all duration-500 hover:scale-[1.03]`}
                   >
                     <div
                       className={`hidden md:block absolute -bottom-1.75 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-[#1A1E23] border-b-2 border-r-2 ${pointerClass}`}
@@ -353,10 +378,10 @@ export function Schedule() {
 
                     <div className="space-y-2 mb-4 text-left">
                       <div className="flex items-start gap-4">
-                        <span className="text-[#F97316]/70 text-xs font-medium uppercase tracking-[0.18em] w-12 shrink-0 mt-0.5">
+                        <span className="text-[#F97316]/70 text-xs font-semibold uppercase tracking-[0.18em] w-12 shrink-0 mt-0.5">
                           Title
                         </span>
-                        <h3 className="font-sans text-base md:text-lg font-medium tracking-tight leading-none text-white">
+                        <h3 className="font-sans text-base md:text-lg font-semibold tracking-tight leading-none text-white group-hover:text-primary transition-colors duration-300">
                           {item.title}
                         </h3>
                       </div>
