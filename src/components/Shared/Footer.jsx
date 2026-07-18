@@ -207,11 +207,6 @@ export function Footer() {
                       outreach.iic@iitdh.ac.in
                     </a>
                   </div>
-                  <div className="pt-4 border-t border-border/10">
-                    <span className="font-mono text-[10px] text-muted-foreground uppercase tracking-wider block">
-                      Hotline
-                    </span>
-                  </div>
                 </div>
               </div>
               <div className="flex gap-2 mt-8 justify-around">
