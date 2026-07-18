@@ -152,8 +152,11 @@ export function Schedule() {
       return `/event/${slugMap[lowerTitle]}`;
     }
 
+    const titleWords = lowerTitle.split(/\s+/);
+
     const matched = events.find((e) => {
       const name = e.name.toLowerCase();
+      const nameWords = name.split(/\s+/);
       return (
         nameWords.every((w) => titleWords.includes(w)) ||
         titleWords.every((w) => nameWords.includes(w))
@@ -178,12 +181,12 @@ export function Schedule() {
           </p>
         </div>
 
-        <div className="flex bg-accent-foreground border p-1.5 rounded-full backdrop-blur-xl shadow-2xl mt-2 gap-5">
+        <div className="flex flex-wrap justify-center md:justify-start bg-accent-foreground border p-1.5 rounded-2xl md:rounded-full backdrop-blur-xl shadow-2xl mt-2 gap-2 md:gap-5">
           {schedule.map((d) => (
             <button
               key={d.day}
               onClick={() => setActiveDay(d.day)}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm uppercase tracking-[0.2em] transition-all duration-300 ${
+              className={`flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 rounded-full font-sans text-xs md:text-sm uppercase tracking-[0.2em] transition-all duration-300 ${
                 activeDay === d.day
                   ? "bg-gradient-to-r from-primary/90 to-primary text-black font-black shadow-[0_0_20px_rgba(249,115,22,0.6)] scale-[1.05]"
                   : "text-white/60 hover:text-white hover:bg-white/10 font-semibold"
@@ -197,7 +200,7 @@ export function Schedule() {
       </div>
 
       {/* --- THE STATIC ZIG-ZAG TRACK ARENA --- */}
-      <div className="relative w-full max-w-4xl mx-auto z-10 flex flex-col pt-15">
+      <div className="relative w-full max-w-4xl mx-auto z-10 flex flex-col pt-32 md:pt-44">
         {/* --- DYNAMIC EVENT CHICANE --- */}
         {sortedItems.map((item, index) => {
           const eventLink = getEventLink(item.title);
