@@ -5,40 +5,76 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { toast } from "sonner";
+import { ScanPanel } from "./ScanPanel";
 
 export function AdminDashboard() {
   const navigate = useTransitionNavigate();
-  const [orders, setOrders] = useLocalStorage("es26_orders", []);
+  const [orders, setOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(true);
   const [tab, setTab] = useState("orders");
 
   useDocumentTitle("Dashboard — E-Summit Admin");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     if (!sessionStorage.getItem("auth_token")) {
       navigate("/admin");
+      return;
     }
-  }, [navigate]);
 
-  const updateStatus = (id, status) => {
-    const next = orders.map((o) => (o.id === id ? { ...o, status } : o));
-    setOrders(next);
-  };
+    fetchPendingOrders();
+  }, []);
+
+  // const updateStatus = (id, status) => {
+  //   const next = orders.map((o) => (o.orderId === id ? { ...o, status } : o));
+  //   setOrders(next);
+  // };
 
   const stats = {
     total: orders.length,
     revenue: orders
       .filter((o) => o.status === "verified")
-      .reduce((a, o) => a + o.total, 0),
-    pending: orders.filter((o) => o.status === "pending").length,
+      .reduce((a, o) => a + o.amount, 0),
+    pending: orders.filter((o) => o.status === "payment_submitted").length,
     verified: orders.filter((o) => o.status === "verified").length,
   };
 
   const logout = () => {
     sessionStorage.clear();
     navigate("/admin");
+  };
+
+  const fetchPendingOrders = async () => {
+    try {
+      setLoadingOrders(true);
+
+      const token = sessionStorage.getItem("auth_token");
+      const adminKey = sessionStorage.getItem("admin_key");
+
+      const res = await fetch(`${API_BASE}/orders/admin/pending`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "X-Admin-Key": adminKey,
+        },
+      });
+
+      const json = await res.json();
+      console.log(json);
+      console.log(json.data);
+
+      if (!res.ok) {
+        throw new Error(json.message || "Failed to fetch orders");
+      }
+
+      setOrders(json.data || []);
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message);
+    } finally {
+      setLoadingOrders(false);
+    }
   };
 
   return (
@@ -96,55 +132,44 @@ export function AdminDashboard() {
 
       {tab === "orders" && (
         <div className="space-y-3">
-          {orders.length === 0 && (
-            <p className="text-muted-foreground">No orders yet.</p>
+          {loadingOrders ? (
+            <p className="text-muted-foreground">Loading orders...</p>
+          ) : orders.length === 0 ? (
+            <p className="text-muted-foreground">No pending orders.</p>
+          ) : (
+            orders.map((o) => (
+              <div
+                key={o.orderId}
+                onClick={() => navigate(`/admin/${o.orderId}`)}
+                className="border border-border bg-card p-5 grid md:grid-cols-[1fr_auto] gap-4 rounded-2xl cursor-pointer hover:border-primary transition"
+              >
+                <div>
+                  <div className="flex flex-wrap gap-3 items-center">
+                    <span className="font-mono text-xs">{o.orderId}</span>
+
+                    <span
+                      className={`font-mono text-[10px] uppercase px-2 py-0.5 ${
+                        o.status === "verified"
+                          ? "bg-primary text-primary-foreground"
+                          : o.status === "rejected"
+                            ? "bg-signal text-foreground"
+                            : "bg-muted text-foreground"
+                      }`}
+                    >
+                      {o.status}
+                    </span>
+                  </div>
+
+                  <div className="font-display text-2xl mt-1">₹{o.amount}</div>
+
+                  <div className="text-xs text-muted-foreground mt-1">
+                    UTR: {o.paymentUTR} · {o.passRequests?.length || 0} passes ·{" "}
+                    {new Date(o.createdAt).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            ))
           )}
-          {orders.map((o) => (
-            <div
-              key={o.id}
-              className="border border-border bg-card p-5 grid md:grid-cols-[1fr_auto] gap-4 rounded-2xl"
-            >
-              <div>
-                <div className="flex flex-wrap gap-3 items-center">
-                  <span className="font-mono text-xs">{o.id}</span>
-                  <span
-                    className={`font-mono text-[10px] uppercase px-2 py-0.5 ${
-                      o.status === "verified"
-                        ? "bg-primary text-primary-foreground"
-                        : o.status === "rejected"
-                          ? "bg-signal text-foreground"
-                          : "bg-muted text-foreground"
-                    }`}
-                  >
-                    {o.status}
-                  </span>
-                </div>
-                <div className="font-display text-2xl mt-1">
-                  ₹{o.total} · {o.phone}
-                </div>
-                <div className="text-xs text-muted-foreground mt-1">
-                  UTR: {o.utr} · {o.passes?.length || 0} passes ·{" "}
-                  {new Date(o.createdAt).toLocaleString()}
-                </div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <Button
-                  onClick={() => updateStatus(o.id, "verified")}
-                  variant="primary"
-                  className="px-4 py-2"
-                >
-                  Verify
-                </Button>
-                <Button
-                  onClick={() => updateStatus(o.id, "rejected")}
-                  variant="signal"
-                  className="px-4 py-2"
-                >
-                  Reject
-                </Button>
-              </div>
-            </div>
-          ))}
         </div>
       )}
 
@@ -346,60 +371,6 @@ function SettingsPanel() {
             </Button>
           </div>
         ))}
-      </div>
-    </div>
-  );
-}
-
-function ScanPanel() {
-  const [scanned, setScanned] = useState([]);
-  const [input, setInput] = useState("");
-  const mark = () => {
-    if (!input.trim()) return;
-    if (scanned.includes(input)) {
-      toast.error("Duplicate — already checked in.");
-      return;
-    }
-    setScanned([input, ...scanned]);
-    setInput("");
-  };
-  return (
-    <div>
-      <div className="bg-card border border-border p-8 text-left rounded-3xl">
-        <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3">
-          QR Check-in
-        </div>
-        <p className="text-sm text-muted-foreground mb-4 font-sans">
-          In production, this uses html5-qrcode for live camera scanning. Demo
-          mode: paste a Pass ID below.
-        </p>
-        <div className="flex gap-3">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Paste Pass ID"
-            className="flex-1 px-4 py-3"
-          />
-          <Button onClick={mark} variant="primary" className="px-6 py-3">
-            Mark Present
-          </Button>
-        </div>
-      </div>
-      <div className="mt-8 text-left">
-        <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">
-          Checked in ({scanned.length})
-        </div>
-        <div className="space-y-2">
-          {scanned.map((s) => (
-            <div
-              key={s}
-              className="border border-border px-4 py-2 font-mono text-sm flex justify-between rounded-xl"
-            >
-              <span>{s}</span>
-              <span className="text-primary">✓ Present</span>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

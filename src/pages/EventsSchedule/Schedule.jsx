@@ -14,11 +14,22 @@ const timeToMinutes = (timeStr) => {
   let [hours, minutes] = time.split(":").map(Number);
 
   if (hours === 12) {
-    hours = modifier.toUpperCase() === "PM" ? 12 : 0;
+    hours = modifier?.toUpperCase() === "PM" ? 12 : 0;
   } else if (modifier?.toUpperCase() === "PM") {
     hours += 12;
   }
   return hours * 60 + minutes;
+};
+
+const parseTimeRange = (timeRange) => {
+  if (!timeRange) return { startMinutes: 0, endMinutes: 0 };
+
+  const [start, end] = timeRange.split("-").map((t) => t.trim());
+
+  return {
+    startMinutes: timeToMinutes(start),
+    endMinutes: timeToMinutes(end),
+  };
 };
 
 export function Schedule() {
@@ -34,17 +45,25 @@ export function Schedule() {
   useEffect(() => {
     fetchSchedule()
       .then((data) => {
-        setRawSchedule(data || []);
-        if (data && data.length > 0) {
-          setActiveDay(data[0].day);
+        const sorted = [...(data || [])].sort((a, b) =>
+          a.day.localeCompare(b.day),
+        );
+
+        setRawSchedule(sorted);
+
+        if (sorted.length > 0) {
+          setActiveDay(sorted[0].day);
         }
+
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching schedule:", err);
+        console.error("Failed to load schedule:", err);
         setLoading(false);
       });
   }, []);
+
+  //TEST//
 
   // Live Telemetry Clock (Updates every minute for accurate real-time status)
   useEffect(() => {
@@ -81,7 +100,7 @@ export function Schedule() {
   const activeSchedule =
     schedule.find((s) => s.day === activeDay) || schedule[0];
 
-  const sortedItems = [...activeSchedule.items].sort(
+  const sortedItems = [...(activeSchedule.items || [])].sort(
     (a, b) => timeToMinutes(a.time) - timeToMinutes(b.time),
   );
 
@@ -89,17 +108,24 @@ export function Schedule() {
   const getEventStatus = (itemTimeStr) => {
     if (!activeSchedule.date) return "upcoming";
 
-    const eventDate = new Date(activeSchedule.date);
-    if (isNaN(eventDate)) return "upcoming";
+    const { startMinutes, endMinutes } = parseTimeRange(itemTimeStr);
 
-    const timeMinutes = timeToMinutes(itemTimeStr);
-    eventDate.setHours(Math.floor(timeMinutes / 60), timeMinutes % 60, 0, 0);
+    const eventStart = new Date(activeSchedule.date);
+    eventStart.setHours(Math.floor(startMinutes / 60), startMinutes % 60, 0, 0);
 
-    const eventEnd = new Date(eventDate);
-    eventEnd.setMinutes(eventDate.getMinutes() + 120);
+    const eventEnd = new Date(activeSchedule.date);
+    eventEnd.setHours(Math.floor(endMinutes / 60), endMinutes % 60, 0, 0);
+
+    // Handle events that cross midnight (e.g. "11:00 PM - 1:00 AM")
+    if (endMinutes < startMinutes) {
+      eventEnd.setDate(eventEnd.getDate() + 1);
+    }
+
     if (currentTime >= eventEnd) return "past";
-    if (currentTime >= eventDate && currentTime < eventEnd) return "ongoing";
-    if (currentTime < eventDate && eventDate - currentTime <= 60 * 60 * 1000)
+
+    if (currentTime >= eventStart && currentTime < eventEnd) return "ongoing";
+
+    if (currentTime < eventStart && eventStart - currentTime <= 60 * 60 * 1000)
       return "upcoming-soon";
 
     return "upcoming";
@@ -129,12 +155,11 @@ export function Schedule() {
     const matched = events.find((e) => {
       const name = e.name.toLowerCase();
       return (
-        lowerTitle.includes(name) ||
-        name.includes(lowerTitle) ||
-        (name.includes("bug") && lowerTitle.includes("bug")) ||
-        (name.includes("e-mun") && lowerTitle.includes("e-mun"))
+        nameWords.every((w) => titleWords.includes(w)) ||
+        titleWords.every((w) => nameWords.includes(w))
       );
     });
+
     return matched ? `/event/${matched.slug}` : null;
   };
 
@@ -181,8 +206,6 @@ export function Schedule() {
 
           const status = getEventStatus(item.time);
 
-          // console.log(item.title, status);
-
           let cardOpacity = "opacity-100";
           let borderClass = "border-white/10";
           let pointerClass = "border-white/10";
@@ -195,7 +218,7 @@ export function Schedule() {
             timeTextClass = "text-gray-400";
           } else if (status === "ongoing") {
             pointerClass = "border-green-500";
-            timeTextClass = "text-white-400";
+            timeTextClass = "text-white";
           } else if (status === "upcoming-soon") {
             pointerClass = "border-yellow-500";
             timeTextClass = "text-white-400";
@@ -348,7 +371,7 @@ export function Schedule() {
               >
                 <div className="w-full group">
                   <div
-                    className={`bg-gradient-to-br from-[#121212] to-[#090909] border-2 ${borderClass} group-hover:border-[#F97316]/50 rounded-xl p-4 md:p-5 shadow-2xl relative flex flex-col backdrop-blur-md transition-all duration-500 hover:scale-[1.03] group-hover:shadow-[0_0_30px_rgba(249,115,22,0.2)]`}
+                    className={`bg-gradient-to-br from-[#121212] to-[#090909] border-2 ${borderClass}  rounded-xl p-4 md:p-5 shadow-2xl relative flex flex-col backdrop-blur-md transition-all duration-500 hover:scale-[1.03]`}
                   >
                     <div
                       className={`hidden md:block absolute -bottom-1.75 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-[#1A1E23] border-b-2 border-r-2 ${pointerClass}`}
