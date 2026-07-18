@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { Layout } from "./components/Shared/Layout";
@@ -46,6 +47,12 @@ const AdminDashboard = lazy(() =>
   })),
 );
 
+const AdminOrderDetails = lazy(() =>
+  import("./pages/Admin/AdminOrderDetails").then((module) => ({
+    default: module.AdminOrderDetails,
+  })),
+);
+
 const Sponsors = lazy(() =>
   import("./pages/Sponsors/Sponsors").then((module) => ({
     default: module.Sponsors,
@@ -87,6 +94,8 @@ export function App() {
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminAuth />} />
               <Route path="malikKiKursi" element={<AdminDashboard />} />
+
+              <Route path=":orderId" element={<AdminOrderDetails />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
