@@ -126,12 +126,16 @@ export function EventDetails() {
           </div>
         </div>
 
-        <Link
-          to="/buy"
-          className="mt-16 inline-block px-10 py-5 bg-primary text-primary-foreground font-mono text-xs uppercase tracking-widest font-semibold hover:bg-primary/90 transition-all rounded-xl hover:scale-[1.02]"
-        >
-          Register now →
-        </Link>
+        {event.registrationLink && (
+          <a
+            href={event.registrationLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-16 inline-block px-10 py-5 bg-primary text-primary-foreground font-mono text-xs uppercase tracking-widest font-semibold hover:bg-primary/90 transition-all rounded-xl hover:scale-[1.02]"
+          >
+            Register now →
+          </a>
+        )}
       </div>
     </div>
   );

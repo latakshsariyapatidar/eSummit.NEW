@@ -132,10 +132,28 @@ export function Schedule() {
   };
 
   const getEventLink = (title) => {
-    const titleWords = title.toLowerCase().split(/\W+/).filter(Boolean);
+    const lowerTitle = title.toLowerCase();
 
-    const matched = (events || []).find((e) => {
-      const nameWords = e.name.toLowerCase().split(/\W+/).filter(Boolean);
+    if (lowerTitle === "opening ceremony" || lowerTitle === "cultural night") {
+      return null;
+    }
+
+    const slugMap = {
+      "find the bug": "find-the-bug",
+      "e-mun": "e-mun",
+      "boardroom battle": "boardroom-battles",
+      innovex: "innovex",
+      gd: "the-forum",
+      "auction-boardroom battle": "boardroom-battles",
+      technostrophe: "technostrophe",
+    };
+
+    if (slugMap[lowerTitle]) {
+      return `/event/${slugMap[lowerTitle]}`;
+    }
+
+    const matched = events.find((e) => {
+      const name = e.name.toLowerCase();
       return (
         nameWords.every((w) => titleWords.includes(w)) ||
         titleWords.every((w) => nameWords.includes(w))
