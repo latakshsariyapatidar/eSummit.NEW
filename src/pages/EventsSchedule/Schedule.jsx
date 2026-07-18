@@ -28,7 +28,6 @@ export function Schedule() {
   const events = useEvents();
   const [activeDay, setActiveDay] = useState("");
 
-
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Fetch schedule on mount
@@ -59,9 +58,7 @@ export function Schedule() {
 
   if (loading) {
     return (
-      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
-
-      </div>
+      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center"></div>
     );
   }
 
@@ -110,6 +107,25 @@ export function Schedule() {
 
   const getEventLink = (title) => {
     const lowerTitle = title.toLowerCase();
+
+    if (lowerTitle === "opening ceremony" || lowerTitle === "cultural night") {
+      return null;
+    }
+
+    const slugMap = {
+      "find the bug": "find-the-bug",
+      "e-mun": "e-mun",
+      "boardroom battle": "boardroom-battles",
+      innovex: "innovex",
+      gd: "the-forum",
+      "auction-boardroom battle": "boardroom-battles",
+      technostrophe: "technostrophe",
+    };
+
+    if (slugMap[lowerTitle]) {
+      return `/event/${slugMap[lowerTitle]}`;
+    }
+
     const matched = events.find((e) => {
       const name = e.name.toLowerCase();
       return (
@@ -142,10 +158,11 @@ export function Schedule() {
             <button
               key={d.day}
               onClick={() => setActiveDay(d.day)}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm uppercase tracking-[0.2em] transition-all duration-300 ${activeDay === d.day
-                ? "bg-gradient-to-r from-primary/90 to-primary text-black font-black shadow-[0_0_20px_rgba(249,115,22,0.6)] scale-[1.05]"
-                : "text-white/60 hover:text-white hover:bg-white/10 font-semibold"
-                }`}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-sans text-sm uppercase tracking-[0.2em] transition-all duration-300 ${
+                activeDay === d.day
+                  ? "bg-gradient-to-r from-primary/90 to-primary text-black font-black shadow-[0_0_20px_rgba(249,115,22,0.6)] scale-[1.05]"
+                  : "text-white/60 hover:text-white hover:bg-white/10 font-semibold"
+              }`}
             >
               <Flag className="w-4 h-4" />
               LAP {d.day.replace("Day ", "")}
