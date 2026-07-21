@@ -170,7 +170,7 @@ export function Team() {
                     <Linkedin className="w-4 h-4" />
                   </a>
                   <a
-                    href={`mailto:${lead.email}?subject=ESummit%202026%20-%20Inquiry%20to%20${lead.name}`}
+                    href={`mailto:${lead.email}?subject=E-summit%202026%20-%20Inquiry%20to%20${lead.name}`}
                     className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-primary text-white hover:text-primary-foreground font-mono text-[10px] uppercase tracking-widest font-semibold rounded-xl border border-white/10 hover:border-transparent transition-all duration-300 shadow-sm"
                   >
                     <Mail className="w-3.5 h-3.5" />
@@ -258,7 +258,7 @@ export function Team() {
                   <Linkedin className="w-4 h-4" />
                 </a>
                 <a
-                  href={`mailto:${lead.email}?subject=ESummit%202026%20-%20Inquiry%20to%20${lead.name}`}
+                  href={`mailto:${lead.email}?subject=E-summit%202026%20-%20Inquiry%20to%20${lead.name}`}
                   className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-primary text-white hover:text-primary-foreground font-mono text-[10px] uppercase tracking-widest font-semibold rounded-xl border border-white/10 hover:border-transparent transition-all duration-300 shadow-sm"
                 >
                   <Mail className="w-3.5 h-3.5" />

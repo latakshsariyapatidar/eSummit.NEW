@@ -56,15 +56,13 @@ export function Nav() {
     <>
       {/* FLOATING HEADER */}
       <header
-        className={`fixed left-1/2 -translate-x-1/2 z-40 transition-all duration-500 ease-out w-[92%] md:w-[85%] max-w-6xl border-border/40 shadow-2xl ${
-          visible
-            ? "top-4 opacity-100"
-            : "-translate-y-24 opacity-0 pointer-events-none"
-        } ${
-          scrolled
+        className={`fixed left-1/2 -translate-x-1/2 z-40 transition-all duration-500 ease-out w-[92%] md:w-[85%] max-w-6xl border-border/40 shadow-2xl ${visible
+          ? "top-4 opacity-100"
+          : "-translate-y-24 opacity-0 pointer-events-none"
+          } ${scrolled
             ? "rounded-full bg-background/85 backdrop-blur-md py-2 px-5 md:px-6"
             : "rounded-full bg-background/60 backdrop-blur-sm py-3.5 px-6"
-        }`}
+          }`}
       >
         <div className="flex items-center justify-between">
           {/* LOGO */}
@@ -82,7 +80,7 @@ export function Nav() {
             </div>
             <div className="flex flex-col text-left">
               <span className="font-display tracking-[0.2em] text-xs md:text-sm font-semibold uppercase leading-none">
-                ESUMMIT'26
+                E-SUMMIT'26
               </span>
               <span className="font-mono text-[8px] tracking-[0.25em] text-muted-foreground uppercase mt-1 leading-none">
                 IIT Dharwad
@@ -98,10 +96,9 @@ export function Nav() {
                 to={n.to}
                 onClick={closeMenu}
                 className={({ isActive }) =>
-                  `px-4 py-1.5 rounded-full transition-all duration-300 ${
-                    isActive
-                      ? "bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/10"
-                      : "text-white hover:text-primary hover:bg-white/5"
+                  `px-4 py-1.5 rounded-full transition-all duration-300 ${isActive
+                    ? "bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/10"
+                    : "text-white hover:text-primary hover:bg-white/5"
                   }`
                 }
               >
@@ -145,11 +142,10 @@ export function Nav() {
 
       {/* FULL SCREEN MOBILE OVERLAY MENU */}
       <div
-        className={`fixed inset-0 z-50 bg-background/98 backdrop-blur-lg md:hidden flex flex-col justify-between p-8 transition-all duration-500 ease-in-out ${
-          open
-            ? "opacity-100 pointer-events-auto translate-y-0"
-            : "opacity-0 pointer-events-none -translate-y-full"
-        }`}
+        className={`fixed inset-0 z-50 bg-background/98 backdrop-blur-lg md:hidden flex flex-col justify-between p-8 transition-all duration-500 ease-in-out ${open
+          ? "opacity-100 pointer-events-auto translate-y-0"
+          : "opacity-0 pointer-events-none -translate-y-full"
+          }`}
       >
         {/* Header row in mobile drawer */}
         <div className="flex items-center justify-between">
@@ -187,16 +183,14 @@ export function Nav() {
               style={{
                 transitionDelay: `${idx * 75}ms`,
               }}
-              className={`transition-all duration-500 transform ${
-                open ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
-              }`}
+              className={`transition-all duration-500 transform ${open ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
+                }`}
             >
               <NavLink
                 to={n.to}
                 onClick={closeMenu}
                 className={({ isActive }) =>
-                  `font-display text-4xl sm:text-5xl font-bold uppercase tracking-tight block ${
-                    isActive ? "text-primary" : "text-white"
+                  `font-display text-4xl sm:text-5xl font-bold uppercase tracking-tight block ${isActive ? "text-primary" : "text-white"
                   }`
                 }
               >

@@ -110,7 +110,7 @@ export function Sponsors() {
             }
             description="We are currently finalizing partnerships. The complete starting grid of sponsors will be unveiled trackside shortly."
             ctaText="Become a Partner →"
-            ctaHref="mailto:outreach.iic@iitdh.ac.in?subject=Sponsorship%20Inquiry%20-%20ESummit%202026"
+            ctaHref="mailto:outreach.iic@iitdh.ac.in?subject=Sponsorship%20Inquiry%20-%20E-summit%202026"
           />
         </div>
       )}
