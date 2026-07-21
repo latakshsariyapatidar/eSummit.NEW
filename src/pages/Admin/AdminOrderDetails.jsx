@@ -269,27 +269,28 @@ export function AdminOrderDetails() {
         <div>
           <b>Passes:</b> {order.passRequests?.length || 0}
         </div>
+        <div>
+          <b>VPA:</b> {order.paymentUPI}
+        </div>
       </div>
 
       {/* NEW: persistent confirmation banner using the backend's real response, not a hardcoded string */}
       {actionResult && (
         <div
-          className={`mt-10 rounded-2xl border p-5 ${
-            actionResult.type === "approved"
-              ? "border-emerald-600"
-              : actionResult.type === "rejected"
-                ? "border-signal"
-                : "border-rose-600"
-          }`}
+          className={`mt-10 rounded-2xl border p-5 ${actionResult.type === "approved"
+            ? "border-emerald-600"
+            : actionResult.type === "rejected"
+              ? "border-signal"
+              : "border-rose-600"
+            }`}
         >
           <div
-            className={`font-bold text-lg ${
-              actionResult.type === "approved"
-                ? "text-emerald-600"
-                : actionResult.type === "rejected"
-                  ? "text-signal"
-                  : "text-rose-600"
-            }`}
+            className={`font-bold text-lg ${actionResult.type === "approved"
+              ? "text-emerald-600"
+              : actionResult.type === "rejected"
+                ? "text-signal"
+                : "text-rose-600"
+              }`}
           >
             {actionResult.type === "approved" && "✓ "}
             {actionResult.type === "rejected" && "✕ "}
