@@ -11,7 +11,9 @@ import { ScanPanel } from "./ScanPanel";
 export function AdminDashboard() {
   const navigate = useTransitionNavigate();
   const [orders, setOrders] = useState([]);
+  const [verifiedOrders, setVerifiedOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
+  const [loadingVerified, setLoadingVerified] = useState(true);
   const [tab, setTab] = useState("orders");
 
   useDocumentTitle("Dashboard — E-Summit Admin");
@@ -25,20 +27,14 @@ export function AdminDashboard() {
     }
 
     fetchPendingOrders();
+    fetchVerifiedOrders();
   }, []);
 
-  // const updateStatus = (id, status) => {
-  //   const next = orders.map((o) => (o.orderId === id ? { ...o, status } : o));
-  //   setOrders(next);
-  // };
-
   const stats = {
-    total: orders.length,
-    revenue: orders
-      .filter((o) => o.status === "verified")
-      .reduce((a, o) => a + o.amount, 0),
-    pending: orders.filter((o) => o.status === "payment_submitted").length,
-    verified: orders.filter((o) => o.status === "verified").length,
+    total: orders.length + verifiedOrders.length,
+    revenue: verifiedOrders.reduce((a, o) => a + (o.amount || 0), 0),
+    pending: orders.length,
+    verified: verifiedOrders.length,
   };
 
   const logout = () => {
@@ -61,8 +57,6 @@ export function AdminDashboard() {
       });
 
       const json = await res.json();
-      console.log(json);
-      console.log(json.data);
 
       if (!res.ok) {
         throw new Error(json.message || "Failed to fetch orders");
@@ -74,6 +68,35 @@ export function AdminDashboard() {
       toast.error(err.message);
     } finally {
       setLoadingOrders(false);
+    }
+  };
+
+  const fetchVerifiedOrders = async () => {
+    try {
+      setLoadingVerified(true);
+
+      const token = sessionStorage.getItem("auth_token");
+      const adminKey = sessionStorage.getItem("admin_key");
+
+      const res = await fetch(`${API_BASE}/orders/admin/verified`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "X-Admin-Key": adminKey,
+        },
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        throw new Error(json.message || "Failed to fetch verified orders");
+      }
+
+      setVerifiedOrders(json.data || []);
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message);
+    } finally {
+      setLoadingVerified(false);
     }
   };
 
@@ -114,18 +137,24 @@ export function AdminDashboard() {
         ))}
       </div>
 
-      <div className="flex gap-2 mb-8 border-b border-border">
-        {["orders", "passes", "scan", "settings"].map((t) => (
+      <div className="flex gap-2 mb-8 border-b border-border overflow-x-auto">
+        {[
+          { id: "orders", label: "Pending Orders" },
+          { id: "verified", label: "Verified Orders" },
+          { id: "passes", label: "Passes" },
+          { id: "scan", label: "Scan" },
+          { id: "settings", label: "Settings" },
+        ].map((t) => (
           <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`px-4 py-3 font-mono text-xs uppercase tracking-widest ${
-              tab === t
-                ? "border-b-2 border-primary text-primary"
-                : "text-muted-foreground"
+            key={t.id}
+            onClick={() => setTab(t.id)}
+            className={`px-4 py-3 font-mono text-xs uppercase tracking-widest whitespace-nowrap ${
+              tab === t.id
+                ? "border-b-2 border-primary text-primary font-bold"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            {t}
+            {t.label}
           </button>
         ))}
       </div>
@@ -133,7 +162,7 @@ export function AdminDashboard() {
       {tab === "orders" && (
         <div className="space-y-3">
           {loadingOrders ? (
-            <p className="text-muted-foreground">Loading orders...</p>
+            <p className="text-muted-foreground">Loading pending orders...</p>
           ) : orders.length === 0 ? (
             <p className="text-muted-foreground">No pending orders.</p>
           ) : (
@@ -171,6 +200,15 @@ export function AdminDashboard() {
             ))
           )}
         </div>
+      )}
+
+      {tab === "verified" && (
+        <VerifiedOrdersPanel
+          verifiedOrders={verifiedOrders}
+          loading={loadingVerified}
+          onRefresh={fetchVerifiedOrders}
+          navigate={navigate}
+        />
       )}
 
       {tab === "passes" && <PassesPanel />}
@@ -371,6 +409,235 @@ function SettingsPanel() {
             </Button>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function VerifiedOrdersPanel({ verifiedOrders, loading, navigate }) {
+  const [expandedOrderId, setExpandedOrderId] = useState(null);
+
+  if (loading) {
+    return <p className="text-muted-foreground py-4">Loading verified orders...</p>;
+  }
+
+  if (!verifiedOrders || verifiedOrders.length === 0) {
+    return <p className="text-muted-foreground py-4">No verified orders found.</p>;
+  }
+
+  const toggleExpand = (orderId) => {
+    setExpandedOrderId((prev) => (prev === orderId ? null : orderId));
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-center mb-2">
+        <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          {verifiedOrders.length} Verified Orders
+        </span>
+      </div>
+
+      <div className="space-y-3">
+        {verifiedOrders.map((o) => {
+          const isExpanded = expandedOrderId === o.orderId;
+          const passCount = o.passes?.length || o.passRequests?.length || 0;
+
+          return (
+            <div
+              key={o._id || o.orderId}
+              className="border border-border bg-card rounded-2xl overflow-hidden transition"
+            >
+              <div
+                onClick={() => toggleExpand(o.orderId)}
+                className="p-5 flex flex-wrap justify-between items-center gap-4 cursor-pointer hover:bg-muted/20"
+              >
+                <div>
+                  <div className="flex flex-wrap gap-3 items-center">
+                    <span className="font-mono text-xs font-bold text-foreground">
+                      {o.orderId}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase px-2 py-0.5 bg-emerald-500/15 text-emerald-500 rounded border border-emerald-500/20 font-bold">
+                      VERIFIED
+                    </span>
+                  </div>
+
+                  <div className="font-display text-2xl mt-1 text-primary">
+                    ₹{o.amount}
+                  </div>
+
+                  <div className="text-xs text-muted-foreground mt-1">
+                    UTR: <span className="font-mono">{o.paymentUTR || "N/A"}</span> ·{" "}
+                    {passCount} {passCount === 1 ? "pass" : "passes"} · Verified{" "}
+                    {o.verifiedAt ? new Date(o.verifiedAt).toLocaleString() : "N/A"}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="secondary"
+                    className="text-xs px-3 py-1.5"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleExpand(o.orderId);
+                    }}
+                  >
+                    {isExpanded ? "Hide Details ▲" : "View Details ▼"}
+                  </Button>
+                </div>
+              </div>
+
+              {/* EXPANDED DETAILS SECTION */}
+              {isExpanded && (
+                <div className="p-5 border-t border-border bg-background/50 space-y-6">
+                  {/* Order Overview & Payment Meta */}
+                  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm bg-card p-4 rounded-xl border border-border/50">
+                    <div>
+                      <span className="text-xs font-mono uppercase text-muted-foreground block">
+                        Payment UTR
+                      </span>
+                      <span className="font-mono font-semibold">{o.paymentUTR || "N/A"}</span>
+                    </div>
+                    {o.paymentUPI && (
+                      <div>
+                        <span className="text-xs font-mono uppercase text-muted-foreground block">
+                          UPI ID
+                        </span>
+                        <span className="font-mono">{o.paymentUPI}</span>
+                      </div>
+                    )}
+                    <div>
+                      <span className="text-xs font-mono uppercase text-muted-foreground block">
+                        Verified Date
+                      </span>
+                      <span>
+                        {o.verifiedAt ? new Date(o.verifiedAt).toLocaleString() : "N/A"}
+                      </span>
+                    </div>
+                    {o.verifiedBy && (
+                      <div>
+                        <span className="text-xs font-mono uppercase text-muted-foreground block">
+                          Verified By Admin ID
+                        </span>
+                        <span className="font-mono text-xs">{o.verifiedBy}</span>
+                      </div>
+                    )}
+                    {o.paymentScreenshot && (
+                      <div className="sm:col-span-2">
+                        <span className="text-xs font-mono uppercase text-muted-foreground block">
+                          Payment Screenshot
+                        </span>
+                        <a
+                          href={o.paymentScreenshot}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-xs text-primary underline hover:text-primary/80 font-mono"
+                        >
+                          View Screenshot Document ↗
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Generated Passes Section */}
+                  {o.passes?.length > 0 && (
+                    <div>
+                      <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3 font-semibold">
+                        Generated Passes ({o.passes.length})
+                      </div>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {o.passes.map((p, idx) => (
+                          <div
+                            key={p._id || p.passId || idx}
+                            className="border border-border/80 bg-card p-4 rounded-xl flex gap-3 items-start justify-between"
+                          >
+                            <div className="space-y-1 text-xs min-w-0 flex-1">
+                              <div className="font-display text-base font-bold text-foreground truncate">
+                                {p.attendeeName}
+                              </div>
+                              {p.eventName && (
+                                <div className="text-xs font-mono text-primary font-medium truncate">
+                                  {p.eventName}
+                                </div>
+                              )}
+                              <div className="font-mono text-[10px] text-muted-foreground">
+                                ID: {p.passId}
+                              </div>
+                              <div className="text-muted-foreground">
+                                <b>Type:</b> {p.type} (₹{p.price})
+                              </div>
+                              <div className="text-muted-foreground truncate">
+                                <b>Email:</b> {p.attendeeEmail}
+                              </div>
+                              <div className="text-muted-foreground truncate">
+                                <b>College:</b> {p.collegeName || "N/A"}
+                              </div>
+                              <div className="pt-1">
+                                <span
+                                  className={`inline-block font-mono text-[9px] uppercase px-2 py-0.5 rounded ${
+                                    p.checkedIn
+                                      ? "bg-amber-500/15 text-amber-500 border border-amber-500/20 font-bold"
+                                      : "bg-emerald-500/15 text-emerald-500 border border-emerald-500/20"
+                                  }`}
+                                >
+                                  {p.checkedIn ? "Checked In" : "Status: Active"}
+                                </span>
+                              </div>
+                            </div>
+                            {p.qr && (
+                              <img
+                                src={p.qr}
+                                alt="Pass QR"
+                                className="w-20 h-20 bg-white p-1 rounded-lg border border-zinc-200 shrink-0"
+                              />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Fallback to Pass Requests if passes array not populated */}
+                  {(!o.passes || o.passes.length === 0) && o.passRequests?.length > 0 && (
+                    <div>
+                      <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3 font-semibold">
+                        Pass Requests ({o.passRequests.length})
+                      </div>
+                      <div className="space-y-2">
+                        {o.passRequests.map((pr, idx) => (
+                          <div
+                            key={idx}
+                            className="border border-border/80 bg-card p-3.5 rounded-xl text-xs flex flex-wrap justify-between items-center gap-2"
+                          >
+                            <div>
+                              <div className="font-bold text-sm text-foreground">{pr.attendeeName}</div>
+                              {pr.eventName && (
+                                <div className="font-mono text-primary text-[11px]">{pr.eventName}</div>
+                              )}
+                              <div className="text-muted-foreground">{pr.attendeeEmail} · {pr.collegeName}</div>
+                            </div>
+                            <span className="font-mono text-[10px] uppercase px-2 py-0.5 bg-muted rounded">
+                              {pr.passType} (₹{pr.passPrice})
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="pt-2 flex justify-end">
+                    <Button
+                      variant="secondary"
+                      className="text-xs"
+                      onClick={() => navigate(`/admin/${o.orderId}`)}
+                    >
+                      Open Full Order Admin View →
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
