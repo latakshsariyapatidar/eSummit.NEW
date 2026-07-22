@@ -374,43 +374,59 @@ export function AdminOrderDetails() {
         </div>
       )}
 
-      {showRejectInput && (
-        <div className="mt-6">
-          <input
-            type="text"
-            value={rejectReason}
-            onChange={(e) => setRejectReason(e.target.value)}
-            placeholder="Reason for rejection (min 5 characters)"
-            disabled={actionLoading}
-            className="w-full rounded-xl border border-border bg-background px-4 py-2 text-sm outline-none focus:border-primary disabled:opacity-50"
-          />
-        </div>
+      {order.status === "payment_submitted" || order.status === "pending" ? (
+        <>
+          {showRejectInput && (
+            <div className="mt-6">
+              <input
+                type="text"
+                value={rejectReason}
+                onChange={(e) => setRejectReason(e.target.value)}
+                placeholder="Reason for rejection (min 5 characters)"
+                disabled={actionLoading}
+                className="w-full rounded-xl border border-border bg-background px-4 py-2 text-sm outline-none focus:border-primary disabled:opacity-50"
+              />
+            </div>
+          )}
+
+          <div className="flex gap-3 mt-10">
+            <Button
+              variant="primary"
+              onClick={approveOrder}
+              disabled={actionLoading}
+            >
+              Verify
+            </Button>
+
+            <Button variant="signal" onClick={rejectOrder} disabled={actionLoading}>
+              Reject
+            </Button>
+
+            {/* NEW: only shown if there's another pending order after this one */}
+            {nextOrderId && (
+              <Button
+                variant="secondary"
+                onClick={() => navigate(`/admin/${nextOrderId}`)}
+                disabled={actionLoading}
+              >
+                Next Pending Order →
+              </Button>
+            )}
+          </div>
+        </>
+      ) : (
+        nextOrderId && (
+          <div className="flex gap-3 mt-10">
+            <Button
+              variant="secondary"
+              onClick={() => navigate(`/admin/${nextOrderId}`)}
+              disabled={actionLoading}
+            >
+              Next Pending Order →
+            </Button>
+          </div>
+        )
       )}
-
-      <div className="flex gap-3 mt-10">
-        <Button
-          variant="primary"
-          onClick={approveOrder}
-          disabled={actionLoading}
-        >
-          Verify
-        </Button>
-
-        <Button variant="signal" onClick={rejectOrder} disabled={actionLoading}>
-          Reject
-        </Button>
-
-        {/* NEW: only shown if there's another pending order after this one */}
-        {nextOrderId && (
-          <Button
-            variant="secondary"
-            onClick={() => navigate(`/admin/${nextOrderId}`)}
-            disabled={actionLoading}
-          >
-            Next Pending Order →
-          </Button>
-        )}
-      </div>
     </div>
   );
 }
