@@ -3,12 +3,22 @@ import { Button } from "@/components/ui/Button";
 
 export function AttendeeDetailsForm({
   attendeeDetails,
+  events = [],
   onDetailsChange,
   onSubmit,
   onBack,
   loading,
   total,
 }) {
+  // Deduplicate event names extracted from database events, excluding default option
+  const eventOptions = Array.from(
+    new Set(
+      events
+        .map((e) => (typeof e === "string" ? e : e.name || e.title))
+        .filter(Boolean)
+    )
+  ).filter((name) => name !== "E-Summit 2026");
+
   return (
     <form onSubmit={onSubmit} className="max-w-2xl mx-auto w-full space-y-8">
       <PageHeader tag="Step 2 of 3" title="Attendee Information" />
@@ -26,6 +36,27 @@ export function AttendeeDetailsForm({
           </h3>
 
           <div className="grid sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5 sm:col-span-2">
+              <label className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                Event Name
+              </label>
+              <select
+                required
+                className="bg-background border border-border rounded-lg p-2.5 text-sm focus:outline-none focus:border-primary"
+                value={attendee.eventName || "E-Summit 2026"}
+                onChange={(e) =>
+                  onDetailsChange(index, "eventName", e.target.value)
+                }
+              >
+                <option value="E-Summit 2026">E-Summit 2026 (Default)</option>
+                {eventOptions.map((name, idx) => (
+                  <option key={idx} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
                 Full Name

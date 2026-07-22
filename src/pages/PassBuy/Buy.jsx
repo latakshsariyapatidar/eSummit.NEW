@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { Button } from "@/components/ui/Button";
 import { useState, useEffect } from "react";
-import { fetchPasses, API_BASE } from "@/lib/store";
+import { fetchPasses, fetchEvents, API_BASE } from "@/lib/store";
 import { PassCard } from "@/components/Passes/PassCard";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
@@ -20,6 +20,7 @@ export function Buy() {
   useDocumentTitle("Get Your Pass — E-Summit 2026");
 
   const [passes, setPasses] = useState([]);
+  const [events, setEvents] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const [cart, setCart] = useLocalStorage("es26_cart", []);
   const [step, setStep] = useState("selection"); // 'selection' | 'details' | 'payment' | 'status'
@@ -30,13 +31,14 @@ export function Buy() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetchPasses()
-      .then((data) => {
-        setPasses(data || []);
+    Promise.all([fetchPasses(), fetchEvents()])
+      .then(([passData, eventData]) => {
+        setPasses(passData || []);
+        setEvents(eventData || []);
         setPageLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching passes:", err);
+        console.error("Error fetching passes or events:", err);
         setPageLoading(false);
       });
   }, []);
@@ -104,6 +106,7 @@ export function Buy() {
       const passInfo = passes.find((p) => (p.id || p._id) === item.passId);
       for (let i = 0; i < item.qty; i++) {
         detailsArray.push({
+          eventName: "E-Summit 2026",
           passType: passInfo?.name || "General Pass",
           passPrice: passInfo?.price || 0,
           attendeeName: "",
@@ -257,6 +260,7 @@ export function Buy() {
         {step === "details" && (
           <AttendeeDetailsForm
             attendeeDetails={attendeeDetails}
+            events={events}
             onDetailsChange={handleDetailsChange}
             onSubmit={handleSubmitOrder}
             onBack={() => setStep("selection")}

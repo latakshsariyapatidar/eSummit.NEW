@@ -336,13 +336,25 @@ export function AdminOrderDetails() {
                 className="border border-border bg-card p-5 rounded-2xl"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="font-display text-xl">{p.attendeeName}</div>
+                  <div>
+                    <div className="font-display text-xl">{p.attendeeName}</div>
+                    {p.eventName && (
+                      <div className="text-xs font-mono text-primary font-semibold mt-0.5">
+                        {p.eventName}
+                      </div>
+                    )}
+                  </div>
                   <span className="font-mono text-[10px] uppercase px-2 py-0.5 bg-muted text-foreground">
                     {p.passType}
                   </span>
                 </div>
 
                 <div className="mt-3 space-y-1 text-sm">
+                  {p.eventName && (
+                    <div>
+                      <b>Event:</b> {p.eventName}
+                    </div>
+                  )}
                   <div>
                     <b>Email:</b> {p.attendeeEmail}
                   </div>

@@ -473,6 +473,11 @@ export function ScanPanel() {
                 <div className="text-lg font-display truncate">
                   {scanResult.attendeeName}
                 </div>
+                {scanResult.eventName && (
+                  <div className="text-xs font-mono text-primary font-medium truncate">
+                    {scanResult.eventName}
+                  </div>
+                )}
                 <div className="text-xs text-muted-foreground truncate">
                   {scanResult.collegeName}
                 </div>
@@ -501,6 +506,12 @@ export function ScanPanel() {
                 Full details
               </summary>
               <div className="mt-2 space-y-1 text-muted-foreground">
+                {scanResult.eventName && (
+                  <div>
+                    <b className="text-foreground">Event:</b>{" "}
+                    {scanResult.eventName}
+                  </div>
+                )}
                 <div>
                   <b className="text-foreground">Email:</b>{" "}
                   {scanResult.attendeeEmail}
