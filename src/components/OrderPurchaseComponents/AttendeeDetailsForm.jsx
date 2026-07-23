@@ -17,7 +17,7 @@ export function AttendeeDetailsForm({
         .map((e) => (typeof e === "string" ? e : e.name || e.title))
         .filter(Boolean)
     )
-  ).filter((name) => name !== "E-Summit 2026");
+  );
 
   return (
     <form onSubmit={onSubmit} className="max-w-2xl mx-auto w-full space-y-8">
@@ -43,12 +43,12 @@ export function AttendeeDetailsForm({
               <select
                 required
                 className="bg-background border border-border rounded-lg p-2.5 text-sm focus:outline-none focus:border-primary"
-                value={attendee.eventName || "E-Summit 2026"}
+                value={attendee.eventName || ""}
                 onChange={(e) =>
                   onDetailsChange(index, "eventName", e.target.value)
                 }
               >
-                <option value="E-Summit 2026">E-Summit 2026 (Default)</option>
+                <option value="" disabled>— Select an Event —</option>
                 {eventOptions.map((name, idx) => (
                   <option key={idx} value={name}>
                     {name}

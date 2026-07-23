@@ -106,7 +106,7 @@ export function Buy() {
       const passInfo = passes.find((p) => (p.id || p._id) === item.passId);
       for (let i = 0; i < item.qty; i++) {
         detailsArray.push({
-          eventName: "E-Summit 2026",
+          eventName: "",
           passType: passInfo?.name || "General Pass",
           passPrice: passInfo?.price || 0,
           attendeeName: "",
