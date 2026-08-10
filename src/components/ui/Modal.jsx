@@ -1,9 +1,10 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 
 /**
  * Reusable layout modal shell featuring backdrop blur, escape key handling,
- * custom fade/zoom animation, and scrolling containment.
+ * custom fade/zoom animation, scrolling containment, and Portal rendering.
  */
 export function Modal({
   children,
@@ -36,29 +37,30 @@ export function Modal({
     };
   }, []);
 
-  return (
+  return createPortal(
     <div
       data-lenis-prevent
-      className="fixed inset-0 z-50 bg-background/80 backdrop-blur flex items-center justify-center p-4 transition-all duration-300 animate-in fade-in zoom-in-95"
+      className="fixed inset-0 z-[99999] bg-background/80 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 animate-in fade-in zoom-in-95"
     >
       <div
         className={cn(
-          "bg-card border border-border w-full p-5 sm:p-7 md:p-8 relative shadow-2xl flex flex-col max-h-[85vh] animate-in fade-in-50 zoom-in-95 duration-200 rounded-3xl",
+          "bg-card border border-border w-full p-5 sm:p-7 md:p-8 relative shadow-2xl flex flex-col max-h-[85vh] animate-in fade-in-50 zoom-in-95 duration-200 rounded-3xl z-[100000]",
           maxWidthClass,
           className,
         )}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 font-mono text-sm hover:text-primary z-10 transition-colors"
+          className="absolute top-4 right-4 font-mono text-sm hover:text-primary z-10 transition-colors cursor-pointer"
           aria-label="Close"
         >
           ✕
         </button>
-        <div className="overflow-y-auto pr-1 flex-1 no-scrollbar mt-2">
+        <div className="overflow-y-auto pr-1 flex-1 custom-scrollbar mt-2">
           {children}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

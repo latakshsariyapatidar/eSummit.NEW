@@ -68,8 +68,8 @@ export function EventDetails() {
   }
 
   return (
-    <div className="pt-32 pb-24 text-left">
-      <div className="mx-auto max-w-400 px-6 lg:px-12">
+    <div className="pt-24 sm:pt-32 pb-16 sm:pb-24 text-left">
+      <div className="mx-auto max-w-400 px-4 sm:px-6 lg:px-12">
         <Link
           to="/events"
           className="font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary"
@@ -77,42 +77,42 @@ export function EventDetails() {
           ← All events
         </Link>
 
-        <div className="mt-8 grid lg:grid-cols-[2fr_1fr] gap-12 items-end">
+        <div className="mt-6 sm:mt-8 grid lg:grid-cols-[2fr_1fr] gap-6 lg:gap-12 items-start lg:items-end">
           <div>
-            <div className="font-mono text-xs uppercase tracking-widest text-primary mb-4">
+            <div className="font-mono text-xs uppercase tracking-widest text-primary mb-3 sm:mb-4">
               {event.day} · {event.time}
             </div>
-            <h1 className="font-display text-5xl sm:text-7xl lg:text-9xl leading-[0.85]">
+            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-9xl leading-[0.95] sm:leading-[0.85] break-words">
               {event.name}
             </h1>
-            <p className="mt-6 text-sm md:text-md text-muted-foreground max-w-2xl">
+            <p className="mt-4 sm:mt-6 text-sm md:text-base text-muted-foreground max-w-2xl">
               {event.tagline}
             </p>
           </div>
-          <div className="border-l-2 border-primary pl-6">
+          <div className="border-l-2 border-primary pl-4 sm:pl-6 py-1">
             <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
               Venue
             </div>
-            <div className="font-display text-2xl mt-1">
+            <div className="font-display text-xl sm:text-2xl mt-1">
               IIT Dharwad — Main Arena
             </div>
           </div>
         </div>
 
-        <div className="mt-20 grid md:grid-cols-2 gap-12">
+        <div className="mt-12 sm:mt-16 lg:mt-20 grid md:grid-cols-2 gap-8 md:gap-12">
           <div>
-            <h2 className="font-display text-3xl mb-4">About the Event</h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
+            <h2 className="font-display text-2xl sm:text-3xl mb-3 sm:mb-4">About the Event</h2>
+            <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
               {event.about}
             </p>
-            <h2 className="font-display text-3xl mb-4">The Brief</h2>
-            <p className="text-muted-foreground leading-relaxed">
+            <h2 className="font-display text-2xl sm:text-3xl mb-3 sm:mb-4">The Brief</h2>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
               {event.brief}
             </p>
           </div>
           <div>
-            <h2 className="font-display text-3xl mb-4">Event Format</h2>
-            <ul className="space-y-3 text-muted-foreground">
+            <h2 className="font-display text-2xl sm:text-3xl mb-3 sm:mb-4">Event Format</h2>
+            <ul className="space-y-3 text-sm sm:text-base text-muted-foreground">
               {event.format &&
                 event.format.map((step, idx) => (
                   <li key={idx} className="flex gap-3 items-start">
@@ -126,16 +126,29 @@ export function EventDetails() {
           </div>
         </div>
 
-        {event.registrationLink && (
-          <a
-            href={event.registrationLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-16 inline-block px-10 py-5 bg-primary text-primary-foreground font-mono text-xs uppercase tracking-widest font-semibold hover:bg-primary/90 transition-all rounded-xl hover:scale-[1.02]"
-          >
-            Register now →
-          </a>
-        )}
+        <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-5">
+          {event.registrationLink && (
+            <a
+              href={event.registrationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto text-center px-6 sm:px-10 py-4 sm:py-5 bg-primary text-primary-foreground font-mono text-xs uppercase tracking-widest font-semibold hover:bg-primary/90 transition-all rounded-xl hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Register now →
+            </a>
+          )}
+
+          {event.registrationLink_iit && (
+            <a
+              href={event.registrationLink_iit}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto text-center px-6 sm:px-10 py-4 sm:py-5 bg-secondary text-secondary-foreground font-mono text-xs uppercase tracking-widest font-semibold hover:bg-secondary/90 transition-all rounded-xl hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Register now (IIT Dharwad Exclusive) →
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

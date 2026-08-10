@@ -2,7 +2,7 @@
 
 ## Feature
 
-The team feature is the `/team` route. It shows the core committee, functional leads, event directors, and their crews.
+The team feature is the `/team` route. It shows the core committee, functional leads, event directors, past members (alumni/legacy core), and their crew members.
 
 ## Entry Point
 
@@ -17,12 +17,14 @@ Route in `src/App.jsx`:
 ## Flow
 
 1. `Team` sets document title.
-2. It calls `useTeams()` from `@/lib/store`.
+2. It calls `fetchTeams()` from `@/lib/store` (with fallback data support).
 3. It uses `useMemo` to split teams into:
    - `functionalLeads`
    - `eventDirectors`
-4. If team data is empty, it renders `Loader`.
-5. It renders `TeamMemberCard` for each team group.
+   - `pastMembers` (with edition/year filtering)
+4. If team data is empty, it renders `ComingSoonCard`.
+5. It renders `TeamMemberCard` for active and past team groups.
+6. Clicking any card opens a details modal with profile bio, social links, year batch badge, and crew list.
 
 ## Modules Used
 
@@ -32,30 +34,25 @@ Route in `src/App.jsx`:
 | `PageHeader`       | `@/components/ui/PageHeader`             | Page heading.                        |
 | `useDocumentTitle` | `@/hooks/useDocumentTitle`               | Browser title.                       |
 | `TeamMemberCard`   | `@/components/Team/TeamMemberCard`       | Lead and crew card UI.               |
-| `useTeams`         | `@/lib/store`                            | Team data.                           |
-| `Loader`           | `@/components/Loader/Loader`             | Empty loading state.                 |
-| `ComingSoonCard`   | `@/components/ComingSoon/ComingSoonCard` | Present but currently commented out. |
+| `fetchTeams`       | `@/lib/store`                            | Team data.                           |
+| `Modal`            | `@/components/ui/Modal`                  | Detailed profile modal.              |
+| `ComingSoonCard`   | `@/components/ComingSoon/ComingSoonCard` | Fallback empty state.                |
 
 ## Team Split Logic
 
-Functional leads include entries where:
-
-- `lead.team === "Core Committee"`
-- role is `Overall Coordinator`
-- role includes `Head`
-- role includes `Lead` and has no `event`
-
-Event directors are entries with `lead.event` or anything not already classified as functional.
+- **Past Members**: entries with `isPast: true`, `type === "past"`, `category === "past"`, `lead.isPast === true`, or `lead.team` containing "Past" / "Alumni".
+- **Functional Leads**: active entries where `lead.team === "Core Committee"`, role is `Overall Coordinator`, role includes `Head`, or role includes `Lead` without an event.
+- **Event Directors**: active entries with `lead.event` or remaining active team leads.
 
 ## Card Behavior
 
 `TeamMemberCard.jsx`:
 
 - Shows lead image as background.
+- Displays year batch badge for past members (e.g. `2025`, `2024`) with gold accent borders.
 - Links lead name to LinkedIn if available, otherwise LinkedIn search.
 - Shows email contact link.
-- If crew exists, hovering/clicking expands crew names and avatars.
-- Uses `data-lenis-prevent` inside the crew list so internal scroll does not fight smooth scrolling.
+- Clicking card opens full member bio modal.
 
 ## Data Shape
 
@@ -63,6 +60,8 @@ Team object:
 
 ```js
 {
+  isPast?: boolean,
+  year?: string, // e.g. "2025", "2024"
   lead: {
     name,
     role,
@@ -71,7 +70,9 @@ Team object:
     email,
     bio,
     image,
-    linkedin
+    linkedin,
+    isPast?: boolean,
+    year?: string
   },
   crew: [
     {
@@ -85,6 +86,7 @@ Team object:
 
 ## Files to Edit
 
-- Add/update team data: `src/lib/store.js`.
-- Change page grouping: `src/pages/Team/Team.jsx`.
+- Add/update team & past member data: `src/lib/store.js`.
+- Change page grouping & year filters: `src/pages/Team/Team.jsx`.
 - Change card UI/interaction: `src/components/Team/TeamMemberCard.jsx`.
+

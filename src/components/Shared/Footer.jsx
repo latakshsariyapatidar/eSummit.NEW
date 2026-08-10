@@ -19,30 +19,6 @@ export function Footer() {
       .catch((err) => console.error("Error fetching events for footer:", err));
   }, []);
 
-  useEffect(() => {
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 1024px) and (min-height: 1200px)", () => {
-      // Parallax effect: slide footer contents as we scroll
-      gsap.fromTo(
-        contentRef.current,
-        { yPercent: 15 },
-        {
-          yPercent: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top bottom",
-            end: "bottom bottom",
-            scrub: true,
-          },
-        },
-      );
-    });
-
-    return () => mm.revert();
-  }, []);
-
   const eventCountWord =
     [
       "zero",
@@ -104,7 +80,7 @@ export function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="w-full reveal-footer select-none overflow-hidden bg-background"
+      className="w-full relative z-0 select-none overflow-hidden bg-background border-t border-border/20"
     >
       <div
         ref={contentRef}

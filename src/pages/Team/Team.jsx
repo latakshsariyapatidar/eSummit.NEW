@@ -6,13 +6,14 @@ import { fetchTeams } from "@/lib/store";
 
 import { ComingSoonCard } from "@/components/ComingSoon/ComingSoonCard";
 import { Modal } from "@/components/ui/Modal";
-import { Linkedin, Mail } from "lucide-react";
+import { Linkedin, Mail, GraduationCap } from "lucide-react";
 
 export function Team() {
   useDocumentTitle("The Crew — E-Summit 2026");
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [selectedPastYear, setSelectedPastYear] = useState("all");
 
   useEffect(() => {
     fetchTeams()
@@ -34,30 +35,55 @@ export function Team() {
     setSelectedTeam(null);
   }, []);
 
-  const { functionalLeads, eventDirectors } = useMemo(() => {
-    const functional = teams.filter(
-      (t) =>
-        t.lead?.team === "Core Committee" ||
-        t.lead?.role === "Overall Coordinator" ||
-        t.lead?.role?.includes("Head") ||
-        (t.lead?.role?.includes("Lead") && !t.lead?.event),
-    );
+  const { functionalLeads, eventDirectors, pastMembers, pastYears } =
+    useMemo(() => {
+      const past = teams.filter(
+        (t) =>
+          t.isPast === true ||
+          t.type === "past" ||
+          t.category === "past" ||
+          t.lead?.isPast === true ||
+          t.lead?.team?.toLowerCase().includes("past") ||
+          t.lead?.team?.toLowerCase().includes("alumni"),
+      );
 
-    const events = teams.filter(
-      (t) => t.lead?.event || !functional.includes(t),
-    );
+      const active = teams.filter((t) => !past.includes(t));
 
-    return {
-      functionalLeads: functional,
-      eventDirectors: events,
-    };
-  }, [teams]);
+      const functional = active.filter(
+        (t) =>
+          t.lead?.team === "Core Committee" ||
+          t.lead?.role === "Overall Coordinator" ||
+          t.lead?.role?.includes("Head") ||
+          (t.lead?.role?.includes("Lead") && !t.lead?.event),
+      );
+
+      const events = active.filter(
+        (t) => t.lead?.event || !functional.includes(t),
+      );
+
+      const yearsSet = new Set(
+        past.map((p) => p.year || p.lead?.year).filter(Boolean),
+      );
+      const years = ["all", ...Array.from(yearsSet).sort().reverse()];
+
+      return {
+        functionalLeads: functional,
+        eventDirectors: events,
+        pastMembers: past,
+        pastYears: years,
+      };
+    }, [teams]);
+
+  const filteredPastMembers = useMemo(() => {
+    if (selectedPastYear === "all") return pastMembers;
+    return pastMembers.filter(
+      (p) => (p.year || p.lead?.year)?.toString() === selectedPastYear,
+    );
+  }, [pastMembers, selectedPastYear]);
 
   if (loading) {
     return (
-      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center">
-
-      </div>
+      <div className="pt-40 pb-24 text-center min-h-screen flex items-center justify-center"></div>
     );
   }
 
@@ -80,6 +106,7 @@ export function Team() {
   const selectedCrew = selectedTeam?.crew || [];
   const lead = selectedTeam?.lead;
   const selectedTeamTitle = lead?.team || lead?.event;
+  const selectedYearBadge = selectedTeam?.year || lead?.year;
 
   return (
     <div className="pt-32 pb-24 mx-auto max-w-7xl px-6 lg:px-12 text-left min-h-screen flex flex-col">
@@ -126,6 +153,54 @@ export function Team() {
             </div>
           </div>
         )}
+
+        {pastMembers.length > 0 && (
+          <div className="pt-8 border-t border-border/20">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <div className="flex items-center gap-2 text-amber-400 font-mono text-xs uppercase tracking-[0.25em] font-semibold mb-1">
+                  <GraduationCap className="w-4 h-4" />
+                  <span>Legacy & Alumni</span>
+                </div>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  Past Members & Core Crew
+                </h2>
+                <p className="mt-2 text-muted-foreground text-xs sm:text-sm font-sans max-w-xl leading-relaxed">
+                  Honoring the visionary coordinators, team heads, and directors
+                  who built the foundations of E-Summit in previous editions.
+                </p>
+              </div>
+
+              {pastYears.length > 2 && (
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar">
+                  {pastYears.map((yr) => (
+                    <button
+                      key={yr}
+                      onClick={() => setSelectedPastYear(yr)}
+                      className={`px-3.5 py-1.5 rounded-xl font-mono text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                        selectedPastYear === yr
+                          ? "bg-amber-500/20 text-amber-400 border border-amber-500/40 shadow-sm"
+                          : "bg-white/5 text-white/60 hover:text-white hover:bg-white/10 border border-white/10"
+                      }`}
+                    >
+                      {yr === "all" ? "All Batches" : `${yr} Edition`}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {filteredPastMembers.map((team) => (
+                <TeamMemberCard
+                  key={team.lead.name}
+                  team={team}
+                  onClick={handleOpenModal}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {selectedTeam && (
@@ -144,9 +219,16 @@ export function Team() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-primary/80 font-semibold mt-4">
-                  {selectedTeamTitle}
-                </span>
+                <div className="flex items-center gap-2 mt-4 flex-wrap justify-center md:justify-start">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-primary/80 font-semibold">
+                    {selectedTeamTitle}
+                  </span>
+                  {selectedYearBadge && (
+                    <span className="font-mono text-[9px] uppercase tracking-wider text-amber-400 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full font-semibold">
+                      {selectedYearBadge} Batch
+                    </span>
+                  )}
+                </div>
                 <h3 className="font-display text-2xl font-bold text-white mt-1">
                   {lead.name}
                 </h3>
@@ -232,9 +314,16 @@ export function Team() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-primary/80 font-semibold mt-5">
-                {selectedTeamTitle}
-              </span>
+              <div className="flex items-center gap-2 mt-5">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-primary/80 font-semibold">
+                  {selectedTeamTitle}
+                </span>
+                {selectedYearBadge && (
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-amber-400 bg-amber-500/15 border border-amber-500/30 px-2.5 py-0.5 rounded-full font-semibold">
+                    {selectedYearBadge} Batch
+                  </span>
+                )}
+              </div>
               <h3 className="font-display text-2xl font-bold text-white mt-1">
                 {lead.name}
               </h3>

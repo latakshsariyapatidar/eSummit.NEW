@@ -28,6 +28,11 @@ function TeamMemberCard({ team, onClick }) {
   const crew = team.crew || [];
   const teamTitle = m.team || m.event;
   const leadImage = m.image;
+  const yearBadge = team.year || m.year;
+  const isPast =
+    team.isPast ||
+    m.isPast ||
+    (teamTitle && teamTitle.toLowerCase().includes("past"));
 
   const handleCardClick = (e) => {
     if (e.target.closest("a") || e.target.closest("button")) {
@@ -41,7 +46,11 @@ function TeamMemberCard({ team, onClick }) {
   return (
     <div
       onClick={handleCardClick}
-      className="group relative aspect-4/5 w-full rounded-3xl overflow-hidden border shadow-2xl flex flex-col justify-end text-left select-none transition-all duration-500 cursor-pointer border-border/30 hover:border-primary/50 hover:shadow-primary/5 hover:scale-[1.01]"
+      className={`group relative aspect-4/5 w-full rounded-3xl overflow-hidden border shadow-2xl flex flex-col justify-end text-left select-none transition-all duration-500 cursor-pointer ${
+        isPast
+          ? "border-amber-500/25 hover:border-amber-500/60 hover:shadow-amber-500/10"
+          : "border-border/30 hover:border-primary/50 hover:shadow-primary/5"
+      } hover:scale-[1.01]`}
     >
       <img
         src={leadImage}
@@ -54,11 +63,18 @@ function TeamMemberCard({ team, onClick }) {
       <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 to-transparent opacity-95 transition-opacity duration-300" />
 
       <div className="relative p-6 z-10 flex flex-col justify-end h-full w-full">
-        {teamTitle && (
-          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground font-semibold mb-1">
-            {teamTitle}
-          </span>
-        )}
+        <div className="flex items-center justify-between gap-2 mb-1">
+          {teamTitle && (
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground font-semibold line-clamp-1">
+              {teamTitle}
+            </span>
+          )}
+          {yearBadge && (
+            <span className="font-mono text-[9px] uppercase tracking-wider text-amber-400 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full font-semibold shrink-0">
+              {yearBadge}
+            </span>
+          )}
+        </div>
 
         <div className="flex items-center gap-2">
           <h3 className="font-display text-xl font-bold text-white tracking-tight leading-none">
