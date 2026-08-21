@@ -9,35 +9,35 @@ const DEFAULT_SPONSORS = [
     imgUrl:
       "https://res.cloudinary.com/db69ffwwa/image/upload/v1787207037/3_u2wbpn.png",
     tier: "Title Sponsor",
-    websiteUrl: "",
+    websiteUrl: "https://beacon-india.com/",
   },
   {
     name: "ENTRA",
     imgUrl:
       "https://res.cloudinary.com/db69ffwwa/image/upload/v1787207036/image002_mnnolj.png",
     tier: "Co-Powered By",
-    websiteUrl: "",
+    websiteUrl: "https://entra-in.com/",
   },
   {
     name: "FLUKE",
     imgUrl:
       "https://res.cloudinary.com/db69ffwwa/image/upload/v1787207036/download_dlsbaz.png",
     tier: "Innovation Sponsor",
-    websiteUrl: "",
+    websiteUrl: "https://www.fluke.com/",
   },
   {
     name: "Unstop",
     imgUrl:
       "https://res.cloudinary.com/db69ffwwa/image/upload/v1787207036/unstop_m3b1k3.png",
     tier: "Platform Partner",
-    websiteUrl: "",
+    websiteUrl: "https://unstop.com/",
   },
   {
     name: "ARTS",
     imgUrl:
       "https://res.cloudinary.com/db69ffwwa/image/upload/v1787207036/1630626865604_dy0mpo.jpg",
     tier: "Ecosystem Partner",
-    websiteUrl: "",
+    websiteUrl: "http://www.arts.net.in/",
   },
 ];
 
