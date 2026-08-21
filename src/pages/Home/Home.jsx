@@ -12,15 +12,28 @@ const AboutSection = lazy(() =>
   })),
 );
 
+const IntersectTalk = lazy(() =>
+  import("@/components/home/IntersectTalk").then((m) => ({
+    default: m.IntersectTalk,
+  })),
+);
+
 const EventsConveyor = lazy(() =>
   import("@/components/home/EventsMarquee").then((m) => ({
     default: m.EventsConveyor,
   })),
 );
 
-const TrackCTA = lazy(() =>
-  import("@/components/home/CTA").then((m) => ({
-    default: m.TrackCTA,
+// Commented out "Lights out — Take pole position" component
+// const TrackCTA = lazy(() =>
+//   import("@/components/home/CTA").then((m) => ({
+//     default: m.TrackCTA,
+//   })),
+// );
+
+const SponsorsMarquee = lazy(() =>
+  import("@/components/home/SponsorsMarquee").then((m) => ({
+    default: m.SponsorsMarquee,
   })),
 );
 
@@ -38,8 +51,10 @@ export function Home() {
       <Hero />
       <Marquee />
       <LazySection component={AboutSection} />
+      <LazySection component={IntersectTalk} />
       <LazySection component={EventsConveyor} />
-      <LazySection component={TrackCTA} />
+      {/* <LazySection component={TrackCTA} /> */}
+      <LazySection component={SponsorsMarquee} />
       <LazySection component={FAQSection} />
     </div>
   );

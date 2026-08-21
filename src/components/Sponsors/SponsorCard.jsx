@@ -4,16 +4,29 @@ export function SponsorCard({ sponsor, config, position }) {
   const [hovered, setHovered] = useState(false);
   const isLarge = config.size === "lg";
   const isMed = config.size === "md";
+  const href = sponsor.websiteUrl || sponsor.website || sponsor.href;
+
+  const CardWrapper = href ? "a" : "div";
+  const wrapperProps = href
+    ? {
+        href,
+        target: "_blank",
+        rel: "noopener noreferrer",
+      }
+    : {};
 
   return (
-    <div
-      className="relative flex-1 transition-all duration-500"
+    <CardWrapper
+      {...wrapperProps}
+      className="relative flex-1 transition-all duration-500 block"
       style={{
         minWidth: 0,
         animation: `fadeSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both`,
         animationDelay: `${position * 80}ms`,
         transform: hovered ? "translateY(-6px)" : "translateY(0)",
       }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {/* Dynamic glow behind the card */}
       <div
@@ -67,16 +80,18 @@ export function SponsorCard({ sponsor, config, position }) {
         </h3>
 
         {/* Tier Label */}
-        <p
-          className="mt-2 font-mono uppercase tracking-widest transition-colors duration-300"
-          style={{
-            fontSize: "0.55rem",
-            color: hovered ? `${config.accent}aa` : "rgba(255,255,255,0.25)",
-            letterSpacing: "0.15em",
-          }}
-        >
-          {sponsor.tier}
-        </p>
+        {sponsor.tier && (
+          <p
+            className="mt-2 font-mono uppercase tracking-widest transition-colors duration-300"
+            style={{
+              fontSize: "0.55rem",
+              color: hovered ? `${config.accent}aa` : "rgba(255,255,255,0.25)",
+              letterSpacing: "0.15em",
+            }}
+          >
+            {sponsor.tier}
+          </p>
+        )}
 
         {/* Technical Telemetry Readout */}
         <div
@@ -94,6 +109,6 @@ export function SponsorCard({ sponsor, config, position }) {
           {config.telemetry}
         </div>
       </div>
-    </div>
+    </CardWrapper>
   );
 }

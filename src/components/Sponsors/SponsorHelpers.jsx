@@ -88,6 +88,19 @@ export function getConfig(tier) {
 }
 
 export function groupByTierSize(sponsors) {
+  const hasTiers = sponsors.some((s) => Boolean(s.tier));
+
+  if (!hasTiers) {
+    return [
+      {
+        key: "all",
+        title: "Official Partners",
+        label: "Partners Lineup",
+        sponsors,
+      },
+    ];
+  }
+
   // Sort according to TIER_ORDER first
   const sorted = [...sponsors].sort(
     (a, b) => getTierRank(a.tier) - getTierRank(b.tier),
@@ -151,11 +164,14 @@ export function TrackLine({ accent }) {
 export function GridSection({ group, globalSortedSponsors }) {
   const isLg = group.key === "lg";
   const isMd = group.key === "md";
+  const isAll = group.key === "all";
   const gridClasses = isLg
     ? "grid grid-cols-1 md:grid-cols-2 gap-8"
     : isMd
       ? "grid grid-cols-1 sm:grid-cols-2 gap-6"
-      : "grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6";
+      : isAll
+        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        : "grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6";
 
   const accentColor = isLg ? "#F97316" : isMd ? "#FB923C" : "#D4742A";
 

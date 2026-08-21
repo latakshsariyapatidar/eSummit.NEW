@@ -223,6 +223,34 @@
       transform: translate3d(-50%, 0, 0);
     }
   }
+
+  /* Sponsors Sliding Marquee */
+  .sponsor-marquee-container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .sponsor-marquee-track {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: sponsor-marquee 32s linear infinite;
+    padding: 1rem 0;
+  }
+
+  .sponsor-marquee-container:hover .sponsor-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes sponsor-marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
 }
 
 
